@@ -1,0 +1,75 @@
+[18-Jan-2017 06:43:49 Etc/GMT] PHP Notice:  Undefined variable: subject in /home/shiftzqf/public_html/shiftme/mail.php on line 10
+[18-Jan-2017 06:43:49 Etc/GMT] PHP Notice:  Undefined variable: message in /home/shiftzqf/public_html/shiftme/mail.php on line 10
+[18-Jan-2017 06:47:28 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[18-Jan-2017 12:21:55 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:21:58 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:22:05 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:22:09 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:22:28 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:22:34 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[19-Jan-2017 13:25:13 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:25:30 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:25 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:28 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:28 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:28 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:29 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:34 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:47 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:28:35 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:30:49 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[03-Jul-2018 18:10:50 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[03-Jul-2018 18:10:56 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[03-Jul-2018 18:10:59 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[03-Jul-2018 18:11:01 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[03-Jul-2018 18:11:05 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[03-Jul-2018 18:11:09 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[03-Jul-2018 18:11:15 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:09 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:10 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:18 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:19 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:22 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:24 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:26 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:27 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:29 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:37 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:42 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:50 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:54 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:55 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:55 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:55 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:55 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:55 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:55 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:56 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:56 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:56 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:24:57 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:01 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:02 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:02 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:02 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:03 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:03 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:03 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:11 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:11 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:12 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:13 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:13 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:14 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:18 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:18 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:18 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:32 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:32 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:25:32 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:26:16 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:26:18 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:26:19 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:26:23 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:26:24 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419
+[18-Aug-2018 17:26:36 Asia/kolkata] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/shiftzqf/public_html/shiftme/application/libraries/Datatables.php on line 419

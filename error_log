@@ -1,0 +1,20 @@
+[18-Jan-2017 06:43:49 Etc/GMT] PHP Notice:  Undefined variable: subject in /home/shiftzqf/public_html/shiftme/mail.php on line 10
+[18-Jan-2017 06:43:49 Etc/GMT] PHP Notice:  Undefined variable: message in /home/shiftzqf/public_html/shiftme/mail.php on line 10
+[18-Jan-2017 06:47:28 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[18-Jan-2017 12:21:55 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:21:58 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:22:05 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:22:09 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:22:28 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[18-Jan-2017 12:22:34 Asia/kolkata] PHP Parse error:  syntax error, unexpected '$msg' (T_VARIABLE) in /home/shiftzqf/public_html/shiftme/application/controllers/User_controller.php on line 283
+[19-Jan-2017 13:25:13 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:25:30 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:25 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:28 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:28 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:28 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:29 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:34 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:26:47 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:28:35 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
+[19-Jan-2017 13:30:49 Etc/GMT] PHP Notice:  Undefined variable: header in /home/shiftzqf/public_html/shiftme/mail.php on line 7
