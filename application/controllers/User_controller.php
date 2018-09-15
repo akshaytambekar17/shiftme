@@ -27,19 +27,28 @@ class User_controller extends MY_Controller {
         
     }
 
-   public function signup() {echo $this->user->signup();
-}
-public function signin() {
-$rs = $this->user->userlogin();
-if ($rs) {
+    public function signup() {
+        $post = $this->input->post();
+        $data = array(
+            'mobileno' => $post['mobile'],
+            'email' => $post['email'],
+            'password' => $this->site->encryptPass($post['password']),
+            'remember' => $post['remember'],
+            'create_date' => date('Y-m-d H:i:s'),
+        );
+        $result = $this->user->sign_up($data);
+        echo $result;
+    }
 
-echo '1'; 
-} else {
-echo '0';
+    public function signin() {
+        $rs = $this->user->userlogin();
+        if ($rs) {
 
-}
-
-} 
+            echo '1';
+        } else {
+            echo '0';
+        }
+    }
 
     public function logout() {
         $this->session->sess_destroy();
@@ -178,7 +187,7 @@ echo '0';
     }
 
     public function get_forget_otp() {
-       $rsotp = $this->user->userotp();
+        $rsotp = $this->user->userotp();
         $rsmail = $this->user->useremail();
         $userdetails = $this->user->getuserdetails();
         $username = $this->input->post('f_username');
@@ -247,14 +256,14 @@ echo '0';
     }
 
     public function save_userEmail() {
-	
+
         $rs = $this->user->save_EmailInfo();
         $email = $_POST['email'];
         $subject = $_POST['subject'];
         $full_name = $_POST['full_name'];
-        $to='kumar01anish@gmail.com';
-        $from_email='team@shiftme.in';
-        
+        $to = 'kumar01anish@gmail.com';
+        $from_email = 'team@shiftme.in';
+
         $data = $_POST;
         $msg = $this->load->view('emails/contactus', $data, true);
         $data = $this->sendMail($to, $subject, $msg, $full_name, $from_email);

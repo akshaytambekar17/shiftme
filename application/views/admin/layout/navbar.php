@@ -89,6 +89,19 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                             <a href="<?= site_url('admin/Menus') ?>" class=" hvr-bounce-to-right"><i class="fa fa-bars nav_icon"></i> <span class="nav-label">Menus</span> </a>
                         </li>
                     <?php } ?>
+                    <li>
+                        <a href="<?= site_url('admin/quotation') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-list-alt nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Quotation</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/orders') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-link nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Orders</span> 
+                        </a>
+                    </li>
+                    
                     <?php foreach ($menus as $m) { ?>
                         <li>
                             <?php if (empty($m->nodes)) { ?>

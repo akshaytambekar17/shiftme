@@ -6,6 +6,7 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
         $this->less = $this->config->item('less');
         define("ADMINASSETS", base_url() . "assets/admin/");
+        define("ADMINLTE", base_url() . "assets/adminlte/");
         define("USERASSETS", base_url() . "assets/");
         define('SITEURL', site_url());
         define('ASSETSURL', base_url() . 'assets/');

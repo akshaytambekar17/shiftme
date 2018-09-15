@@ -93,7 +93,12 @@ app.controller('register', ['$scope', '$http', function ($scope, $http) {
                         } else if (data == -1) {
                             $('#sucess').text("");
                             $('#errors').text("");
-                            $('#errors').text("User Already Exist");
+                            $('#errors').text("Mobile number Already Exist");
+                            $('#errors').addClass('text-danger text-center');
+                        }else if (data == -2) {
+                            $('#sucess').text("");
+                            $('#errors').text("");
+                            $('#errors').text("Email Id Already Exist");
                             $('#errors').addClass('text-danger text-center');
                         } else {
                             $('#sucess').text("");

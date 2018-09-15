@@ -29,7 +29,9 @@ class Admin_controller extends MY_Controller {
         $group_id = $this->session->userdata('group_id');
         $this->data['template'] = "dashboard";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Dashboard"));
+        $this->load->view('includes/adminltehead');
         $this->admin_layout($this->data);
+        $this->load->view('includes/adminltefooter');
     }
 
 //    menu

@@ -35,6 +35,24 @@ class User_model extends MY_Model {
         );
         return $this->db->insert('trans_user_login', $data);
     }
+    public function sign_up($data) {
+        
+        $this->db->where('mobileno', $data['mobileno']);
+        $query_mobile = $this->db->get('trans_user_login');
+        if ($query_mobile->num_rows() > 0) {
+            return -1;
+        }
+        $this->db->where('email', $data['email']);
+        $query_email = $this->db->get('trans_user_login');
+        if ($query_email->num_rows() > 0) {
+            return -2;
+        }
+        
+        $this->db->insert('trans_user_login', $data);
+        return ($this->db->affected_rows() != 1) ? false : true;
+        
+        
+    }
 
 
     public function userlogin() {
