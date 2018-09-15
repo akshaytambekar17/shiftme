@@ -20,6 +20,7 @@ class Admin_controller extends MY_Controller {
         $this->load->library('form_validation');
         $this->load->helper('message');
         $this->load->model('site_model');
+        $this->load->model('User_model');
         $this->load->helper(array('url', 'form'));
         $this->load->library('session');
         $this->data['filters'] = $this->session->userdata('filters');
@@ -27,6 +28,8 @@ class Admin_controller extends MY_Controller {
 
     public function dashboard() {
         $group_id = $this->session->userdata('group_id');
+        $this->data['user_list'] = $this->User_model->getUsers();
+        $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
         $this->data['template'] = "dashboard";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Dashboard"));
         $this->load->view('includes/adminltehead');
@@ -689,5 +692,43 @@ class Admin_controller extends MY_Controller {
             }
         }
     }
+    
+   public function users(){
+        $this->data['user_list'] = $this->User_model->getUsers();
+        $this->data['template'] = "Users/users_list";
+        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "User List"));
+        $this->admin_layout($this->data);
+   }
+   public function userDelete(){
+        $post = $this->input->post();
+        $result = $this->User_model->deleteUser($post['user_id']);
+        if($result){
+            echo true;
+        }else{
+            echo false;
+        }
+   }
+   public function quotation(){
+        $this->data['quotation_list'] = $this->Admin_model->getQuotations();
+        $this->data['template'] = "Quotation/list";
+        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Quotation"));
+        $this->admin_layout($this->data);
+   }
+   public function quotationAdd(){
+        $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
+        $this->data['template'] = "Quotation/form_data";
+        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Quotation"));
+        $this->admin_layout($this->data);
+   }
+   public function quotationDelete(){
+        $post = $this->input->post();
+        $result = $this->Admin_model->deleteQuotation($post['id']);
+        if($result){
+            echo true;
+        }else{
+            echo false;
+        }
+   }
+    
 
 }

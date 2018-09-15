@@ -53,6 +53,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'User_controller';
 $route['admin'] = "Auth";
 $route['admin/dashboard'] = "admin/Admin_controller/dashboard";
+
+$route['admin/orders'] = "admin/Admin_controller/orders";
+$route['admin/users'] = "admin/Admin_controller/users";
+$route['admin/user-delete'] = "admin/Admin_controller/userDelete";
+
+$route['admin/quotation'] = "admin/Admin_controller/quotation";
+$route['admin/quotation-delete'] = "admin/Admin_controller/quotationDelete";
+$route['admin/quotation-add'] = "admin/Admin_controller/quotationAdd";
+
+
 $route['admin/Menus'] = "admin/Admin_controller/menus";
 $route['admin/Menus-add'] = "admin/Admin_controller/menus_add";
 $route['admin/Menus-edit/(:any)'] = "admin/Admin_controller/menus_edit/$1";

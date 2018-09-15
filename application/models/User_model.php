@@ -299,4 +299,25 @@ class User_model extends MY_Model {
         return $this->db->get('trans_qoute')->result_array();
     }
 
+    
+    /*************************New Code Impletationn*****************************/
+    
+    public function getUsers() {
+        $this->db->order_by('user_id','DESC');
+        return $this->db->get('trans_user_login')->result_array();
+    }
+    public function getUsersById($user_id) {
+        $this->db->where('user_id',$user_id);
+        return $this->db->get('trans_user_login')->row_array();
+    }
+    public function deleteUser($user_id) {
+        $this->db->where('user_id',$user_id);
+        $this->db->delete('trans_user_login'); 
+        if($this->db->affected_rows()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
 }

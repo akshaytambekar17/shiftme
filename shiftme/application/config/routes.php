@@ -56,6 +56,8 @@ $route['admin'] = "Auth";
 $route['admin/dashboard'] = "admin/Admin_controller/dashboard";
 $route['admin/quotation'] = "admin/Admin_controller/quotation";
 $route['admin/orders'] = "admin/Admin_controller/orders";
+$route['admin/users'] = "admin/Admin_controller/users";
+
 $route['admin/Menus'] = "admin/Admin_controller/menus";
 $route['admin/Menus-add'] = "admin/Admin_controller/menus_add";
 $route['admin/Menus-edit/(:any)'] = "admin/Admin_controller/menus_edit/$1";
