@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="content-top-1 ">
                     <div class="table-responsive">
-                        <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="post" enctype="multipart/form-data" action="<?= site_url('admin/quotation-add'); ?>" >
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -31,7 +31,7 @@
                                         <div class="form-group col-md-11">
                                             <label>Mobile Number</label>
                                             <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="<?php echo set_value('mobile_no'); ?>" placeholder="Mobile Number" />
-                                            <span class="help-block"><?php echo form_error('email_id'); ?></span>
+                                            <span class="help-block"><?php echo form_error('mobile_no'); ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-success">Submit</button>
                                 <a href="<?php echo base_url(); ?>admin/quotation"><button type="button" class="btn btn-warning">Cancel</button></a>
                             </div>
                         </form>

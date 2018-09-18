@@ -9,6 +9,22 @@
         <div class="content-top">
             <div class="col-md-12">
                 <div class="content-top-1">
+                    <?php if($message = $this ->session->flashdata('Message')){?>
+                        <div class="col-md-12 ">
+                            <div class="alert alert-dismissible alert-success">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <?=$message ?>
+                            </div>
+                        </div>
+                    <?php }?> 
+                    <?php if($message = $this ->session->flashdata('Error')){?>
+                        <div class="col-md-12 ">
+                            <div class="alert alert-dismissible alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <?=$message ?>
+                            </div>
+                        </div>
+                    <?php }?>
                     <div class="pull-right">
                         <a href="<?= base_url()?>admin/quotation-add" class="btn btn-success" style="margin-bottom: -80px;margin-left: 11px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Quotation</a>
                     </div>
@@ -42,8 +58,8 @@
                                             <td><?= $value['vehicle_id']; ?></td>
                                             <td class="center"><?= $value['created_at']; ?></td>
                                             <td>
-                                                <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)">Delete</a><br>
-                                                <a href="javascript:void(0)" class="btn btn-danger delete-user" data-id="<?= $value['user_id'] ?>" name="view_quotation" >View Quotation</a><br>
+                                                <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)">Delete</a><br><br>
+                                                <a href="<?= base_url()?>admin/quotation-view?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['user_id'] ?>" name="view_quotation" >View Quotation</a><br>
                                             </td>
                                         </tr>
                                         <?php

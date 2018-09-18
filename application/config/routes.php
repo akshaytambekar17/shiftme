@@ -61,6 +61,10 @@ $route['admin/user-delete'] = "admin/Admin_controller/userDelete";
 $route['admin/quotation'] = "admin/Admin_controller/quotation";
 $route['admin/quotation-delete'] = "admin/Admin_controller/quotationDelete";
 $route['admin/quotation-add'] = "admin/Admin_controller/quotationAdd";
+$route['admin/quotation-view'] = "admin/Admin_controller/quotationView";
+
+$route['admin/sms-sending'] = "admin/Admin_controller/sms_sending";
+$route['admin/send_sms'] = "admin/Admin_controller/send_sms";
 
 
 $route['admin/Menus'] = "admin/Admin_controller/menus";
