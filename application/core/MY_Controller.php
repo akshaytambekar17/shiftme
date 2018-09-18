@@ -153,7 +153,6 @@ class MY_Controller extends CI_Controller {
     public function sendSms($mobileno, $textmessage) {
 //Your authentication key
         $authKey = "149798ARBQ5C3uSC958f9edd0";
-        
 //Multiple mobiles numbers separated by comma
         $mobileNumber = $mobileno;
 //Sender ID,While using route4 sender id should be 6 characters long.
