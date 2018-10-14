@@ -21,7 +21,7 @@ class Admin_controller extends MY_Controller {
         $this->load->helper('message');
         $this->load->model('site_model');
         $this->load->model('User_model');
-        $this->load->helper(array('url', 'form'));
+        $this->load->helper(array('url', 'form','email'));
         $this->load->library('session');
         $this->data['filters'] = $this->session->userdata('filters');
     }
@@ -715,10 +715,56 @@ class Admin_controller extends MY_Controller {
         $this->admin_layout($this->data);
    }
    public function quotationAdd(){
-        $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
-        $this->data['template'] = "Quotation/form_data";
-        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Quotation"));
+        
+        if($this->input->post()){
+            $this->form_validation->set_rules('fullname', 'Full Name', 'trim|required');
+            $this->form_validation->set_rules('mobile_no', 'Mobile Number', 'trim|required|numeric|regex_match[/^[0-9]{10}$/]');
+            $this->form_validation->set_rules('email_id', 'Email', 'trim|required|valid_email');
+            $this->form_validation->set_rules('starting_address', 'Starting Address', 'trim|required');
+            $this->form_validation->set_rules('starting_landmark','Starting Landmark', 'required');
+            $this->form_validation->set_rules('starting_pincode', 'Starting Pincode', 'trim|required|numeric|regex_match[/^[0-9]{6}$/]');
+            $this->form_validation->set_rules('delivery_address', 'Delivery Address', 'trim|required');
+            $this->form_validation->set_rules('delivery_landmark','Delivery Landmark', 'required');
+            $this->form_validation->set_rules('delivery_pincode', 'Delivery Pincode', 'trim|required|numeric|regex_match[/^[0-9]{6}$/]');
+            $this->form_validation->set_rules('vehicle_id', 'Vechicle', 'trim|required');
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($this->form_validation->run() == TRUE){
+                $details = $this->input->post();
+                $details['created_at'] = date('Y-m-d H:i:s');
+                $details['shifting_date'] = date('Y-m-d H:i:s');
+                $result = $this->Admin_model->addQuotation($details);
+                if ($result) {
+                    $this->session->set_flashdata('Message', 'Quotation Added Succesfully');
+                    return redirect('admin/quotation', 'refresh');
+                } else {
+                    $this->session->set_flashdata('Error', 'Failed to add employee');
+                    $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
+                    $this->data['template'] = "Quotation/form_data";
+                    $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('admin/quotation'), 'page' => "Quotation"),array('link' => '#', 'page' => "Add Quotation"));
+                    $this->admin_layout($this->data);
+                }
+            }else{
+                $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
+                $this->data['template'] = "Quotation/form_data";
+                $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('admin/quotation'), 'page' => "Quotation"),array('link' => '#', 'page' => "Add Quotation"));
+                $this->admin_layout($this->data);
+            }
+        }else{
+            $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
+            $this->data['template'] = "Quotation/form_data";
+            $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('admin/quotation'), 'page' => "Quotation"),array('link' => '#', 'page' => "Add Quotation"));
+            $this->admin_layout($this->data);
+        }
+        
+   }
+   public function quotationView(){
+        $get = $this->input->get();
+        $this->data['quotation'] = $this->Admin_model->getQuotationById($get['id']);
+        $this->data['template'] = "Quotation/view_quotation";
+        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('admin/quotation'), 'page' => "Quotation"),array('link' => '#', 'page' => "View Quotation"));
         $this->admin_layout($this->data);
+        
+        
    }
    public function quotationDelete(){
         $post = $this->input->post();
@@ -729,6 +775,27 @@ class Admin_controller extends MY_Controller {
             echo false;
         }
    }
-    
+   
+   public function sms_sending(){
+        $this->data['user_list'] = $this->User_model->getUsers();
+        $this->data['template'] = "SmsSending/sms_sending";
+        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "SMS Sending"));
+        $this->admin_layout($this->data);
+   }
+   public function send_sms(){
+       $post = $this->input->post();
+       $message = strip_tags($post['message']);
+       $data =array( 'user_count' => $post['count'],
+                     'message' => $message,
+                     'send_at' => date('Y-m-d H:i:s')   
+                );
+        $this->Admin_model->insertSMSDetails($data);
+        $values = json_decode(stripslashes($post['values']));
+        foreach($values as $val){
+            $user = $this->User_model->getUsersById($val);
+            $this->sendSms($user['mobileno'], $message);
+        }
+        echo 1;
+   }
 
 }

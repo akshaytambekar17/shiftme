@@ -107,6 +107,12 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                             <span class="nav-label">Users</span> 
                         </a>
                     </li>
+                    <li>
+                        <a href="<?= site_url('admin/sms-sending') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-user nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">SMS Sending</span> 
+                        </a>
+                    </li>
                     
                     <?php foreach ($menus as $m) { ?>
                         <li>

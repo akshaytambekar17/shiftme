@@ -433,6 +433,10 @@ class Admin_model extends MY_Model {
         $this->db->order_by('id','DESC');
         return $this->db->get('trans_vehicle_services')->result_array();
     }
+    public function getVehicleServicesById($id) {
+        $this->db->where('id',$id);
+        return $this->db->get('trans_vehicle_services')->row_array();
+    }
     public function getQuotations() {
         $this->db->order_by('id','DESC');
         return $this->db->get('trans_quotation')->result_array();
@@ -440,6 +444,13 @@ class Admin_model extends MY_Model {
     public function getQuotationById($id) {
         $this->db->where('id',$id);
         return $this->db->get('trans_quotation')->row_array();
+    }
+    
+    public function addQuotation($data){
+        $this->db->trans_start();
+        $this->db->insert('trans_quotation', $data);
+        $this->db->trans_complete();
+        return true;
     }
     public function deleteQuotation($id) {
         $this->db->where('id',$id);
@@ -449,5 +460,11 @@ class Admin_model extends MY_Model {
         }else{
             return false;
         }
+    }
+    public function insertSMSDetails($data){
+        $this->db->trans_start();
+        $this->db->insert('trans_sms_details', $data);
+        $this->db->trans_complete();
+        return true;
     }
 }

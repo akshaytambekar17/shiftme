@@ -152,15 +152,16 @@ class MY_Controller extends CI_Controller {
 
     public function sendSms($mobileno, $textmessage) {
 //Your authentication key
-        $authKey = "134387Aw1n8DZ95858dde3";
+        $authKey = "149798ARBQ5C3uSC958f9edd0";
+        
 //Multiple mobiles numbers separated by comma
         $mobileNumber = $mobileno;
 //Sender ID,While using route4 sender id should be 6 characters long.
-        $senderId = "TEST";
+        $senderId = "ShiftMe";
 //Your message to send, Add URL encoding here.
         $message = urlencode($textmessage);
 //Define route 
-        $route = "default";
+        $route = "1";
 //Prepare you post parameters
         $postData = array(
             'authkey' => $authKey,
