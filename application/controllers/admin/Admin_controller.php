@@ -797,5 +797,4 @@ class Admin_controller extends MY_Controller {
         }
         echo 1;
    }
-
 }

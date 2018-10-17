@@ -247,3 +247,5 @@ ALTER TABLE `trans_vehicle_services` ADD `updated_at` DATETIME NOT NULL DEFAULT 
 ALTER TABLE `trans_user_login` ADD `status` INT(2) NOT NULL AFTER `image`; 
 
 ALTER TABLE `trans_user_login` ADD `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `create_date`; 
+
+ALTER TABLE `trans_invoice` ADD `invoice_no` VARCHAR(255) NOT NULL AFTER `order_id`;

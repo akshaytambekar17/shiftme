@@ -54,7 +54,15 @@ $route['default_controller'] = 'User_controller';
 $route['admin'] = "Auth";
 $route['admin/dashboard'] = "admin/Admin_controller/dashboard";
 
-$route['admin/orders'] = "admin/Admin_controller/orders";
+$route['order'] = "admin/OrderController/index";
+$route['order/delete'] = "admin/OrderController/delete";
+$route['order/view'] = "admin/OrderController/view";
+
+$route['invoice'] = "admin/InvoiceController/index";
+$route['invoice/delete'] = "admin/InvoiceController/delete";
+$route['invoice/view'] = "admin/InvoiceController/view";
+
+
 $route['admin/users'] = "admin/Admin_controller/users";
 $route['admin/user-delete'] = "admin/Admin_controller/userDelete";
 
@@ -62,6 +70,11 @@ $route['admin/quotation'] = "admin/Admin_controller/quotation";
 $route['admin/quotation-delete'] = "admin/Admin_controller/quotationDelete";
 $route['admin/quotation-add'] = "admin/Admin_controller/quotationAdd";
 $route['admin/quotation-view'] = "admin/Admin_controller/quotationView";
+
+$route['admin/product-list'] = "admin/Admin_controller/product";
+$route['admin/product-delete'] = "admin/Admin_controller/productDelete";
+$route['admin/product-add'] = "admin/Admin_controller/productAdd";
+$route['admin/product-edit'] = "admin/Admin_controller/productEdit";
 
 $route['admin/sms-sending'] = "admin/Admin_controller/sms_sending";
 $route['admin/send_sms'] = "admin/Admin_controller/send_sms";
