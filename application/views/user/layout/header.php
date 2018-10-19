@@ -23,19 +23,19 @@ $services = (array) $this->db->select('name')->get_where("services", array('stat
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="<?= $title == 'Home' ? 'active' : '' ?>"><a href="../../">Home</a></li>
-                    <li class="<?= $title == 'About us' ? 'active' : '' ?>"><a href="../../aboutus">About us</a></li>
+                    <li class="<?= $title == 'Home' ? 'active' : '' ?>"><a href="<?= site_url() ?>">Home</a></li>
+                    <li class="<?= $title == 'About us' ? 'active' : '' ?>"><a href="<?= site_url('aboutus') ?>">About us</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services<span class="caret"></span></a>
                         <ul class="dropdown-menu">
 
-                            <li class="<?= $title == 'Shifting' ? 'active' : '' ?>"><a href="../../shifting">Shifting / Packing</a></li>
-                            <li class="<?= $title == 'Labour' ? 'active' : '' ?>"><a href="../../labour">Labour</a></li>
-                            <li class="<?= $title == 'Vehicle' ? 'active' : '' ?>"><a href="../../vehicle">Vehicles</a></li>
+                            <li class="<?= $title == 'Shifting' ? 'active' : '' ?>"><a href="<?= site_url('shifting') ?>">Shifting / Packing</a></li>
+                            <li class="<?= $title == 'Labour' ? 'active' : '' ?>"><a href="<?= site_url('labour') ?>">Labour</a></li>
+                            <li class="<?= $title == 'Vehicle' ? 'active' : '' ?>"><a href="<?= site_url('vehicle') ?>">Vehicles</a></li>
                         </ul>
                     </li>
-                    <li class="<?= $title == 'cost' ? 'active' : '' ?>"><a href="../../cost">Price</a></li>
-                    <li class="<?= $title == 'Contactus' ? 'active' : '' ?>"><a href="../../contactus">Contact us</a></li>
+                    <li class="<?= $title == 'cost' ? 'active' : '' ?>"><a href="<?= site_url('cost') ?>">Price</a></li>
+                    <li class="<?= $title == 'Contactus' ? 'active' : '' ?>"><a href="<?= site_url('contactus') ?>">Contact us</a></li>
                     <?php if ($this->session->userdata('uid') == "") { ?>
                         <li><a  data-toggle="modal" data-target="#login-modal">Sign in</a></li>
                     <?php } else { ?>
@@ -43,7 +43,7 @@ $services = (array) $this->db->select('name')->get_where("services", array('stat
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
                             <ul class="dropdown-menu">
 
-                                <li class="<?= $title == 'My Account' ? 'active' : '' ?>"><a href="../.../myaccount">My Account</a></li>
+                                <li class="<?= $title == 'My Account' ? 'active' : '' ?>"><a href="<?= site_url('myaccount') ?>">My Account</a></li>
                                 <li><a href="<?= site_url(); ?>logout" onclick="localsec()">Sign Out</a></li>
                             </ul>
                         </li>

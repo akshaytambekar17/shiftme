@@ -123,7 +123,7 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                     
                     <li>
                         <a href="<?= site_url('admin/sms-sending') ?>" class="hvr-bounce-to-right">
-                            <i class="fa fa-comments nav_icon" aria-hidden="true"></i>
+                            <i class="fa fa-commenting-o nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">SMS Sending</span> 
                         </a>
                     </li>

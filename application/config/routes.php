@@ -54,6 +54,8 @@ $route['default_controller'] = 'User_controller';
 $route['admin'] = "Auth";
 $route['admin/dashboard'] = "admin/Admin_controller/dashboard";
 
+
+/**************Admin Routes**************/
 $route['order'] = "admin/OrderController/index";
 $route['order/delete'] = "admin/OrderController/delete";
 $route['order/view'] = "admin/OrderController/view";
@@ -70,7 +72,6 @@ $route['quotation/view'] = "admin/QuotationController/view";
 $route['admin/users'] = "admin/Admin_controller/users";
 $route['admin/user-delete'] = "admin/Admin_controller/userDelete";
 
-
 $route['product-list'] = "admin/ProductListController/index";
 $route['product-list/delete'] = "admin/ProductListController/delete";
 $route['product-list/add'] = "admin/ProductListController/add";
@@ -78,6 +79,13 @@ $route['product-list/edit'] = "admin/ProductListController/edit";
 
 $route['admin/sms-sending'] = "admin/Admin_controller/sms_sending";
 $route['admin/send_sms'] = "admin/Admin_controller/send_sms";
+
+/**************End Admin Routes**************/
+$route['quote'] = "QuotationController/create";
+
+/**************User Routes**************/
+    
+/**************End User Routes**************/
 
 
 $route['admin/Menus'] = "admin/Admin_controller/menus";
