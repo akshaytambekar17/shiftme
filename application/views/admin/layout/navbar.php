@@ -97,7 +97,7 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                         </a>
                     </li>    
                     <li>
-                        <a href="<?= site_url('admin/quotation') ?>" class="hvr-bounce-to-right">
+                        <a href="<?= site_url('quotation') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-list-alt nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">Quotation</span> 
                         </a>
@@ -115,7 +115,7 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                         </a>
                     </li>
                     <li>
-                        <a href="<?= site_url('admin/product-list') ?>" class="hvr-bounce-to-right">
+                        <a href="<?= site_url('product-list') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-database nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">Product List</span> 
                         </a>

@@ -20,3 +20,12 @@ function setValue($v1, $v2) {
 function currancyformat($p) {
     return "&#8377 " . number_format($p, 2);
 }
+function printDie($data){
+    echo "<pre>";
+    print_r($data);
+    die;
+}
+function prints($data){
+    echo "<pre>";
+    print_r($data);
+}

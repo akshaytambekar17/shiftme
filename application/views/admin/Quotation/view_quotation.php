@@ -1,4 +1,4 @@
-
+<script src="<?= ADMINASSETS ?>js/jquery.min.js" type="text/javascript"></script>
 <style type="text/css">
     p{
         font-weight: normal;

@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="content-top-1 ">
                     <div class="table-responsive">
-                        <form class="form-horizontal" method="post" enctype="multipart/form-data" action="<?= site_url('admin/quotation-add'); ?>" >
+                        <form class="form-horizontal" method="post" enctype="multipart/form-data" action="<?= site_url('quotation/add'); ?>" >
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -134,7 +134,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success">Submit</button>
-                                <a href="<?php echo base_url(); ?>admin/quotation"><button type="button" class="btn btn-warning">Cancel</button></a>
+                                <a href="<?php echo base_url(); ?>quotation"><button type="button" class="btn btn-warning">Cancel</button></a>
                             </div>
                         </form>
 
@@ -148,6 +148,9 @@
 
 <script src="<?= USERASSETS ?>js/jquery.min.js" type="text/javascript"></script>
 <script>
+    $(".alert").delay(5000).slideUp(200, function() {
+        $(this).alert('close');
+    });
     function validateAlpha(e) {
         //updated by neeta
         var textInput = e.value;

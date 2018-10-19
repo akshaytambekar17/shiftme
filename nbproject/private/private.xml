@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/test2/database/udpdate.sql</file>
+            <file>file:/var/www/test2/application/config/routes.php</file>
+            <file>file:/var/www/test2/application/views/admin/Invoice/list.php</file>
+            <file>file:/var/www/test2/application/controllers/admin/InvoiceController.php</file>
+            <file>file:/var/www/test2/application/views/admin/layout/navbar.php</file>
+            <file>file:/var/www/test2/application/views/admin/Order/list.php</file>
+            <file>file:/var/www/test2/application/models/admin/InvoiceModel.php</file>
         </group>
     </open-files>
 </project-private>

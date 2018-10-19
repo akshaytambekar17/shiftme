@@ -26,40 +26,33 @@
                         </div>
                     <?php }?>
                     <div class="pull-right">
-                        <a href="<?= base_url()?>quotation/add" class="btn btn-success" style="margin-bottom: -80px;margin-left: 11px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Quotation</a>
+                        <a href="<?= base_url()?>product-list/add" class="btn btn-success" style="margin-bottom: -80px;margin-left: 11px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Product List</a>
                     </div>
                     <div class="table-responsive m-top90">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="quotation_list">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="product_list">
                             <thead>
                                 <tr>
                                     <th class="hidden">Id</th>
-                                    <th>Full name</th>
-                                    <th>Email id</th>
-                                    <th>Phone Number</th>
-                                    <th>Starting Address</th>
-                                    <th>Delivery Address</th>
-                                    <th>Vehicle</th>
+                                    <th>Product Name</th>
+<!--                                    <th>Weight</th>-->
+                                    <th>Price</th>
                                     <th>Created at</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php
-                                if (!empty($quotation_list)) {
-                                    foreach ($quotation_list as $key => $value) {
+                                if (!empty($product_list)) {
+                                    foreach ($product_list as $key => $value) {
                             ?>
-                                        <tr class="gradeX" id="quotation-<?= $value['id'] ?>">
+                                        <tr class="gradeX" id="productlist-<?= $value['id'] ?>">
                                             <td class="hidden"><?= $value['id']; ?></td>
-                                            <td><?= $value['fullname']; ?></td>
-                                            <td><?= $value['email_id']; ?></td>
-                                            <td><?= $value['mobile_no']; ?></td>
-                                            <td><?= $value['starting_address']; ?></td>
-                                            <td><?= $value['delivery_address']; ?></td>
-                                            <td><?= $value['vehicle_id']; ?></td>
+                                            <td><?= $value['name']; ?></td>
+                                            <td><?= $value['price']; ?></td>
                                             <td class="center"><?= $value['created_at']; ?></td>
                                             <td>
-                                                <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)">Delete</a><br><br>
-                                                <a href="<?= base_url()?>quotation/view?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['user_id'] ?>" name="view_quotation" >View Quotation</a><br>
+                                                <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_productlist" onclick="productlistDelete(this)">Delete</a>
+                                                <a href="<?= base_url()?>product-list/edit?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['id'] ?>" name="edit_quotation" >Edit</a><br>
                                             </td>
                                         </tr>
                                         <?php
@@ -81,7 +74,7 @@
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="text-center popup-content">  
-                    <h5> By clicking on <span>"YES"</span>, Quotation will be deleted permanently. Do you wish to proceed?</h5><br><br>
+                    <h5> By clicking on <span>"YES"</span>, Product List will be deleted permanently. Do you wish to proceed?</h5><br><br>
                     <input  type="hidden" name="id_modal" id="id_modal" value=""> 
                     <button type="button" id="confirm_btn" class="btn btn-success modal-box-button" >Yes</button>
                     <button type="button" class="btn btn-danger modal-box-button" data-dismiss="modal"  >No</button>
@@ -92,23 +85,23 @@
 </div>
 <script>
     $(document).ready(function () {
-        $(".alert").delay(5000).slideUp(200, function() {
+        $(".alert").delay(3000).slideUp(200, function() {
             $(this).alert('close');
         });
-        $('#quotation_list').dataTable({
+        $('#product_list').dataTable({
             "aaSorting": [[0, "desc"]],
         });
         $("#confirm_btn").on('click',function(){
             var id=$("#id_modal").val();
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>" + "quotation/delete",
+                url: "<?php echo base_url(); ?>" + "product-list/delete",
                 data: { 'id' : id },
                 success: function(result){
                     $('#deleteConfirmationModal').modal('hide');
                     if(result){
                         $('html, body').animate({ scrollTop: 0 }, 'slow');
-                        $('.content-top-1').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  Quotation has been deleted successfully...! <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                        $('.content-top-1').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  Product list has been deleted successfully...! <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                         $('.alert').fadeIn().delay(3000).fadeOut(function () {
                             $(this).remove();
                         });
@@ -126,7 +119,7 @@
             });
         });
     });
-    function quotationDelete(ths){
+    function productlistDelete(ths){
         var id=$(ths).data('id');
         $("#id_modal").val(id);
         $('#deleteConfirmationModal').modal('show');

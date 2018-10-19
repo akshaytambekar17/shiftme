@@ -62,19 +62,19 @@ $route['invoice'] = "admin/InvoiceController/index";
 $route['invoice/delete'] = "admin/InvoiceController/delete";
 $route['invoice/view'] = "admin/InvoiceController/view";
 
+$route['quotation'] = "admin/QuotationController/index";
+$route['quotation/delete'] = "admin/QuotationController/delete";
+$route['quotation/add'] = "admin/QuotationController/add";
+$route['quotation/view'] = "admin/QuotationController/view";
 
 $route['admin/users'] = "admin/Admin_controller/users";
 $route['admin/user-delete'] = "admin/Admin_controller/userDelete";
 
-$route['admin/quotation'] = "admin/Admin_controller/quotation";
-$route['admin/quotation-delete'] = "admin/Admin_controller/quotationDelete";
-$route['admin/quotation-add'] = "admin/Admin_controller/quotationAdd";
-$route['admin/quotation-view'] = "admin/Admin_controller/quotationView";
 
-$route['admin/product-list'] = "admin/Admin_controller/product";
-$route['admin/product-delete'] = "admin/Admin_controller/productDelete";
-$route['admin/product-add'] = "admin/Admin_controller/productAdd";
-$route['admin/product-edit'] = "admin/Admin_controller/productEdit";
+$route['product-list'] = "admin/ProductListController/index";
+$route['product-list/delete'] = "admin/ProductListController/delete";
+$route['product-list/add'] = "admin/ProductListController/add";
+$route['product-list/edit'] = "admin/ProductListController/edit";
 
 $route['admin/sms-sending'] = "admin/Admin_controller/sms_sending";
 $route['admin/send_sms'] = "admin/Admin_controller/send_sms";
