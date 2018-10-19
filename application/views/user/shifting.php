@@ -71,7 +71,7 @@ $obj = json_decode($service->objectives);
     <div class="container mid">
         <h2 class="h1 low">The ShiftMe.in selects the most suitable means of transport according to strict criteria based on cost, reliability and the minimization of damage to the environment. These Shifting services are available across India. We provide PAN India solution.</h2>
         <div class="buttonWrapper">
-            <a class="button button--large button--transparent" href="<?= site_url();?>qoute">Get A Qoute</a>
+            <a class="button button--large button--transparent" href="<?= site_url();?>quote">Get A Quotation</a>
         </div>
     </div>
     <div id="logo"> </div>

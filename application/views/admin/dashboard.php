@@ -43,13 +43,13 @@
                 <br>
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3><?= !empty($vehicle_services_list)?count($vehicle_services_list):0 ?></h3>
-                        <p>Availabel Vehicle</p>
+                        <h3><?= !empty($product_list)?count($product_list):0 ?></h3>
+                        <p>Total Product List</p>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-car" aria-hidden="true"></i>
+                        <i class="fa fa-database" aria-hidden="true"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?= site_url('product-list') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">

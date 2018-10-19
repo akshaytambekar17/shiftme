@@ -1,5 +1,5 @@
 <?php
-
+//error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_controller extends MY_Controller {
@@ -106,6 +106,7 @@ class User_controller extends MY_Controller {
 
         $pin;
         if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
+            
             $pin = array(
                 'pickupPoint' => $_POST['pickupPoint'],
                 'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
@@ -316,6 +317,7 @@ class User_controller extends MY_Controller {
             $formattedAddr = str_replace(' ', '+', $address);
             //Send request and receive json data by address
             $geocodeFromAddr = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address=' . $formattedAddr . '&sensor=true_or_false');
+            //printDie($geocodeFromAddr);
             $output1 = json_decode($geocodeFromAddr);
             //Get latitude and longitute from json data
             $latitude = $output1->results[0]->geometry->location->lat;

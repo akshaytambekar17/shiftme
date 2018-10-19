@@ -89,24 +89,38 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                             <a href="<?= site_url('admin/Menus') ?>" class=" hvr-bounce-to-right"><i class="fa fa-bars nav_icon"></i> <span class="nav-label">Menus</span> </a>
                         </li>
                     <?php } ?>
-                    <li>
-                        <a href="<?= site_url('admin/quotation') ?>" class="hvr-bounce-to-right">
-                            <i class="fa fa-list-alt nav_icon" aria-hidden="true"></i>
-                            <span class="nav-label">Quotation</span> 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= site_url('admin/orders') ?>" class="hvr-bounce-to-right">
-                            <i class="fa fa-link nav_icon" aria-hidden="true"></i>
-                            <span class="nav-label">Orders</span> 
-                        </a>
-                    </li>
+                    
                     <li>
                         <a href="<?= site_url('admin/users') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-user nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">Users</span> 
                         </a>
+                    </li>    
+                    <li>
+                        <a href="<?= site_url('quotation') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-list-alt nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Quotation</span> 
+                        </a>
                     </li>
+                    <li>
+                        <a href="<?= site_url('order') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-link nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Orders</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('invoice') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-file-text nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Invoices</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('product-list') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-database nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Product List</span> 
+                        </a>
+                    </li>
+                    
                     <li>
                         <a href="<?= site_url('admin/sms-sending') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-commenting-o nav_icon" aria-hidden="true"></i>
@@ -115,23 +129,23 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                     </li>
                     
                     <?php foreach ($menus as $m) { ?>
-                        <li>
+<!--                        <li>
                             <?php if (empty($m->nodes)) { ?>
-                                <a href="<?= site_url($m->url) ?>" class="hvr-bounce-to-right">
-                                    <i class="<?= $m->icon ?> nav_icon "></i>
-                                    <span class="nav-label"><?= $m->name ?></span> 
+                                <a href="////<?= site_url($m->url) ?>" class="hvr-bounce-to-right">
+                                    <i class="////<?= $m->icon ?> nav_icon "></i>
+                                    <span class="nav-label">////<?= $m->name ?></span> 
                                 </a>
                             <?php } else { ?>
-                                <a href="#" class=" hvr-bounce-to-right"><i class="<?= $m->icon ?> nav_icon"></i> <span class="nav-label"><?= $m->name ?></span><span class="fa arrow"></span></a>
+                                <a href="#" class=" hvr-bounce-to-right"><i class="////<?= $m->icon ?> nav_icon"></i> <span class="nav-label"><?= $m->name ?></span><span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <?php foreach ($m->nodes as $n) { ?>
                                         <li>
-                                            <a href="<?= site_url($n->url) ?>" class=" hvr-bounce-to-right"><i class="<?= $n->icon ?> nav_icon"></i> <span class="nav-label"><?= $n->name ?></span> </a>
+                                            <a href="////<?= site_url($n->url) ?>" class=" hvr-bounce-to-right"><i class="<?= $n->icon ?> nav_icon"></i> <span class="nav-label"><?= $n->name ?></span> </a>
                                         </li>
                                     <?php } ?>
                                 </ul>
                             <?php } ?>
-                        </li>
+                        </li>-->
                     <?php }
                     ?>
                 </ul>
