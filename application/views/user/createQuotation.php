@@ -46,16 +46,16 @@
                             <div class="input-group ">
                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                                 <input type="text" class="form-control" name="starting_address" id="from_loc">
-                                <span class="help-block"><?php echo form_error('starting_address'); ?></span>
                             </div>
+                            <span class="help-block"><?php echo form_error('starting_address'); ?></span>
                         </div>
                         <div class=" col-md-6">
                             <label for="subject">To</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                                 <input type="text" class="form-control" name="delivery_address" id="to_loc">
-                                <span class="help-block"><?php echo form_error('delivery_address'); ?></span>
                             </div>
+                            <span class="help-block"><?php echo form_error('delivery_address'); ?></span>
                         </div>
                     </div>
                     <br>
@@ -64,8 +64,9 @@
                             <label for="subject">Shifting Date</label>
                             <div class="input-group date mg-check-in ">
                                 <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                <input type="text" class="form-control" id="shifting_date" name="shifting_date" placeholder="00/00/0000" required="">
+                                <input type="text" class="form-control" id="shifting_date" name="shifting_date"  required="">
                             </div>
+                            <span class="help-block"><?php echo form_error('shifting_date'); ?></span>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -76,9 +77,8 @@
                                         <option value="<?= $value['id']?>"><?= $value['vehicle_name']?></option> 
                                     <?php }?>
                                 </select>
-                                <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
-
                             </div>
+                            <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
                         </div>
                     </div>
                     <br>
@@ -94,21 +94,22 @@
                                 <div class="col-md-4">
                                     <div class="form-group col-md-6">
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="<?= $value['id']?>" name="ProductList['name'][<?= $count ?>]" id="product-list-<?= $count?>" ><?= $value['name']?></label>
+                                            <label><input type="checkbox" value="<?= $value['id']?>" name="ProductListName[]" id="product-list-<?= $count?>" ><?= $value['name']?></label>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-3">
                                         
 <!--                                            <button class="btn" onclick="quantitybtn(this)" id="plus-<?= $count?>" >+</button>-->
-                                        <input type="text" name="ProductList['quantity'][<?= $count ?>]" id="product-list-qty-<?= $count?>" class="product-list-qty form-control" placeholder="Qty" oninput="numberValidation(this)" data-count='<?= $count?>'>
+                                        <input type="text" name="ProductListQuantity[]" id="product-list-qty-<?= $count?>" class="product-list-qty form-control" placeholder="Qty" oninput="numberValidation(this)" data-count='<?= $count?>'>
                                         <span id="qty-span-<?= $count?>"></span>
 <!--                                            <button class="btn" onclick="quantitybtn(this)" id="minus-<?= $count?>" >-</button>-->
                                         
                                     </div>
                                 </div>
                         <?php } }?>
-                        <span class="help-block"><?php echo form_error('ProductList'); ?></span>
+                        <br>
                     </div>
+                    <span class="help-block"><?php echo form_error('ProductListName[]'); ?></span>
                     
                     <div class="col-md-12">
                         <div class="row mt50">

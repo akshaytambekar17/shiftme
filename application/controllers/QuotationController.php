@@ -20,6 +20,7 @@ class QuotationController extends MY_Controller {
         $this->load->model('admin/OrderModel');
         $this->load->model('admin/InvoiceModel');
         $this->load->model('admin/QuotationModel');
+        $this->load->model('admin/QuotationHasProductModel');
         $this->load->model('admin/ProductListModel');
         $this->load->library('form_validation');
         $this->load->helper('message');
@@ -38,39 +39,63 @@ class QuotationController extends MY_Controller {
     public function create(){
         
         if($this->input->post()){
-            $details = $this->input->post();
-            printDie($details['ProductList']);
-            $this->form_validation->set_rules('fullname', 'Full Name', 'trim|required');
-            $this->form_validation->set_rules('mobile_no', 'Mobile Number', 'trim|required|numeric|regex_match[/^[0-9]{10}$/]');
-            $this->form_validation->set_rules('email_id', 'Email', 'trim|required|valid_email');
-            $this->form_validation->set_rules('starting_address', 'Starting Address', 'trim|required');
-            $this->form_validation->set_rules('starting_landmark','Starting Landmark', 'required');
-            $this->form_validation->set_rules('starting_pincode', 'Starting Pincode', 'trim|required|numeric|regex_match[/^[0-9]{6}$/]');
-            $this->form_validation->set_rules('delivery_address', 'Delivery Address', 'trim|required');
-            $this->form_validation->set_rules('delivery_landmark','Delivery Landmark', 'required');
-            $this->form_validation->set_rules('delivery_pincode', 'Delivery Pincode', 'trim|required|numeric|regex_match[/^[0-9]{6}$/]');
-            $this->form_validation->set_rules('vehicle_id', 'Vechicle', 'trim|required');
-            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-            if($this->form_validation->run() == TRUE){
-                $details = $this->input->post();
-                $details['created_at'] = date('Y-m-d H:i:s');
-                $details['shifting_date'] = date('Y-m-d H:i:s');
-                $result = $this->QuotationModel->add($details);
-                if ($result) {
-                    $this->session->set_flashdata('Message', 'Quotation Added Succesfully');
-                    return redirect('quotation', 'refresh');
-                } else {
-                    $this->session->set_flashdata('Error', 'Failed to add employee');
-                    $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
-                    $this->data['template'] = "Quotation/form_data";
-                    $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('quotation'), 'page' => "Quotation"),array('link' => '#', 'page' => "Add Quotation"));
-                    $this->admin_layout($this->data);
-                }
+            if($this->session->userdata('uid') == ''){
+                printDie("out session");
             }else{
-                $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
-                $this->data['template'] = "Quotation/form_data";
-                $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('quotation'), 'page' => "Quotation"),array('link' => '#', 'page' => "Add Quotation"));
-                $this->admin_layout($this->data);
+                $post = $this->input->post();
+                $this->form_validation->set_rules('fullname', 'Full Name', 'trim|required');
+                $this->form_validation->set_rules('mobile_no', 'Mobile Number', 'trim|required|numeric|regex_match[/^[0-9]{10}$/]');
+                $this->form_validation->set_rules('email_id', 'Email', 'trim|required|valid_email');
+                $this->form_validation->set_rules('starting_address', 'Starting Address', 'trim|required');
+                $this->form_validation->set_rules('delivery_address', 'Delivery Address', 'trim|required');
+                $this->form_validation->set_rules('vehicle_id', 'Vechicle', 'trim|required');
+                $this->form_validation->set_rules('shifting_date', 'Shifiting Date', 'trim|required');
+//                $this->form_validation->set_rules('ProductListName[]', 'Check Product List ', 'trim|required');
+//                $this->form_validation->set_rules('ProductListQuantity[]', 'Check Product List Quantity', 'trim|required');
+                $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+                if($this->form_validation->run() == TRUE){
+                    
+                    $details = $post;
+                    unset($details['ProductListName']);
+                    unset($details['ProductListQuantity']);
+                    $details['shifting_date'] = date("Y-m-d", strtotime($details['shifting_date']));
+                    $details['user_id'] = $this->session->userdata('uid');
+                    $details['created_at'] = date('Y-m-d H:i:s');
+                    $details['updated_at'] = date('Y-m-d H:i:s');
+                    $result = $this->QuotationModel->add($details);
+                    
+                    foreach($post['ProductListName'] as $key_name => $val_name){
+                        foreach($post['ProductListQuantity'] as $key_qty => $val_qty){
+                            if($key_name == $key_qty){
+                                $data_product = array('quotation_id' => $result,
+                                                      'product_id' => $val_name,
+                                                      'quantity' => !empty($val_qty)?$val_qty:0,
+                                                      'created_at' => date('Y-m-d H:i:s')
+                                                );
+                                $this->QuotationHasProductModel->insert($data_product);
+                            }
+                        }
+                    }
+                    printDie($post);
+                    
+                    if ($result) {
+                        $this->session->set_flashdata('Message', 'Quotation Added Succesfully');
+                        return redirect('quotation', 'refresh');
+                    } else {
+                        $this->session->set_flashdata('Error', 'Failed to add employee');
+                        $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
+                        $this->data['template'] = "Quotation/form_data";
+                        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('quotation'), 'page' => "Quotation"),array('link' => '#', 'page' => "Add Quotation"));
+                        $this->admin_layout($this->data);
+                    }
+                }else{
+                    $data['metadata'] = "Quotation";
+                    $data['template'] = "createQuotation";
+                    $data['name'] = "Quotation";
+                    $data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
+                    $data['product_list'] = $this->ProductListModel->getProductsList();
+                    $this->layout($data);
+                }
             }
         }else{
             $data['metadata'] = "Quotation";

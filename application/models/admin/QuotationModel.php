@@ -28,10 +28,8 @@ class QuotationModel extends MY_Model {
     }
     
     public function add($data){
-        $this->db->trans_start();
         $this->db->insert('trans_quotation', $data);
-        $this->db->trans_complete();
-        return true;
+        return $this->db->insert_id();
     }
     public function delete($id) {
         $this->db->where('id',$id);

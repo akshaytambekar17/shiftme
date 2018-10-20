@@ -249,3 +249,51 @@ ALTER TABLE `trans_user_login` ADD `status` INT(2) NOT NULL AFTER `image`;
 ALTER TABLE `trans_user_login` ADD `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `create_date`; 
 
 ALTER TABLE `trans_invoice` ADD `invoice_no` VARCHAR(255) NOT NULL AFTER `order_id`;
+
+
+--
+-- Table structure for table `trans_quotation_has_product`
+--
+
+CREATE TABLE `trans_quotation_has_product` (
+  `id` bigint(11) NOT NULL,
+  `quotation_id` bigint(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `trans_quotation_has_product`
+--
+ALTER TABLE `trans_quotation_has_product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_quotation_id` (`quotation_id`),
+  ADD KEY `fk_product_id` (`product_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `trans_quotation_has_product`
+--
+ALTER TABLE `trans_quotation_has_product`
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `trans_quotation_has_product`
+--
+ALTER TABLE `trans_quotation_has_product`
+  ADD CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `trans_product_list` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_quotation_id` FOREIGN KEY (`quotation_id`) REFERENCES `trans_quotation` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+
+ALTER TABLE `trans_quotation` CHANGE `mobile_no` `mobile_no` BIGINT(12) NOT NULL;

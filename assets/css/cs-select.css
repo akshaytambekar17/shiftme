@@ -16,3 +16,13 @@ div.cs-active{}
 .cs-select ul li.cs-focus span{background-color:#ddd;}
 .cs-select li.cs-optgroup ul{padding-left:1em;}
 .cs-select li.cs-optgroup > span{cursor:default;}
+/********************New Implmentation css ****************************/
+.m-top90{
+    margin-top: 90px;
+}
+.help-block{
+    color: red;
+}
+.center{
+    text-align: center;
+}
