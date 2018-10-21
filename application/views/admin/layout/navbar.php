@@ -97,6 +97,12 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                         </a>
                     </li>    
                     <li>
+                        <a href="<?= site_url('enquiry') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-list-alt nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Enquires</span> 
+                        </a>
+                    </li>
+                    <li>
                         <a href="<?= site_url('quotation') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-list-alt nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">Quotation</span> 

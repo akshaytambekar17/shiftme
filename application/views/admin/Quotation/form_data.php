@@ -10,36 +10,47 @@
             <div class="col-md-12">
                 <div class="content-top-1 ">
                     <div class="table-responsive">
-                        <form class="form-horizontal" method="post" enctype="multipart/form-data" action="<?= site_url('quotation/add'); ?>" >
+                        <form class="form-horizontal" method="post" enctype="multipart/form-data" action="<?= !empty($quotation_data['id'])?site_url('quotation/update'):site_url('quotation/add'); ?>" >
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group col-md-11">
                                             <label>Fullname</label>
-                                            <input type="text" name="fullname" id="fullname" class="form-control" value="<?php echo set_value('fullname'); ?>"oninput="validateAlpha(this);"  placeholder="Fullname"/>
+                                            <input type="text" name="fullname" id="fullname" class="form-control" value="<?php echo !empty($quotation_data['fullname'])?$quotation_data['fullname']:set_value('fullname'); ?>"oninput="validateAlpha(this);"  placeholder="Fullname"/>
                                             <span class="help-block"><?php echo form_error('fullname'); ?></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group col-md-11">
                                             <label>Email</label>
-                                            <input type="email" name="email_id" id="email_id" class="form-control" value="<?php echo set_value('email_id'); ?>" placeholder="Email" />
+                                            <input type="email" name="email_id" id="email_id" class="form-control" value="<?php echo !empty($quotation_data['email_id'])?$quotation_data['email_id']:set_value('email_id'); ?>" placeholder="Email" />
                                             <span class="help-block"><?php echo form_error('email_id'); ?></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">  
                                         <div class="form-group col-md-11">
                                             <label>Mobile Number</label>
-                                            <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="<?php echo set_value('mobile_no'); ?>" placeholder="Mobile Number" />
+                                            <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="<?php echo !empty($quotation_data['mobile_no'])?$quotation_data['mobile_no']:set_value('mobile_no'); ?>" placeholder="Mobile Number" />
                                             <span class="help-block"><?php echo form_error('mobile_no'); ?></span>
                                         </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="subject">From</label>
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                            <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?php echo !empty($quotation_data['starting_location'])?$quotation_data['starting_location']:set_value('starting_location'); ?>" >
+                                        </div>
+                                        <span class="help-block"><?php echo form_error('starting_location'); ?></span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group col-md-7">
                                             <label>Starting Address</label>
-                                            <textarea rows="4" name="starting_address" id="starting_address"><?php echo set_value('starting_address'); ?></textarea>
+                                            <textarea rows="4" name="starting_address" id="starting_address"><?php echo !empty($quotation_data['starting_address'])?$quotation_data['starting_address']:set_value('starting_address'); ?></textarea>
                                             <span class="help-block"><?php echo form_error('starting_address'); ?></span>
                                         </div>
                                     </div>
@@ -47,14 +58,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group col-md-11">
                                                 <label>Land Mark</label>
-                                                <input type="text" name="starting_landmark" id="starting_landmark" class="form-control" value="<?php echo set_value('starting_landmark'); ?>" placeholder="Land mark" />
+                                                <input type="text" name="starting_landmark" id="starting_landmark" class="form-control" value="<?php echo !empty($quotation_data['starting_mark'])?$quotation_data['starting_landmark']:set_value('starting_landmark'); ?>" placeholder="Land mark" />
                                                 <span class="help-block"><?php echo form_error('starting_landmark'); ?></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group col-md-11">
                                                 <label>Pincode</label>
-                                                <input type="text" name="starting_pincode" id="starting_pincode" class="form-control" value="<?php echo set_value('starting_pincode'); ?>" placeholder="Pincode" />
+                                                <input type="text" name="starting_pincode" id="starting_pincode" class="form-control" value="<?php echo !empty($quotation_data['starting_pincode'])?$quotation_data['starting_pincode']:set_value('starting_pincode'); ?>" placeholder="Pincode" />
                                                 <span class="help-block"><?php echo form_error('starting_pincode'); ?></span>
                                             </div>
                                         </div>
@@ -62,9 +73,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <label for="subject">To</label>
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                            <input type="text" class="form-control" name="delivery_location" id="from_loc" value="<?php echo !empty($quotation_data['delivery_location'])?$quotation_data['delivery_location']:set_value('delivery_location'); ?>" >
+                                        </div>
+                                        <span class="help-block"><?php echo form_error('delivery_location'); ?></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="form-group col-md-7">
                                             <label>Delivery Address</label>
-                                            <textarea rows="4" name="delivery_address" id="delivery_address"><?php echo set_value('delivery_address'); ?></textarea>
+                                            <textarea rows="4" name="delivery_address" id="delivery_address"><?php echo !empty($quotation_data['delivery_address'])?$quotation_data['delivery_address']:set_value('delivery_address'); ?></textarea>
                                             <span class="help-block"><?php echo form_error('delivery_address'); ?></span>
                                         </div>
                                     </div>
@@ -72,14 +93,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group col-md-11">
                                                 <label>Land Mark</label>
-                                                <input type="text" name="delivery_landmark" id="delivery_landmark" class="form-control" value="<?php echo set_value('delivery_landmark'); ?>" placeholder="Land mark" />
+                                                <input type="text" name="delivery_landmark" id="delivery_landmark" class="form-control" value="<?php echo !empty($quotation_data['delivery_landmark'])?$quotation_data['delivery_landmark']:set_value('delivery_landmark'); ?>" placeholder="Land mark" />
                                                 <span class="help-block"><?php echo form_error('delivery_landmark'); ?></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6" col-md-11>
                                             <div class="form-group">
                                                 <label>Pincode</label>
-                                                <input type="text" name="delivery_pincode" id="delivery_pincode" class="form-control" value="<?php echo set_value('delivery_pincode'); ?>" placeholder="Pincode" />
+                                                <input type="text" name="delivery_pincode" id="delivery_pincode" class="form-control" value="<?php echo !empty($quotation_data['delivery_pincode'])?$quotation_data['delivery_pincode']:set_value('delivery_pincode'); ?>" placeholder="Pincode" />
                                                 <span class="help-block"><?php echo form_error('delivery_pincode'); ?></span>
                                             </div>
                                         </div>
@@ -93,8 +114,14 @@
                                             <label>Vehicle Service</label>
                                             <select name='vehicle_id'  class="form-control">
                                                 <option disabled="disabled" selected="selected">Select Vehicle</option>
-                                                <?php foreach ($vehicle_services_list as $value) { ?>
-                                                    <option value="<?= $value['id']?>"><?= $value['vehicle_name']?></option> 
+                                                <?php foreach ($vehicle_services_list as $value) { 
+                                                        if($quotation_data['vehicle_id'] == $value['id']){
+                                                            $selected='selected="selected"';
+                                                        }else{
+                                                            $selected='';
+                                                        }
+                                                ?>
+                                                    <option value="<?= $value['id']?>" <?= $selected?>><?= $value['vehicle_name']?></option> 
                                                 <?php }?>
                                             </select>
                                             <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
@@ -106,19 +133,19 @@
                                     <div class="col-md-6">
                                         <div class="form-group col-md-11">
                                             <div class="checkbox">
-                                                <label><input type="checkbox" value="1" name="packer" id="packer" >Do you need a professional packers?</label>
+                                                <label><input type="checkbox" value="1" name="packer" id="packer" <?= ($quotation_data['packer']==1)?"checked":"";?> >Do you need a professional packers?</label>
                                             </div>
                                             <span class="help-block"><?php echo form_error('packer'); ?></span>
                                         </div>
                                         <div class="form-group col-md-11">
                                             <div class="checkbox">
-                                                <label><input type="checkbox" value="1" name="storage" id="storage" >Do you need a storage facilities?</label>
+                                                <label><input type="checkbox" value="1" name="storage" id="storage" <?= ($quotation_data['storage']==1)?"checked":"";?> >Do you need a storage facilities?</label>
                                             </div>
                                             <span class="help-block"><?php echo form_error('storage'); ?></span>
                                         </div>
                                         <div class="form-group col-md-11">
                                             <div class="checkbox">
-                                                <label><input type="checkbox" value="1" name="vehicle_shifting" id="vehicle_shifting" >Do you need a shifting of your vehicle also?</label>
+                                                <label><input type="checkbox" value="1" name="vehicle_shifting" id="vehicle_shifting" <?= ($quotation_data['vehicle_shifting']==1)?"checked":"";?> >Do you need a shifting of your vehicle also?</label>
                                             </div>
                                             <span class="help-block"><?php echo form_error('vehicle_shifting'); ?></span>
                                         </div>

@@ -26,11 +26,27 @@ class QuotationModel extends MY_Model {
         $this->db->where('id',$id);
         return $this->db->get('trans_quotation')->row_array();
     }
+    public function getQuotationByUserId($user_id) {
+        $this->db->where('id',$user_id);
+        return $this->db->get('trans_quotation')->result_array();
+    }
     
     public function add($data){
         $this->db->insert('trans_quotation', $data);
-        return $this->db->insert_id();
+        $last_id = $this->db->insert_id();
+        $result = $this->getQuotationById($last_id);
+        $quotation_no = "QUOTE00".$result['id'];
+        $data_update = array('id' => $result['id'],
+                             'quotation_no' => $quotation_no
+                            );
+        $this->update($data_update);
+        return $last_id;
     }
+    public function update($data){
+        $this->db->where('id',$data['id']);
+        $this->db->update('trans_quotation',$data);
+    }
+
     public function delete($id) {
         $this->db->where('id',$id);
         $this->db->delete('trans_quotation'); 

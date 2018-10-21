@@ -64,9 +64,14 @@ $route['invoice'] = "admin/InvoiceController/index";
 $route['invoice/delete'] = "admin/InvoiceController/delete";
 $route['invoice/view'] = "admin/InvoiceController/view";
 
+$route['enquiry'] = "admin/EnquiryController/index";
+$route['enquiry/delete'] = "admin/EnquiryController/delete";
+$route['enquiry/view'] = "admin/EnquiryController/view";
+
 $route['quotation'] = "admin/QuotationController/index";
 $route['quotation/delete'] = "admin/QuotationController/delete";
 $route['quotation/add'] = "admin/QuotationController/add";
+$route['quotation/update'] = "admin/QuotationController/update";
 $route['quotation/view'] = "admin/QuotationController/view";
 
 $route['admin/users'] = "admin/Admin_controller/users";

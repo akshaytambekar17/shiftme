@@ -28,6 +28,17 @@ class OrderModel extends MY_Model {
         $data= $query->result_array();
         return $data;
     }
+    public function getOrdersByUserId($user_id) {
+        $this->db->select('to.id as order_id,to.*,tu.*,tq.*');
+        $this->db->from('trans_order to');
+        $this->db->join('trans_user_login tu','tu.user_id = to.user_id');
+        $this->db->join('trans_quotation tq','tq.id = to.quotation_id');
+        $this->db->where('to.user_id',$user_id);
+        $this->db->order_by('to.id','DESC');
+        $query=$this->db->get();
+        $data= $query->result_array();
+        return $data;
+    }
     public function delete($id) {
         $this->db->where('id',$id);
         $this->db->delete('trans_order'); 

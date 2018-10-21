@@ -297,3 +297,9 @@ ALTER TABLE `trans_quotation_has_product`
 
 
 ALTER TABLE `trans_quotation` CHANGE `mobile_no` `mobile_no` BIGINT(12) NOT NULL;
+
+ALTER TABLE `trans_enquiry` ADD `user_id` INT(11) NOT NULL AFTER `quotation_id`, ADD INDEX `fk_user_id` (`user_id`);
+
+ALTER TABLE `trans_invoice` ADD `user_id` INT(11) NOT NULL AFTER `order_id`, ADD INDEX `fk_user_id` (`user_id`);
+
+ALTER TABLE `trans_quotation` ADD `quotation_no` VARCHAR(255) NOT NULL AFTER `mobile_no`;

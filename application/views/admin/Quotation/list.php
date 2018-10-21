@@ -33,11 +33,12 @@
                             <thead>
                                 <tr>
                                     <th class="hidden">Id</th>
+                                    <th>Quotation Number</th>
                                     <th>Full name</th>
                                     <th>Email id</th>
                                     <th>Phone Number</th>
-                                    <th>Starting Address</th>
-                                    <th>Delivery Address</th>
+                                    <th>Starting Location</th>
+                                    <th>Delivery Location</th>
                                     <th>Vehicle</th>
                                     <th>Created at</th>
                                     <th>Actions</th>
@@ -50,16 +51,18 @@
                             ?>
                                         <tr class="gradeX" id="quotation-<?= $value['id'] ?>">
                                             <td class="hidden"><?= $value['id']; ?></td>
+                                            <td><?= $value['quotation_no']; ?></td>
                                             <td><?= $value['fullname']; ?></td>
                                             <td><?= $value['email_id']; ?></td>
                                             <td><?= $value['mobile_no']; ?></td>
-                                            <td><?= $value['starting_address']; ?></td>
-                                            <td><?= $value['delivery_address']; ?></td>
+                                            <td><?= $value['starting_location']; ?></td>
+                                            <td><?= $value['delivery_location']; ?></td>
                                             <td><?= $value['vehicle_id']; ?></td>
                                             <td class="center"><?= $value['created_at']; ?></td>
                                             <td>
                                                 <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)">Delete</a><br><br>
-                                                <a href="<?= base_url()?>quotation/view?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['user_id'] ?>" name="view_quotation" >View Quotation</a><br>
+                                                <a href="<?= base_url()?>quotation/update?id=<?= $value['id']?>" class="btn btn-info update-quotation" data-id="<?= $value['id'] ?>" name="update_quotation" >Update</a><br><br>
+                                                <a href="<?= base_url()?>quotation/view?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['id'] ?>" name="view_quotation" >View Quotation</a><br>
                                             </td>
                                         </tr>
                                         <?php
