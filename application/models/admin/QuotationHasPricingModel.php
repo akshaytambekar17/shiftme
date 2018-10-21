@@ -11,39 +11,35 @@
  *
  * @author comc
  */
-class QuotationHasProductModel extends MY_Model {
+class QuotationHasPricingModel extends MY_Model {
 
     //put your code here
     public function __construct() {
         parent::__construct();
     }
     
-    public function getQuotationsHasProduct() {
+    public function getQuotationsHasPricing() {
         $this->db->order_by('id','DESC');
-        return $this->db->get('trans_quotation_has_product')->result_array();
+        return $this->db->get('trans_quotation_pricing')->result_array();
     }
-    public function getQuotationsHasProductById($id) {
+    public function getQuotationsHasPricingById($id) {
         $this->db->where('id',$id);
-        return $this->db->get('trans_quotation_has_product')->row_array();
+        return $this->db->get('trans_quotation_pricing')->row_array();
     }
-    public function getQuotationsHasProductByQuotationId($id) {
+    public function getQuotationsHasPricingByQuotationId($id) {
         $this->db->where('quotation_id',$id);
-        return $this->db->get('trans_quotation_has_product')->result_array();
-    }
-    public function getQuotationsHasProductByProductId($id) {
-        $this->db->where('product_id',$id);
-        return $this->db->get('trans_quotation_has_product')->result_array();
+        return $this->db->get('trans_quotation_pricing')->result_array();
     }
     
     public function insert($data){
         $this->db->trans_start();
-        $this->db->insert('trans_quotation_has_product', $data);
+        $this->db->insert('trans_quotation_pricing', $data);
         $this->db->trans_complete();
         return true;
     }
     public function delete($id) {
         $this->db->where('id',$id);
-        $this->db->delete('trans_quotation_has_product'); 
+        $this->db->delete('trans_quotation_pricing'); 
         if($this->db->affected_rows()){
             return true;
         }else{
@@ -52,7 +48,7 @@ class QuotationHasProductModel extends MY_Model {
     }
     public function deleteByQuotationId($quotation_id) {
         $this->db->where('quotation_id',$quotation_id);
-        $this->db->delete('trans_quotation_has_product'); 
+        $this->db->delete('trans_quotation_pricing'); 
         if($this->db->affected_rows()){
             return true;
         }else{

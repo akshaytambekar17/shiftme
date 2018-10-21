@@ -22,6 +22,13 @@ class QuotationModel extends MY_Model {
         $this->db->order_by('id','DESC');
         return $this->db->get('trans_quotation')->result_array();
     }
+    public function getQuotationByIdWithPrice($id) {
+        $this->db->select('tq.*,tqp.quotation_id,tqp.quotation_id,tqp.products_total_amount,tqp.distance_amount,tqp.vehicle_amount,tqp.discount,tqp.total_amount');
+        $this->db->from('trans_quotation tq');
+        $this->db->join('trans_quotation_pricing tqp','tqp.quotation_id=tq.id');
+        $this->db->where('tq.id',$id);
+        return $this->db->get()->row_array();
+    }
     public function getQuotationById($id) {
         $this->db->where('id',$id);
         return $this->db->get('trans_quotation')->row_array();
@@ -45,6 +52,11 @@ class QuotationModel extends MY_Model {
     public function update($data){
         $this->db->where('id',$data['id']);
         $this->db->update('trans_quotation',$data);
+        if($this->db->affected_rows()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function delete($id) {

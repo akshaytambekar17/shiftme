@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="content-top-1 ">
                     <div class="table-responsive">
-                        <form class="form-horizontal" method="post" enctype="multipart/form-data" action="<?= !empty($quotation_data['id'])?site_url('quotation/update'):site_url('quotation/add'); ?>" >
+                        <form class="form-horizontal" method="post" enctype="multipart/form-data" action="<?= !empty($quotation_data['id'])?site_url('quotation/update?id='.$quotation_data['id']):site_url('quotation/add'); ?>" >
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -35,7 +35,27 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group col-md-11">
+                                            <label>Select User</label>
+                                            <select name='user_id'  class="form-control">
+                                                <option disabled="disabled" selected="selected">Select User</option>
+                                                <?php foreach ($user_list as $value) { 
+                                                        if($quotation_data['user_id'] == $value['user_id']){
+                                                            $selected='selected="selected"';
+                                                        }else{
+                                                            $selected='';
+                                                        }
+                                                ?>
+                                                    <option value="<?= $value['user_id']?>" <?= !empty($quotation_data['user_id'])?$selected:set_select('user_id',$value['user_id'],TRUE);?> ><?= $value['email']?></option> 
+                                                <?php }?>
+                                            </select>
+                                            <span class="help-block"><?php echo form_error('user_id'); ?></span>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label for="subject">From</label>
@@ -58,7 +78,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group col-md-11">
                                                 <label>Land Mark</label>
-                                                <input type="text" name="starting_landmark" id="starting_landmark" class="form-control" value="<?php echo !empty($quotation_data['starting_mark'])?$quotation_data['starting_landmark']:set_value('starting_landmark'); ?>" placeholder="Land mark" />
+                                                <input type="text" name="starting_landmark" id="starting_landmark" class="form-control" value="<?php echo !empty($quotation_data['starting_landmark'])?$quotation_data['starting_landmark']:set_value('starting_landmark'); ?>" placeholder="Land mark" />
                                                 <span class="help-block"><?php echo form_error('starting_landmark'); ?></span>
                                             </div>
                                         </div>
@@ -121,31 +141,118 @@
                                                             $selected='';
                                                         }
                                                 ?>
-                                                    <option value="<?= $value['id']?>" <?= $selected?>><?= $value['vehicle_name']?></option> 
+                                                    <option value="<?= $value['id']?>" <?= !empty($quotation_data['vehicle_id'])?$selected:set_select('vehicle_id',$value['id'],TRUE)?> ><?= $value['vehicle_name']?></option> 
                                                 <?php }?>
                                             </select>
                                             <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
                                             
                                         </div>
                                     </div>
+                                    <div class="col-md-6 ">
+                                        <label for="subject">Shifting Date</label>
+                                        <div class="input-group date mg-check-in ">
+                                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                            <input type="text" class="form-control" id="shifting_date" name="shifting_date"  value="<?php echo !empty($quotation_data['shifting_date'])?$quotation_data['shifting_date']:set_value('shifting_date'); ?>" required >
+                                        </div>
+                                        <span class="help-block"><?php echo form_error('shifting_date'); ?></span>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="subject">Check Product List</label>
+                                    </div>
+                                    <?php if(!empty($product_list) && count($product_list)>0){
+                                            $count = 1;
+                                            foreach($product_list as $value){
+                                                $checked = '';
+                                                $quantity = '';
+                                                if(!empty($quotation_product_data) && count($quotation_product_data) >0 ){
+                                                    foreach($quotation_product_data as $value_product){ 
+                                                        if($value['id'] == $value_product['product_id']){
+                                                            $checked = 'checked'; 
+                                                            $quantity = $value_product['quantity'];
+                                                        }
+                                                    }
+                                                }
+                                                   
+                                    ?>
+                                            <div class="col-md-4">
+                                                <div class="form-group col-md-6">
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" value="<?= $value['id']?>" name="ProductListName[]" id="product-list-<?= $count?>" <?= $checked?>><?= $value['name']?></label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+
+            <!--                                            <button class="btn" onclick="quantitybtn(this)" id="plus-<?= $count?>" >+</button>-->
+                                                    <input type="text" name="ProductListQuantity[]" value = "<?= $quantity?>" id="product-list-qty-<?= $count?>" class="product-list-qty form-control" placeholder="Qty" oninput="numberValidation(this)" data-count='<?= $count?>'>
+                                                    <span id="qty-span-<?= $count?>"></span>
+            <!--                                            <button class="btn" onclick="quantitybtn(this)" id="minus-<?= $count?>" >-</button>-->
+
+                                                </div>
+                                            </div>
+                                    <?php } }?>
+                                    <br>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group col-md-11">
+                                            <label>Product List Amount</label>
+                                            <input type="text" name="products_total_amount" id="products_total_amount" class="form-control" value="<?php echo !empty($quotation_data['products_total_amount'])?$quotation_data['products_total_amount']:set_value('products_total_amount'); ?>" placeholder="Product List Amount" />
+                                            <span class="help-block"><?php echo form_error('products_total_amount'); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group col-md-11">
+                                            <label>Distance Amount</label>
+                                            <input type="text" name="distance_amount" id="distance_amount" class="form-control" value="<?php echo !empty($quotation_data['distance_amount'])?$quotation_data['distance_amount']:set_value('distance_amount'); ?>" placeholder="Distance Amount" />
+                                            <span class="help-block"><?php echo form_error('distance_amount'); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group col-md-11">
+                                            <label>Vehicle Amount</label>
+                                            <input type="text" name="vehicle_amount" id="vehicle_amount" class="form-control" value="<?php echo !empty($quotation_data['vehicle_amount'])?$quotation_data['vehicle_amount']:set_value('vehicle_amount'); ?>" placeholder="Vehcile Amount" />
+                                            <span class="help-block"><?php echo form_error('vehicle_amount'); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group col-md-11">
+                                            <label>Discount</label>
+                                            <input type="text" name="discount" id="discount" class="form-control" value="<?php echo !empty($quotation_data['discount'])?$quotation_data['discount']:set_value('discount'); ?>" placeholder="Discount" />
+                                            <span class="help-block"><?php echo form_error('discount'); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group col-md-11">
+                                            <label>Total Amount</label>
+                                            <input type="text" name="total_amount" id="total_amount" class="form-control" value="<?php echo !empty($quotation_data['total_amount'])?$quotation_data['total_amount']:set_value('total_amount'); ?>" placeholder="Total Amount" />
+                                            <span class="help-block"><?php echo form_error('total_amount'); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4"></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group col-md-11">
                                             <div class="checkbox">
-                                                <label><input type="checkbox" value="1" name="packer" id="packer" <?= ($quotation_data['packer']==1)?"checked":"";?> >Do you need a professional packers?</label>
+                                                <label><input type="checkbox" value="1" name="packer" id="packer" <?= !empty($quotation_data['packer'])?($quotation_data['packer']==1)?"checked":"":'';?> >Do you need a professional packers?</label>
                                             </div>
                                             <span class="help-block"><?php echo form_error('packer'); ?></span>
                                         </div>
                                         <div class="form-group col-md-11">
                                             <div class="checkbox">
-                                                <label><input type="checkbox" value="1" name="storage" id="storage" <?= ($quotation_data['storage']==1)?"checked":"";?> >Do you need a storage facilities?</label>
+                                                <label><input type="checkbox" value="1" name="storage" id="storage" <?= !empty($quotation_data['packer'])?($quotation_data['storage']==1)?"checked":"":'';?> >Do you need a storage facilities?</label>
                                             </div>
                                             <span class="help-block"><?php echo form_error('storage'); ?></span>
                                         </div>
                                         <div class="form-group col-md-11">
                                             <div class="checkbox">
-                                                <label><input type="checkbox" value="1" name="vehicle_shifting" id="vehicle_shifting" <?= ($quotation_data['vehicle_shifting']==1)?"checked":"";?> >Do you need a shifting of your vehicle also?</label>
+                                                <label><input type="checkbox" value="1" name="vehicle_shifting" id="vehicle_shifting" <?= !empty($quotation_data['packer'])?($quotation_data['vehicle_shifting']==1)?"checked":"":'';?> >Do you need a shifting of your vehicle also?</label>
                                             </div>
                                             <span class="help-block"><?php echo form_error('vehicle_shifting'); ?></span>
                                         </div>
@@ -163,6 +270,9 @@
                                 <button type="submit" class="btn btn-success">Submit</button>
                                 <a href="<?php echo base_url(); ?>quotation"><button type="button" class="btn btn-warning">Cancel</button></a>
                             </div>
+                            <?php if(!empty($quotation_data['id'])){ ?>
+                                <input type="hidden" value="<?= $quotation_data['id']?>" name="id">
+                            <?php } ?>
                         </form>
 
                     </div>  
