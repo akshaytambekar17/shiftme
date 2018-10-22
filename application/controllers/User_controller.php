@@ -7,6 +7,13 @@ class User_controller extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('User_model', 'user');
+        $this->load->model('admin/Admin_model');
+        $this->load->model('admin/OrderModel','Order');
+        $this->load->model('admin/InvoiceModel','Invoice');
+        $this->load->model('admin/EnquiryModel','Enquiry');
+        $this->load->model('admin/QuotationModel','Quotation');
+        $this->load->model('admin/QuotationHasProductModel','QuotationHasProduct');
+        $this->load->model('admin/ProductListModel','ProductList');
         $this->load->helper('message');
 //        $this->load->model('Event_model', 'event');
     }
@@ -69,16 +76,16 @@ class User_controller extends MY_Controller {
         if ($this->session->userdata('uid') == "") {
             redirect(site_url());
         }
+        $user_id = $this->session->userdata('uid');
         $data['metadata'] = "My Account";
         $data['template'] = "myaccount";
         $data['name'] = "My Account";
         $data['result'] = $this->user->user_details();
+        $data['enquiry_list'] = $this->Enquiry->getEnquiryByUserId($user_id);
+        $data['quotation_list'] = $this->Quotation->getQuotationByUserId($user_id);
+        $data['orders_list'] = $this->Order->getOrdersByUserId($user_id);
         $data['inquery_list'] = $this->user->user_inquery_list();
         $data['quote_list'] = $this->user->user_quote_list();
-//        echo '<pre>';
-//        print_r($data['quote_list']);
-//        echo '</pre>';
-//        die();
         $this->layout($data);
     }
 

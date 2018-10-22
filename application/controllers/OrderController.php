@@ -18,6 +18,7 @@ class OrderController extends MY_Controller {
         parent::__construct();
         $this->load->model('admin/Admin_model');
         $this->load->model('admin/OrderModel');
+        $this->load->model('admin/QuotationModel');
         $this->load->library('form_validation');
         $this->load->helper('message');
         $this->load->model('site_model');
@@ -32,11 +33,12 @@ class OrderController extends MY_Controller {
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Orders"));
         $this->admin_layout($this->data);
     }
-    public function create(){
+    public function make(){
         if($this->session->userdata('uid') == ''){
             $this->session->set_flashdata('Error', 'Please Login');
             return redirect('', 'refresh');
         }else{
+            
             $post = $this->input->post();
             $quotation_data = $this->QuotationModel->getQuotationByIdWithPrice($post['quotation_id']);
             $order_data = array('quotation_id' => $post['quotation_id'],
@@ -58,39 +60,6 @@ class OrderController extends MY_Controller {
                 echo false;
             }
             //$this->session->set_flashdata('insert_msg', 'Your order has been placed successfully. Our support team will contact soon for order confirmation.');
-        }
-    }
-    public function update(){
-        $get = $this->input->get(); 
-        if($this->input->post()){
-            $post = $this->input->post();
-            $this->form_validation->set_rules('status', 'Status', 'trim|required');            
-            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-            if($this->form_validation->run() == TRUE){
-                $result = $this->OrderModel->update($post);
-                if ($result){
-                    $this->session->set_flashdata('Message', 'Order Updated Succesfully');
-                    return redirect('order', 'refresh');
-                } else {
-                    $order_data = $this->OrderModel->getOrderByIdWithQuotation($post['id']);
-                    $this->data['order_data'] = $order_data;
-                    $this->data['template'] = "Order/update";
-                    $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('order'), 'page' => "Orders"),array('link' => '#', 'page' => $order_data['order_no']));
-                    $this->admin_layout($this->data);
-                }
-            }else{
-                $order_data = $this->OrderModel->getOrderByIdWithQuotation($post['id']);
-                $this->data['order_data'] = $order_data;
-                $this->data['template'] = "Order/update";
-                $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('order'), 'page' => "Orders"),array('link' => '#', 'page' => $order_data['order_no']));
-                $this->admin_layout($this->data);
-            }
-        }else{
-            $order_data = $this->OrderModel->getOrderByIdWithQuotation($get['id']);
-            $this->data['order_data'] = $order_data;
-            $this->data['template'] = "Order/update";
-            $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => site_url('order'), 'page' => "Orders"),array('link' => '#', 'page' => $order_data['order_no']));
-            $this->admin_layout($this->data);
         }
     }
     public function delete(){

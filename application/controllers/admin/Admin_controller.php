@@ -19,6 +19,7 @@ class Admin_controller extends MY_Controller {
         $this->load->model('admin/Admin_model');
         $this->load->model('admin/ProductListModel');
         $this->load->model('admin/QuotationModel');
+        $this->load->model('admin/OrderModel');
         $this->load->library('form_validation');
         $this->load->helper('message');
         $this->load->model('site_model');
@@ -33,6 +34,8 @@ class Admin_controller extends MY_Controller {
         $this->data['user_list'] = $this->User_model->getUsers();
         $this->data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
         $this->data['product_list'] = $this->ProductListModel->getProductsList();
+        $this->data['order_list'] = $this->OrderModel->getOrders();
+        $this->data['order_completed_list'] = $this->OrderModel->getOrderCompleted();
         $this->data['template'] = "dashboard";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Dashboard"));
         $this->load->view('includes/adminltehead');

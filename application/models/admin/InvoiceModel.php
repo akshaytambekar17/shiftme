@@ -28,6 +28,12 @@ class InvoiceModel extends MY_Model {
         $data= $query->result_array();
         return $data;
     }
+    public function insert($data){
+        $this->db->trans_start();
+        $this->db->insert('trans_invoice', $data);
+        $this->db->trans_complete();
+        return true;
+    }
     public function delete($id) {
         $this->db->where('id',$id);
         $this->db->delete('trans_invoice'); 

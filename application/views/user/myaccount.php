@@ -14,7 +14,7 @@
     <div class="container">
         <h2 class="mg-sec-left-title mytitle" style="font-weight: 600;color: #71747b;">My Account</h2>
         <p></p>
-        <div class="row" style="min-height:300px;">
+        <div class="row" style="min-height:300px;" id="alert-msg-show">
             <?php if ($this->session->flashdata('insert_msg')) { ?>
                 <div class = "alert alert-success alert-dismissable">
                     <button type = "button" class = "close" data-dismiss = "alert" aria-hidden = "true">&times</button>
@@ -32,8 +32,9 @@
                 <div class="col-xs-12 col-lg-3 col-md-3 col-sm-12">
                     <ul class="nav nav-tabs tabs-left">
                         <li class="active"> <a href="#profile" data-toggle="tab">Profile</a></li>
-                        <li><a href="#messages" data-toggle="tab">User Booking</a></li>
-                        <li><a href="#quotemsg" data-toggle="tab">User Quote</a></li>
+                        <li><a href="#myorders" data-toggle="tab">My Order</a></li>
+                        <li><a href="#myquotation" data-toggle="tab">My Quotation</a></li>
+                        <li><a href="#myenquires" data-toggle="tab">My Enquires</a></li>
                         <li><a href="#settings" data-toggle="tab">Change Password</a></li>
                     </ul>
                 </div>
@@ -133,103 +134,171 @@
 
                             </form>
                         </div>
-                        <div class="tab-pane" id="messages">
+                        <div class="tab-pane" id="myorders">
                            
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="table-responsive">
-                                        <table id="example" class="table table-striped table-bordered " style="width: 100% !important" cellspacing="0">
+                                        <table id="example" class="table table-striped table-bordered  myorders-table" style="width: 100% !important" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>Order Id</th>
+                                                    <th class="hidden">Id</th>
+                                                    <th>Order Number</th>
+                                                    <th>Quotation Number</th>
                                                     <th>Pickup Point</th>
-                                                    <!--<th>Pickup Address</th>-->
-                                                    <!--<th>Pickup Landmark</th>-->
-                                                    <!--<th>Pickup Landmark</th>-->
                                                     <th>Drop Point</th>
-                                                    <!--<th>Drop Address</th>-->
-                                                    <!--<th>Drop Pincode</th>-->
                                                     <th>Vehicle</th>
-                                                    <th>Date</th>
+                                                    <th>Shifting Date</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th>Total Amount</th>
+<!--                                                    <th>Action</th>-->
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php
-                                                $i = 1;
-//                                                echo '<pre>';
-//                                                print_r($inquery_list);
-//                                                echo '</pre>';
-//                                                die();
-                                                foreach ($inquery_list as $r) {
-//                                                    echo '<pre>';
-//                                                    print_r($r['eid']);
-//                                                    echo '</pre>';
-//                                                    die();
-                                                    ?>
-                                                    <tr>
+                                                <?php 
+                                                    if (!empty($orders_list)) {
+                                                        foreach($orders_list as $value) { 
+                                                ?>
+                                                    <tr class="gradeX" id="order-<?= $value['order_id'] ?>">
+                                                        <td class="hidden"><?= $value['order_id']; ?></td>
+                                                        <td><?= $value['order_no']; ?></td>
+                                                        <td><?= $value['quotation_no']; ?></td>
+                                                        <td><?= $value['starting_location']; ?></td>
+                                                        <td><?= $value['delivery_location']; ?></td>
                                                         <td><?php
-                                                            $c = $r['eid'];
-                                                            $no = "ODR";
-                                                            $number = strlen((string) $c);
-                                                            for ($j = 6; $j > $number; $j--) {
-                                                                $no .= "0";
-                                                            };
-                                                            $no .= $c;
-                                                            echo $no;
-                                                            ?></td>
-                                                        <td><?= $r['pickuppoint'] ?></td>
-                                                        <!--<td><?= $r['pickupAddress'] ?></td>-->
-                                                        <!--<td><?= $r['pickupLandmark'] ?></td>-->
-                                                        <!--<td><?= $r['pickupLandmark'] ?></td>-->
-                                                        <td><?= $r['dropPoint'] ?></td>
-                                                        <!--<td><?= $r['dropAddress'] ?></td>-->
-                                                        <!--<td><?= $r['dropPincode'] ?></td>-->
-                                                        <td><?= $r['vehicle_name'] ?></td>
-                                                        <td><?= $r['BookingDate'] ?></td>
-                                                        <td><?= $r['bstatus'] ?></td>
-                                                        <td><button class="btn btn-primary" onclick="showEnquiry('<?php echo $r['eid'] ?>')" data-toggle="modal" data-target="#Enquiry-modal"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                                                $vehicle = $this->user->getVehicleById($value['vehicle_id']);
+                                                                echo $vehicle['vehicle_name'];
+                                                            ?>
                                                         </td>
-                                                                                                            <!--<td></td>-->
+                                                        <td><?= $value['shifting_date']; ?></td>
+                                                        <td><?php
+                                                                if($value['order_status']==1){
+                                                                    echo "Pending";
+                                                                }else if($value['order_status']==2){
+                                                                    echo "Completed";
+                                                                }else{
+                                                                    echo "Cancelled";
+                                                                }
+                                                            ?>
+                                                        </td>
+                                                        <td><?= $value['total_amount']; ?></td>
+<!--                                                        <td>
+                                                            <a href="javascript:void(0)" class="btn btn-primary view-order" data-id="<?= $value['order_id'] ?>" name="view-order">View</a><br>
+                                                            <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['order_id'] ?>" data-orderno="<?= $value['order_no']?>" name="delete-order" onclick="orderDelete(this)">Delete</a><br>
+                                                        </td>-->
                                                     </tr>
-<?php } ?>
+                                                <?php 
+                                                        } 
+                                                    }else{ 
+                                                ?>
+                                                    <td colspan="8" class="center">No Data available</td>    
+                                                <?php }?>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="quotemsg">
-
+                        <div class="tab-pane" id="myquotation">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="table-responsive">
-                                        <table  class="table table-striped table-bordered dt-responsive example" style="width: 100% !important" cellspacing="0">
+                                        <table  class="table table-striped table-bordered dt-responsive example myquotation-table" style="width: 100% !important" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>Sr. No.</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Pickup Point</th>
-                                                    <th>Drop Point</th>
-                                                    <th>Date</th>
+                                                    <th class="hidden">Id</th>
+                                                    <th>Quotation Number</th>
+                                                    <th>Full name</th>
+                                                    <th>Email id</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Starting Address</th>
+                                                    <th>Delivery Address</th>
+                                                    <th>Vehicle</th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $i = 1;
-                                                foreach ($quote_list as $r) {
-                                                    ?>
-                                                    <tr>
-                                                        <td><?= $i++ ?></td>
-                                                        <td><?= $r['name'] . ' ' . $r['surname'] ?></td>
-                                                        <td><?= $r['email'] ?></td>
-                                                        <td><?= $r['from_loc'] ?></td>
-                                                        <td><?= $r['to_loc'] ?></td>
-                                                        <td><?= $r['shifting_date'] ?></td>
+                                                    if (!empty($quotation_list)) {
+                                                        foreach ($quotation_list as $key => $value) {
+                                                ?>
+                                                            <tr class="gradeX" id="quotation-<?= $value['id'] ?>">
+                                                                <td class="hidden"><?= $value['id']; ?></td>
+                                                                <td><?= $value['quotation_no']; ?></td>
+                                                                <td><?= $value['fullname']; ?></td>
+                                                                <td><?= $value['email_id']; ?></td>
+                                                                <td><?= $value['mobile_no']; ?></td>
+                                                                <td><?= $value['starting_address']; ?></td>
+                                                                <td><?= $value['delivery_address']; ?></td>
+                                                                <td>
+                                                                    <?php 
+                                                                        $vehicle = $this->Admin_model->getVehicleServicesById($value['vehicle_id']);
+                                                                        if(!empty($vehicle)){
+                                                                            echo $vehicle['vehicle_name'];
+                                                                        }
+                                                                    ?>
+                                                                </td>
+                                                                <td>
+<!--                                                                    <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)">Delete</a><br><br>-->
+                                                                    <?php if($value['is_order'] != 1){?>
+                                                                        <a href="javascript:void(0)" class="btn btn-success make-order" data-quotation_id="<?= $value['id'] ?>" data-quotation_no="<?= $value['quotation_no'] ?>" name="make_order" onclick="makeOrder(this)">Make Order</a><br><br>
+                                                                    <?php } ?>    
+                                                                    <a href="<?= base_url()?>quote/view?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['user_id'] ?>" name="view_quotation" >View Quotation</a><br>
+                                                                </td>
+                                                            </tr>
+                                                <?php
+                                                        }
+                                                    }else{
+                                                ?>
+                                                        <td colspan="8" class="center">No Data available</td>    
+                                                <?php }?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="myenquires">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="table-responsive">
+                                        <table  class="table table-striped table-bordered dt-responsive example myenquires-table" style="width: 100% !important" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="hidden">Id</th>
+                                                    <th>Pickup Point</th>
+                                                    <th>Drop Point</th>
+                                                    <th>Vehicle</th>
+                                                    <th>Shifting Date</th>
+<!--                                                    <th>Action</th>-->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
+                                                    if (!empty($enquiry_list)) {
+                                                        foreach($enquiry_list as $value) { 
+                                                ?>
+                                                    <tr class="gradeX" id="order-<?= $value['enquiry_id'] ?>">
+                                                        <td class="hidden"><?= $value['enquiry_id']; ?></td>
+                                                        <td><?= $value['starting_location']; ?></td>
+                                                        <td><?= $value['delivery_location']; ?></td>
+                                                        <td><?php
+                                                                $vehicle = $this->user->getVehicleById($value['vehicle_id']);
+                                                                echo $vehicle['vehicle_name'];
+                                                            ?>
+                                                        </td>
+                                                        <td><?= $value['shifting_date']; ?></td>
+<!--                                                        <td>
+                                                            <a href="javascript:void(0)" class="btn btn-primary view-order" data-id="<?= $value['enquiry_id'] ?>" name="view-order">View</a>
+                                                            <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['enquiry_id'] ?>" name="delete-enquiry" onclick="enquiryDelete(this)">Delete</a><br>
+                                                        </td>-->
                                                     </tr>
-<?php } ?>
+                                                <?php
+                                                        }
+                                                    }else{
+                                                ?>
+                                                        <td colspan="7" class="center">No Data available</td>    
+                                                <?php }?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -378,10 +447,64 @@
         </div>
     </div>
 </div>
+<div class="modal fade order-popup" id="orderConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="text-center popup-content">  
+                    <h5 style="color:black"> By clicking on <span>"YES"</span>, Your order of Quotation number <span id="order-no-span"></span> will be placed. Do you wish to proceed?</h5><br><br>
+                    <input  type="hidden" name="id_modal" id="id_modal" value=""> 
+                    <button type="button" id="confirm_btn" class="btn btn-success modal-box-button" onclick="confirmBtn(this)">Yes</button>
+                    <button type="button" class="btn btn-danger modal-box-button" data-dismiss="modal"  >No</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
 <script>
     /**
      * Comment
      */
+    $(document).ready(function () {
+        $(".alert").delay(5000).slideUp(200, function() {
+            $(this).alert('close');
+        });
+    });
+    function confirmBtn(ths){
+        var quotation_id=$("#id_modal").val();
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>" + "makeOrder",
+            data: { 'quotation_id' : quotation_id },
+            success: function(result){
+                $('#orderConfirmationModal').modal('hide');
+                if(result){
+                    $('html, body').animate({ scrollTop: 0 }, 'slow');
+                    $('#alert-msg-show').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  Your order has been placed successfully. Our support team will contact soon for order confirmation. <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('.alert').fadeIn().delay(3000).fadeOut(function () {
+                        $(this).remove();
+                    });
+                }else{
+                    $('html, body').animate({ scrollTop: 0 }, 'slow');
+                    $('#alert-msg-show').parent().before('<div class="alert alert-danger"><i class="fa fa-check-circle"></i>  Someting went wrong. Please try again...! <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('.alert').fadeIn().delay(3000).fadeOut(function () {
+                        $(this).remove();
+                    });
+                }
+                setTimeout(function(){ 
+                    location.reload();
+                }, 3000);
+            }
+        });
+    }
+    function makeOrder(ths){
+        var quotation_id = $(ths).data('quotation_id');
+        var quotation_no = $(ths).data('quotation_no');
+        $("#id_modal").val(quotation_id);
+        $("#order-no-span").text(quotation_no);
+        $('#orderConfirmationModal').modal('show');
+    }
     function showEnquiry(id) {
         var controller = 'User_controller/ShowEnquiry';
         var url = '<?php echo site_url(); ?>';

@@ -57,14 +57,13 @@
                 <br>
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>53</h3>
-
+                        <h3><?= !empty($order_list)?count($order_list):0 ?></h3>
                         <p>Total Order</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?= site_url('order') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             
@@ -73,14 +72,13 @@
                 <br>
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3>65</h3>
-
+                        <h3><?= !empty($order_completed_list)?count($order_completed_list):0 ?></h3>
                         <p>Total Delivery</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?= site_url('order') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>

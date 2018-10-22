@@ -15,6 +15,22 @@
         <p class="text-center"><strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote. </p>
         <div class="range range-xs-center offset-top-50"></div>
         <div class="row">
+            <?php if($message = $this ->session->flashdata('Message')){?>
+                <div class="col-md-12 ">
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$message ?>
+                    </div>
+                </div>
+            <?php }?> 
+            <?php if($message = $this ->session->flashdata('Error')){?>
+                <div class="col-md-12 ">
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$message ?>
+                    </div>
+                </div>
+            <?php }?>
             <div class="col-md-12">
                 <form action="<?= site_url()?>quote" method="POST" class="clearfix contactform">
                     <div class="row">
@@ -45,17 +61,17 @@
                             <label for="subject">From</label>
                             <div class="input-group ">
                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                <input type="text" class="form-control" name="starting_address" id="from_loc">
-                                <span class="help-block"><?php echo form_error('starting_address'); ?></span>
+                                <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?php echo set_value('starting_location'); ?>" >
                             </div>
+                            <span class="help-block"><?php echo form_error('starting_location'); ?></span>
                         </div>
                         <div class=" col-md-6">
                             <label for="subject">To</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                <input type="text" class="form-control" name="delivery_address" id="to_loc">
-                                <span class="help-block"><?php echo form_error('delivery_address'); ?></span>
+                                <input type="text" class="form-control" name="delivery_location" id="to_loc"  value="<?php echo set_value('delivery_location'); ?>">
                             </div>
+                            <span class="help-block"><?php echo form_error('delivery_location'); ?></span>
                         </div>
                     </div>
                     <br>
@@ -64,8 +80,9 @@
                             <label for="subject">Shifting Date</label>
                             <div class="input-group date mg-check-in ">
                                 <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                <input type="text" class="form-control" id="shifting_date" name="shifting_date" placeholder="00/00/0000" required="">
+                                <input type="text" class="form-control" id="shifting_date" name="shifting_date"  value="<?php echo set_value('shifting_date'); ?>" required >
                             </div>
+                            <span class="help-block"><?php echo form_error('shifting_date'); ?></span>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -73,12 +90,11 @@
                                 <select name='vehicle_id'  class="form-control">
                                     <option disabled="disabled" selected="selected">Select Vehicle</option>
                                     <?php foreach ($vehicle_services_list as $value) { ?>
-                                        <option value="<?= $value['id']?>"><?= $value['vehicle_name']?></option> 
+                                        <option value="<?= $value['id']?>" <?= set_select('vehicle_id',$value['id'],TRUE); ?> ><?= $value['vehicle_name']?></option> 
                                     <?php }?>
                                 </select>
-                                <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
-
                             </div>
+                            <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
                         </div>
                     </div>
                     <br>
@@ -94,21 +110,22 @@
                                 <div class="col-md-4">
                                     <div class="form-group col-md-6">
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="<?= $value['id']?>" name="ProductList['name'][<?= $count ?>]" id="product-list-<?= $count?>" ><?= $value['name']?></label>
+                                            <label><input type="checkbox" value="<?= $value['id']?>" name="ProductListName[]" id="product-list-<?= $count?>" ><?= $value['name']?></label>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-3">
                                         
 <!--                                            <button class="btn" onclick="quantitybtn(this)" id="plus-<?= $count?>" >+</button>-->
-                                        <input type="text" name="ProductList['quantity'][<?= $count ?>]" id="product-list-qty-<?= $count?>" class="product-list-qty form-control" placeholder="Qty" oninput="numberValidation(this)" data-count='<?= $count?>'>
+                                        <input type="text" name="ProductListQuantity[]" id="product-list-qty-<?= $count?>" class="product-list-qty form-control" placeholder="Qty" oninput="numberValidation(this)" data-count='<?= $count?>'>
                                         <span id="qty-span-<?= $count?>"></span>
 <!--                                            <button class="btn" onclick="quantitybtn(this)" id="minus-<?= $count?>" >-</button>-->
                                         
                                     </div>
                                 </div>
                         <?php } }?>
-                        <span class="help-block"><?php echo form_error('ProductList'); ?></span>
+                        <br>
                     </div>
+                    <span class="help-block"><?php echo form_error('ProductListName[]'); ?></span>
                     
                     <div class="col-md-12">
                         <div class="row mt50">
@@ -143,8 +160,13 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <input type="submit" class="btn btn-dark-main pull-right" value="Send">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center">
+                            <br>
+                            <input type="submit" class="btn btn-dark-main" value="Send" >
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -162,6 +184,9 @@
         }
     }
     $(document).ready(function() {
+        $(".alert").delay(5000).slideUp(200, function() {
+            $(this).alert('close');
+        });
         $('.form-control').focus(function() {
             var $parent = $(this).parent();
             $parent.removeClass('text-danger');

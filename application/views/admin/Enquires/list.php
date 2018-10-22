@@ -6,64 +6,33 @@
         <?php $this->load->view('admin/layout/breadcrumb') ?>
         <!--//banner-->
         <!--content-->
-        <?php if($message = $this ->session->flashdata('Message')){?>
-            <div class="col-md-12 ">
-                <div class="alert alert-dismissible alert-success">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <?=$message ?>
-                </div>
-            </div>
-        <?php }?> 
-        <?php if($message = $this ->session->flashdata('Error')){?>
-            <div class="col-md-12 ">
-                <div class="alert alert-dismissible alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <?=$message ?>
-                </div>
-            </div>
-        <?php }?>
         <div class="content-top">
             <div class="col-md-12">
                 <div class="content-top-1">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="order_list">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="enquiry_list">
                             <thead>
                                 <tr>
                                     <th class="hidden">Id</th>
-                                    <th>Order Number</th>
-                                    <th>Quotation Number</th>
+                                    <th>Quotation number</th>
                                     <th>Full Name</th>
                                     <th>Email Id</th>
-                                    <th>Status</th>
-                                    <th>Total Amount</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php
-                                if (!empty($orders_list)) {
-                                    foreach ($orders_list as $key => $value) {
+                                if (!empty($enquiry_list)) {
+                                    foreach ($enquiry_list as $key => $value) {
                             ?>
-                                        <tr class="gradeX" id="order-<?= $value['order_id'] ?>">
-                                            <td class="hidden"><?= $value['order_id']; ?></td>
-                                            <td><?= $value['order_no']; ?></td>
+                                        <tr class="gradeX" id="order-<?= $value['enquiry_id'] ?>">
+                                            <td class="hidden"><?= $value['enquiry_id']; ?></td>
                                             <td><?= $value['quotation_no']; ?></td>
                                             <td><?= $value['fullname']; ?></td>
                                             <td><?= $value['email_id']; ?></td>
-                                            <td><?php
-                                                    if($value['order_status']==1){
-                                                        echo "Pending";
-                                                    }else if($value['order_status']==2){
-                                                        echo "Completed";
-                                                    }else{
-                                                        echo "Cancelled";
-                                                    }
-                                                ?>
-                                            </td>
-                                            <td><?= $value['total_amount']; ?></td>
                                             <td>
-                                                <a href="<?= site_url('order/update?id='.$value['order_id'])?>" class="btn btn-primary view-order" data-id="<?= $value['order_id'] ?>" name="view-order">Update</a><br><br>
-                                                <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['order_id'] ?>" data-orderno="<?= $value['order_no']?>" name="delete-order" onclick="orderDelete(this)">Delete</a><br>
+<!--                                                <a href="javascript:void(0)" class="btn btn-primary view-invoice" data-id="<?= $value['enquiry_id'] ?>" name="view-enquiry">View</a>-->
+                                                <a href="javascript:void(0)" class="btn btn-danger delete-invoice" data-id="<?= $value['enquiry_id'] ?>" name="delete-enquiry" onclick="enquiryDelete(this)">Delete</a><br>
                                             </td>
                                         </tr>
                                         <?php
@@ -85,7 +54,7 @@
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="text-center popup-content">  
-                    <h5> By clicking on <span>"YES"</span>, Order number <span id="order-no-span"></span> will be deleted permanently. Do you wish to proceed?</h5><br><br>
+                    <h5> By clicking on <span>"YES"</span>, Enquiry Data will be deleted permanently. Do you wish to proceed?</h5><br><br>
                     <input  type="hidden" name="id_modal" id="id_modal" value=""> 
                     <button type="button" id="confirm_btn" class="btn btn-success modal-box-button" >Yes</button>
                     <button type="button" class="btn btn-danger modal-box-button" data-dismiss="modal"  >No</button>
@@ -96,23 +65,20 @@
 </div>
 <script>
     $(document).ready(function () {
-        $(".alert").delay(5000).slideUp(200, function() {
-            $(this).alert('close');
-        });
-        $('#order_list').dataTable({
+        $('#enquiry_list').dataTable({
             "aaSorting": [[0, "desc"]],
         });
         $("#confirm_btn").on('click',function(){
             var id=$("#id_modal").val();
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>" + "order/delete",
-                data: { 'order_id' : id },
+                url: "<?php echo base_url(); ?>" + "enquiry/delete",
+                data: { 'id' : id },
                 success: function(result){
                     $('#deleteConfirmationModal').modal('hide');
                     if(result){
                         $('html, body').animate({ scrollTop: 0 }, 'slow');
-                        $('.content-top-1').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  Order has been deleted successfully...! <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                        $('.content-top-1').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  Enquiry has been deleted successfully...! <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                         $('.alert').fadeIn().delay(3000).fadeOut(function () {
                             $(this).remove();
                         });
@@ -130,11 +96,9 @@
             });
         });
     });
-    function userDelete(ths){
+    function enquiryDelete(ths){
         var id = $(ths).data('id');
-        var order_no = $(ths).data('orderno');
         $("#id_modal").val(id);
-        $("#order-no-span").text(order_no);
         $('#deleteConfirmationModal').modal('show');
     }
 </script>

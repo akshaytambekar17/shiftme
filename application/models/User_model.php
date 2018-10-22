@@ -310,6 +310,10 @@ class User_model extends MY_Model {
         $this->db->where('user_id',$user_id);
         return $this->db->get('trans_user_login')->row_array();
     }
+    public function getVehicleById($id) {
+        $this->db->where('id', $id);
+        return $this->db->get('trans_vehicle_services')->row_array();
+    }
     public function deleteUser($user_id) {
         $this->db->where('user_id',$user_id);
         $this->db->delete('trans_user_login'); 
