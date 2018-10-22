@@ -5,9 +5,13 @@
         <group>
             <file>file:/var/www/test2/application/config/routes.php</file>
             <file>file:/var/www/test2/application/models/admin/QuotationModel.php</file>
+            <file>file:/var/www/test2/application/models/admin/QuotationHasProductModel.php</file>
             <file>file:/var/www/test2/application/views/admin/Quotation/form_data.php</file>
             <file>file:/var/www/test2/application/views/admin/Quotation/list.php</file>
+            <file>file:/var/www/test2/application/models/admin/QuotationHasPricingModel.php</file>
             <file>file:/var/www/test2/application/controllers/admin/QuotationController.php</file>
+            <file>file:/var/www/test2/application/models/User_model.php</file>
+            <file>file:/var/www/test2/application/controllers/QuotationController.php</file>
         </group>
     </open-files>
 </project-private>
