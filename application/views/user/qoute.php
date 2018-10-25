@@ -91,7 +91,7 @@
     }
 
     .wizard .nav-tabs > li {
-        width: 20%;
+        width: 16%;
     }
 
 
@@ -167,25 +167,25 @@
 <section id="map-section">
     <div class="container">
         <div class="row mymap">
-            <div class="col-md-7 ">
+            <div class="col-md-6 ">
                 <div id="dvDistance">
                 </div>
-                <div class="estimate">
+<!--                <div class="estimate">
                     <p class="title">Estimate :</p>
 
                     <div class="">Estimated Distance&nbsp;:&nbsp;<span id='Distancekm'>0 km</span></div>
                     <div class="">Estimated Duration&nbsp;:&nbsp;<span id='Durationtime'></span> (60 mins free after that <i class="fa fa-inr"></i>&nbsp;<?= $selvehical[0]['free_waiting_minutes'] ?>)</div>
-                    <!--<div class="">First 3km free can apply for 10 km and more</div>-->
+                    <div class="">First 3km free can apply for 10 km and more</div>
                     <div class="">Charge Per Km.&nbsp;:&nbsp;<i class="fa fa-inr"></i>&nbsp;<span id='ChargesAfter'><?= $selvehical[0]['transit_charge'] != "" ? $selvehical[0]['transit_charge'] : "0" ?></span></div>
                     <div class="">Base Fare&nbsp;:&nbsp;<i class="fa fa-inr"></i>&nbsp;<span id='base_fare' class="chg_fare"><?= $selvehical[0]['base_fare'] != "" ? $selvehical[0]['base_fare'] : "0" ?></span></div>
                     <div class="">Total&nbsp;:&nbsp;<i class="fa fa-inr"></i>&nbsp;<span id="totalcharge">0</span><span></span></div>
 
-                </div>
+                </div>-->
 
                 <div id="dvMap" style=" height:400px;width:auto; ">
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <!--                        <h2 class="mg-sec-left-title">Send an E-mail</h2>-->
                 <div class="row">
                     <section>
@@ -227,9 +227,16 @@
                                         </a>
                                     </li>
                                     <li role="presentation" class="disabled">
-                                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                                        <a href="#step5" data-toggle="tab" aria-controls="step5" role="tab" title="Step 5">
                                             <span class="round-tab">
                                                 5
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#comlete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                                            <span class="round-tab">
+                                                6
                                             </span>
                                         </a>
                                     </li>
@@ -237,19 +244,34 @@
                             </div>
 
 
-                            <form role="form" id="myform" method="POST" action="<?= site_url() ?>User_controller/user_inquery">
-
+                            <form role="form" id="myform" method="POST" action="<?= site_url('quote')?>">
+                                
+                                <input type="hidden" class="form-control"  name="quote" id="quote" value="<?= 'quick-quote' ?>">
                                 <div class="tab-content">
                                     <div class="tab-pane active" role="tabpanel" id="step1">
                                         <div>
-                                            <ul class="mg-contact-info" style="margin: 0">
+<!--                                            <ul class="mg-contact-info" style="margin: 0">
                                                 <li class="row"><i class="fa fa-map-marker col-xs-1"></i><p class="col-xs-9"> Starting Address</p></li>
-                                            </ul>
-                                            <div class="mg-contact-form-input requared">
+                                            </ul>-->
+                                                <div class="form-group">
+                                                    <label>Starting Location</label>
+                                                    <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?= !empty($details['pickupPoint']) ? $details['pickupPoint'] :set_value('starting_location'); ?>" readonly>
+<!--                                                    <textarea rows="4" name="starting_address" id="starting_address"><?php echo !empty($quotation_data['starting_address'])?$quotation_data['starting_address']:set_value('starting_address'); ?></textarea>-->
+                                                    <span class="help-block"><?php echo form_error('starting_location'); ?></span>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label>Address</label>
+                                                    <input type="text" class="form-control"  name="starting_address" id="starting_address" placeholder="Address" value="<?= set_value('starting_address');?>">
+<!--                                                    <textarea rows="4" name="starting_address" id="starting_address"><?php echo !empty($quotation_data['starting_address'])?$quotation_data['starting_address']:set_value('starting_address'); ?></textarea>-->
+                                                    <span class="help-block"><?php echo form_error('starting_address'); ?></span>
+                                                </div>
+                                            
+<!--                                            <div class="mg-contact-form-input requared">
                                                 <input type="text" class="form-control"  name="picAddress" id="picAddress" placeholder="Address">
-                                            </div>
+                                            </div>-->
 
-                                            <div class="mg-contact-form-input requared">
+<!--                                            <div class="mg-contact-form-input requared">
 
                                                 <input class="form-control" id="txtSource"  name="pickuppoint" type="text" placeholder="Pune Station..." readonly value="<?php
                                                 if (!empty($details)) {
@@ -257,6 +279,11 @@
                                                 }
                                                 ?>">
 
+                                            </div>-->
+                                                
+                                            <label class="col-md-3"  style="padding-right: 0px ; padding-left: 0px !important;">Landmark</label>
+                                            <div class="mg-contact-form-input requared">
+                                                <input type="text" class="form-control"  name="picklandmark" id="picklandmark" placeholder="Landmark">
                                             </div>
                                             <div class="mg-contact-form-input" >
                                                 <label class="col-md-3"  style="padding-right: 0px ; padding-left: 0px !important;">Pin code</label>
@@ -265,13 +292,11 @@
                                                     if (!empty($details)) {
                                                         echo $details['pickupzip'];
                                                     }
-                                                    ?>" readonly >
+                                                    ?>"  >
 
                                                 </div>
                                             </div>
-                                            <div class="mg-contact-form-input requared">
-                                                <input class="form-control" name="picklandmark"  id="picklandmark" type="text" placeholder="Land mark" >
-                                            </div>
+                                            
                                             <ul class="mg-contact-info" style="margin-bottom: 0">
                                                 <li class="row"><i class="fa fa-map-marker col-xs-1" ></i><p class="col-xs-9"> Delivery Address</p></li>
                                             </ul>
@@ -295,7 +320,7 @@
                                                     if (!empty($details)) {
                                                         echo $details['dropzip'];
                                                     }
-                                                    ?>" readonly>
+                                                    ?>" >
 
                                                 </div>
                                             </div>
