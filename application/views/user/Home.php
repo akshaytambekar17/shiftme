@@ -138,13 +138,13 @@ and (max-device-width : 480px) {  }
                         <div class="col-md-3" >
                             <div class="input-group ">
                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                <input type="text" class="form-control" name="pickupPoint" id="pickupPoint" placeholder="Pickup Point" ng-data-model="log.pickupPoint">
+                                <input type="text" class="form-control" name="pickupPoint" id="pickupPoint" placeholder="Pickup Point">
                             </div>
                         </div>
                         <div class="form-group col-md-3" style="margin: 0px">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                <input type="text" class="form-control" name="dropPoint" id="dropPoint" placeholder="Drop off Point" ng-data-model="log.dropPoint">
+                                <input type="text" class="form-control" name="dropPoint" id="dropPoint" placeholder="Drop off Point">
                             </div>
                         </div>
                         <div class=" col-md-3" style="margin: 0px">
@@ -190,7 +190,7 @@ and (max-device-width : 480px) {  }
                     <form action="<?= site_url(); ?>quick-quote" method="POST" role="form" id="form-inq1">
                         <div class="row">
                             <div class="col-md-3 col-xs-12">
-                                <div class="input-group  ">
+                                <div class="input-group ">
                                     <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                                     <input type="text" class="form-control" name="pickupPoint" id="pickupPoint1" placeholder="Pickup Point">
                                 </div>

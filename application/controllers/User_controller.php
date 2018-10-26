@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_controller extends MY_Controller {
@@ -352,26 +352,27 @@ class User_controller extends MY_Controller {
     public function user_inquery() {
 
         $data['content'] = $_POST;
-
-        $rs = $this->user->user_inquery();
+        
+       // $rs = $this->user->user_inquery();
 //        user
-        $msg = $this->load->view('emails/quick_quote', $data, true);
-        if ($this->sendMail($_POST['email'], "Transport", $msg, "QUOTE", "kumar01anish@gmail.com")) {
-            
-        }
-//        admin
-        $msg = $this->load->view('emails/quick_quote_admin', $data, true);
-        if ($this->sendMail("kumar01anish@gmail.com", "Transport", $msg, "QUOTE", $_POST['email'])) {
-            
-        }
-        if ($rs) {
-            $this->session->set_flashdata('insert_msg', 'Quote Send Sucessfully.');
-        } else {
-            $this->session->set_flashdata('error_msg', 'Quote Send Failed.');
-        }
-        redirect(site_url());
+//        $msg = $this->load->view('emails/quick_quote', $data, true);
+//        if ($this->sendMail($_POST['email'], "Transport", $msg, "QUOTE", "kumar01anish@gmail.com")) {
+//            
+//        }
+////        admin
+//        $msg = $this->load->view('emails/quick_quote_admin', $data, true);
+//        if ($this->sendMail("kumar01anish@gmail.com", "Transport", $msg, "QUOTE", $_POST['email'])) {
+//            
+//        }
+//        if ($rs) {
+//            $this->session->set_flashdata('insert_msg', 'Quote Send Sucessfully.');
+//        } else {
+//            $this->session->set_flashdata('error_msg', 'Quote Send Failed.');
+//        }
+        redirect(site_url('quote',$data));
+        
     }
-
+    
     public function get_vehicleby_id($id) {
         $data = $this->user->get_vehicleby_id($id);
         echo json_encode($data[0]);

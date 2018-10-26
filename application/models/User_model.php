@@ -238,9 +238,9 @@ class User_model extends MY_Model {
     }
 
     public function user_inquery() {
-//        echo '<pre>';
-//        print_r($_POST);
-//        echo '</pre>';
+      //  echo '<pre>';
+    //    print_r($_POST);
+  //      echo '</pre>';
 //        die();
         $uid = $this->session->userdata('uid');
         if ($this->session->userdata('uid') == "") {
