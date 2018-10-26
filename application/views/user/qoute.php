@@ -156,6 +156,7 @@
     .estimate{ 
         border: 1px solid rgba(128, 128, 128, 0.41);
         padding: 15px;
+        margin-top: 30px;
         background: aliceblue;}
     .msg .modal-header{ border-bottom: 1px solid transparent;} 
     .msg .modal-body{text-align: center;
@@ -170,7 +171,7 @@
             <div class="col-md-6 ">
                 <div id="dvDistance">
                 </div>
-<!--                <div class="estimate">
+                <div class="estimate">
                     <p class="title">Estimate :</p>
 
                     <div class="">Estimated Distance&nbsp;:&nbsp;<span id='Distancekm'>0 km</span></div>
@@ -180,9 +181,9 @@
                     <div class="">Base Fare&nbsp;:&nbsp;<i class="fa fa-inr"></i>&nbsp;<span id='base_fare' class="chg_fare"><?= $selvehical[0]['base_fare'] != "" ? $selvehical[0]['base_fare'] : "0" ?></span></div>
                     <div class="">Total&nbsp;:&nbsp;<i class="fa fa-inr"></i>&nbsp;<span id="totalcharge">0</span><span></span></div>
 
-                </div>-->
+                </div>
 
-                <div id="dvMap" style=" height:400px;width:auto; ">
+                <div id="dvMap" style=" height:646px;width:auto; ">
                 </div>
             </div>
             <div class="col-md-6">
@@ -204,14 +205,16 @@
                                         </a>
                                     </li>
 
-                                    <li role="presentation" class="disabled">
+                                    <li role="presentation" class="">
+<!--                                    <li role="presentation" class="disabled">-->
                                         <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
                                             <span class="round-tab">
                                                 2
                                             </span>
                                         </a>
                                     </li>
-                                    <li role="presentation" class="disabled">
+                                    <li role="presentation" class="">
+<!--                                    <li role="presentation" class="disabled">-->
                                         <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
                                             <span class="round-tab">
                                                 3
@@ -219,34 +222,35 @@
                                         </a>
                                     </li>
 
-                                    <li role="presentation" id="complete_1" class="disabled">
-                                        <a href="#step4" data-toggle="tab" aria-controls="step3" role="tab" title="Step 4">
+                                    <li role="presentation" id="complete_1" class="">
+<!--                                    <li role="presentation" id="complete_1" class="disabled">-->
+                                        <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
                                             <span class="round-tab">
                                                 4
                                             </span>
                                         </a>
                                     </li>
-                                    <li role="presentation" class="disabled">
-                                        <a href="#step5" data-toggle="tab" aria-controls="step5" role="tab" title="Step 5">
+                                    <li role="presentation" class="">
+<!--                                    <li role="presentation" class="disabled">-->
+                                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
                                             <span class="round-tab">
                                                 5
                                             </span>
                                         </a>
                                     </li>
+<!--                                    <li role="presentation" class="">
                                     <li role="presentation" class="disabled">
                                         <a href="#comlete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
                                             <span class="round-tab">
                                                 6
                                             </span>
                                         </a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </div>
 
 
-                            <form role="form" id="myform" method="POST" action="<?= site_url('quote')?>">
-                                
-                                <input type="hidden" class="form-control"  name="quote" id="quote" value="<?= 'quick-quote' ?>">
+                            <form role="form" id="myform" method="POST" action="<?= site_url('quick-quote')?>">
                                 <div class="tab-content">
                                     <div class="tab-pane active" role="tabpanel" id="step1">
                                         <div>
@@ -255,7 +259,7 @@
                                             </ul>-->
                                                 <div class="form-group">
                                                     <label>Starting Location</label>
-                                                    <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?= !empty($details['pickupPoint']) ? $details['pickupPoint'] :set_value('starting_location'); ?>" readonly>
+                                                    <input type="text" class="form-control" name="starting_location" id="txtSource" value="<?= !empty($details['pickupPoint']) ? $details['pickupPoint'] :set_value('starting_location'); ?>" readonly>
 <!--                                                    <textarea rows="4" name="starting_address" id="starting_address"><?php echo !empty($quotation_data['starting_address'])?$quotation_data['starting_address']:set_value('starting_address'); ?></textarea>-->
                                                     <span class="help-block"><?php echo form_error('starting_location'); ?></span>
                                                 </div>
@@ -263,8 +267,37 @@
                                                 <div class="form-group">
                                                     <label>Address</label>
                                                     <input type="text" class="form-control"  name="starting_address" id="starting_address" placeholder="Address" value="<?= set_value('starting_address');?>">
-<!--                                                    <textarea rows="4" name="starting_address" id="starting_address"><?php echo !empty($quotation_data['starting_address'])?$quotation_data['starting_address']:set_value('starting_address'); ?></textarea>-->
                                                     <span class="help-block"><?php echo form_error('starting_address'); ?></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Land Mark</label>
+                                                    <input type="text" name="starting_landmark" id="starting_landmark" class="form-control" value="<?php echo !empty($quotation_data['starting_landmark'])?$quotation_data['starting_landmark']:set_value('starting_landmark'); ?>" placeholder="Land mark" />
+                                                    <span class="help-block"><?php echo form_error('starting_landmark'); ?></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Pincode</label>
+                                                    <input type="text" name="starting_pincode" id="starting_pincode" class="form-control" value="<?php echo !empty($quotation_data['starting_pincode'])?$quotation_data['starting_pincode']:set_value('starting_pincode'); ?>" placeholder="Pincode" />
+                                                    <span class="help-block"><?php echo form_error('starting_pincode'); ?></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Delivery Location</label>
+                                                    <input type="text" class="form-control" name="delivery_location" id="txtDestination" value="<?= !empty($details['dropPoint']) ? $details['dropPoint'] :set_value('delivery_location'); ?>" readonly>
+                                                    <span class="help-block"><?php echo form_error('delivery_location'); ?></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Address</label>
+                                                    <input type="text" class="form-control"  name="delivery_address" id="delivery_address" placeholder="Address" value="<?= set_value('delivery_address');?>">
+                                                    <span class="help-block"><?php echo form_error('delivery_address'); ?></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Land Mark</label>
+                                                    <input type="text" name="delivery_landmark" id="delivery_landmark" class="form-control" value="<?php echo !empty($quotation_data['delivery_landmark'])?$quotation_data['delivery_landmark']:set_value('delivery_landmark'); ?>" placeholder="Land mark" />
+                                                    <span class="help-block"><?php echo form_error('delivery_landmark'); ?></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Pincode</label>
+                                                    <input type="text" name="delivery_pincode" id="delivery_pincode" class="form-control" value="<?php echo !empty($quotation_data['delivery_pincode'])?$quotation_data['delivery_pincode']:set_value('delivery_pincode'); ?>" placeholder="Pincode" />
+                                                    <span class="help-block"><?php echo form_error('delivery_pincode'); ?></span>
                                                 </div>
                                             
 <!--                                            <div class="mg-contact-form-input requared">
@@ -281,7 +314,7 @@
 
                                             </div>-->
                                                 
-                                            <label class="col-md-3"  style="padding-right: 0px ; padding-left: 0px !important;">Landmark</label>
+<!--                                            <label class="col-md-3"  style="padding-right: 0px ; padding-left: 0px !important;">Landmark</label>
                                             <div class="mg-contact-form-input requared">
                                                 <input type="text" class="form-control"  name="picklandmark" id="picklandmark" placeholder="Landmark">
                                             </div>
@@ -295,9 +328,9 @@
                                                     ?>"  >
 
                                                 </div>
-                                            </div>
+                                            </div>-->
                                             
-                                            <ul class="mg-contact-info" style="margin-bottom: 0">
+<!--                                            <ul class="mg-contact-info" style="margin-bottom: 0">
                                                 <li class="row"><i class="fa fa-map-marker col-xs-1" ></i><p class="col-xs-9"> Delivery Address</p></li>
                                             </ul>
                                             <div class="mg-contact-form-input requared">
@@ -323,9 +356,9 @@
                                                     ?>" >
 
                                                 </div>
-                                            </div>
+                                            </div>-->
                                         </div>
-                                        <ul class="list-inline pull-right">
+                                        <ul class="list-inline">
                                             <li><button type="button" class="btn btn-primary next-step" onclick="return validStep1()">Save and continue</button></li>
 
                                         </ul>
@@ -338,8 +371,8 @@
                                                         <p class="col-xs-9" style="color:#040506">Select Vehicle</p></li>
                                                 </ul>
 
-                                                <select id="Vehiclesdetails"  name="Vehicles" class="fontawesome-select form-control " onchange="get_vehicle_details()" style="    height: 35px;">
-                                                    <option value="" selected>----------Vehicles ----------</option>
+                                                <select id="Vehiclesdetails"  name="vehicle_id" class="fontawesome-select form-control " onchange="get_vehicle_details()" style="    height: 35px;">
+                                                    <option disabled="disabled" selected="selected">Select Vehicle</option>
                                                     <?php foreach ($vehicle as $v) { ?>
                                                         <option value="<?php echo $v['id']; ?>"  <?= $selvehical[0]['id'] == $v['id'] ? 'selected' : '' ?>> <?php echo $v['vehicle_name']; ?></option>
                                                     <?php } ?>
@@ -359,25 +392,23 @@
                                                         <!-- <img src="" alt=""/>-->
                                                     </div>
                                                 </div>
-
-
-                                                <div class="mg-contact-form-input">
-                                                    <label class="col-md-4 control-label">No. Labour</label>
-                                                    <div class="col-md-4">
-                                                        <select id="Labour"  name="Labour" class="fontawesome-select form-control cd-select">
-                                                            <option value="0" selected>Labour</option>
-                                                            <option value="1" >1</option>
+                                                <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
+                                                <br><br>
+                                                <div class="form-group">`
+                                                    <label>No. of Labour</label>
+                                                        <select id="Labour"  name="labour" class="fontawesome-select form-control cd-select">
+                                                            <option disabled="disabled">Select Labour</option>
+                                                            <option value="1" selected="selected" >1</option>
                                                             <option value="2" >2</option>
                                                             <option value="3" >3</option>
                                                             <option value="4" >4</option>
                                                             <option value="5" >5</option>
                                                             <option value="6" >6 +</option>
                                                         </select>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <ul class="list-inline pull-right">
+                                        <ul class="list-inline">
                                             <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>
                                             <li style="padding-top: 1%;"><button type="button" class="btn btn-primary next-step" onclick="return validStep2()">Save and continue</button></li>
                                         </ul>
@@ -385,34 +416,34 @@
                                     <div class="tab-pane" role="tabpanel" id="step3">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="que">
-                                                    <p>Do you need a professional packing?  </p>
-                                                </div>
-                                                <div class="text-left">
-                                                    <label><input type="radio" name="radio2" id="radio3" value="1">Yes</label> 
-                                                    <label><input type="radio" name="radio2" id="radio4" value="0" checked="">no</label>
-                                                </div>
+                                                <label for="subject">Check Product List</label>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="que">
-                                                    <p>Do  you need storage facilities? </p>
-                                                </div>
-                                                <div class="text-left">
-                                                    <label><input type="radio" name="radio3" id="radio3" value="1">Yes</label> 
-                                                    <label><input type="radio" name="radio3" id="radio4" value="0" checked="">no</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="que">
-                                                    <p>Do you need shifting of your vehicle also? </p>
-                                                </div>
-                                                <div class="text-left">
-                                                    <label><input type="radio" name="radio4" id="radio3" value="1">Yes</label> 
-                                                    <label><input type="radio" name="radio4" id="radio4" value="0" checked="">no</label>
-                                                </div>
-                                            </div>
+                                            <?php if(!empty($product_list) && count($product_list)>0){
+                                                    $count = 1;
+                                                    foreach($product_list as $value){
+                                                        $checked = '';
+                                                        $quantity = '';
+                                            ?>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group col-md-8">
+                                                            <div class="checkbox">
+                                                                <label><input type="checkbox" value="<?= $value['id']?>" name="ProductListName[]" id="product-list-<?= $count?>" <?= $checked?>><?= $value['name']?></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+
+                    <!--                                            <button class="btn" onclick="quantitybtn(this)" id="plus-<?= $count?>" >+</button>-->
+                                                            <input type="text" name="ProductListQuantity[]" value = "<?= $quantity?>" id="product-list-qty-<?= $count?>" class="product-list-qty form-control" placeholder="Qty" oninput="numberValidation(this)" data-count='<?= $count?>'>
+                                                            <span id="qty-span-<?= $count?>"></span>
+                    <!--                                            <button class="btn" onclick="quantitybtn(this)" id="minus-<?= $count?>" >-</button>-->
+
+                                                        </div>
+                                                    </div>
+                                            <?php } }?>
+                                            <br>
                                         </div>
-                                        <ul class="list-inline pull-right">
+                                        
+                                        <ul class="list-inline">
                                             <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>
                                             <li style="padding-top: 1%;"><button type="button" class="btn btn-primary btn-info-full next-step" onclick="return validStep3()">Save and continue</button></li>
                                         </ul>
@@ -420,14 +451,58 @@
                                     <div class="tab-pane" role="tabpanel" id="step4">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="input-group date mg-check-in  focus">
-                                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                    <input type="text" class="form-control" name="date"  id="bookingdate" placeholder="00/00/0000">
+                                                <div class="form-group">
+                                                    <label>Shifting Amount</label>
+                                                    <input type="text" name="total_amount" id="total_amount" class="form-control" value="<?php echo set_value('total_amount'); ?>" readonly />
+                                                    <span class="help-block"><?php echo form_error('total_amount'); ?></span>
                                                 </div>
-                                                <p>Book at least 90 min prior.</p>
                                             </div>
                                         </div>
-                                        <ul class="list-inline pull-right">
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Shifting Date</label>
+                                                    <div class="input-group date mg-check-in  focus">
+                                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                        <input type="text" class="form-control" name="shifting_date"  id="bookingdate" placeholder="00/00/0000">
+                                                    </div>
+                                                </div>
+                                                <p>Book at least 90 min prior.</p>
+                                                <span class="help-block"><?php echo form_error('shifting_date'); ?></span>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="que">
+                                                    <p>Do you need a professional packing?  </p>
+                                                </div>
+                                                <div class="text-left">
+                                                    <label><input type="radio" name="packer" id="radio3" value="1">Yes</label> 
+                                                    <label><input type="radio" name="packer" id="radio4" value="0" checked="">no</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="que">
+                                                    <p>Do  you need storage facilities? </p>
+                                                </div>
+                                                <div class="text-left">
+                                                    <label><input type="radio" name="storage" id="radio3" value="1">Yes</label> 
+                                                    <label><input type="radio" name="storage" id="radio4" value="0" checked="">no</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="que">
+                                                    <p>Do you need shifting of your vehicle also? </p>
+                                                </div>
+                                                <div class="text-left">
+                                                    <label><input type="radio" name="vehicle_shifting" id="radio3" value="1">Yes</label> 
+                                                    <label><input type="radio" name="vehicle_shifting" id="radio4" value="0" checked="">no</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="list-inline">
                                             <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>
                                             <li style="padding-top: 1%;"><button type="button" class="btn btn-primary btn-info-full next-step" onclick="return validStep4()">Save and continue</button></li>
                                         </ul>
@@ -441,19 +516,17 @@
                                                     <input type="text"  class="form-control" name="fullname" id="fullname" placeholder="Full Name">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <input class="form-control"  id="mobileNo" name="mobileNo" maxlength="10" type="text" placeholder="Mobile No." oninput="validateNumber(this);">
+                                                    <input class="form-control"  id="mobileNo" name="mobile_no" maxlength="10" type="text" placeholder="Mobile No." oninput="validateNumber(this);" value="<?= !empty($userDetails['mobileno'])?$userDetails['mobileno']:''?>">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <input class="form-control"  id="email" name="email" type="email" placeholder="Email Address.">
+                                                    <input class="form-control"  id="email" name="email_id" type="email" placeholder="Email Address" value="<?= !empty($userDetails['email'])?$userDetails['email']:''?>">
                                                 </div>
-                                                <input type="hidden" id='total_amount' name='total_amount'>
-                                                <input type="hidden" id='total_distance' name='total_distance'>
-
                                             </div>
                                         </div>
-                                        <ul class="list-inline pull-right">
+                                        <ul class="list-inline">
                                             <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>
-                                            <li style="padding-top: 1%;"><button type="submit" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Submit</button> </li>
+                                            <li style="padding-top: 1%;"><button type="submit" name="quote" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Get Quotation</button> </li>
+                                            <li style="padding-top: 1%;"><button type="submit" name="order" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Make Order</button> </li>
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>

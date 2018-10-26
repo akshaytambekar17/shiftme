@@ -53,37 +53,7 @@ class QuotationController extends MY_Controller {
                 $this->layout($data);
             }else{
                
-                $details= $this->input->post();
-                print_r($details);
-                die;
-                if( $details['quote']=='quick-quote')
-                {
-                    $data['fullname']=$details['fullname'];
-                    $data['email_id']=$details['email_id'];
-                    $data['mobile_no']=$details['mobile_no'];
-                    $data['starting_location']=$details['starting_location'];
-                    $data['starting_address']=$details['starting_address'];
-                    $data['starting_landmark']=$details['starting_landmark'];
-                    $data['starting_pincode']=$details['starting_pincode'];
-                    $data['delivery_address']=$details['delivery_address'];
-                    $data['delivery_landmark']=$details['delivery_landmark'];
-                    $data['delivery_pincode']=$details['delivery_pincode'];
-                    $data['vehicle_id']=$details['vehicle_id'];
-                    $data['labour']=$details['labour'];
-                    $data['packer']=$details['packer'];
-                    $data['storage']=$details['storage'];
-                    $data['vehicle_shifting']=$details['vehicle_shifting'];
-                    $data['pricing_id']=$details['pricing_id'];
-                    $data['created_at']=$details['created_at'];
-                    $data['updated_at']=$details['updated_at'];
-                    $data['is_delete']=$details['is_delete'];
-                    $data['is_read']=$details['is_read'];
-                    $data['is_send_user']=$details['is_send_user'];
-                    $data['is_order']=$details['is_order'];
-                    
-                    $this->QuotationModel->add($data);
-                }
-              else{  
+                $post = $this->input->post();
                 $this->form_validation->set_rules('fullname', 'Full Name', 'trim|required');
                 $this->form_validation->set_rules('mobile_no', 'Mobile Number', 'trim|required|numeric|regex_match[/^[0-9]{10}$/]');
                 $this->form_validation->set_rules('email_id', 'Email', 'trim|required|valid_email');
@@ -93,7 +63,7 @@ class QuotationController extends MY_Controller {
                 $this->form_validation->set_rules('shifting_date', 'Shifiting Date', 'trim|required');
                 $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
                 if($this->form_validation->run() == TRUE){
-                    
+                    $details = $post;
                     unset($details['ProductListName']);
                     unset($details['ProductListQuantity']);
                     $details['shifting_date'] = date("Y-m-d", strtotime($details['shifting_date']));
@@ -141,7 +111,6 @@ class QuotationController extends MY_Controller {
                     $data['product_list'] = $this->ProductListModel->getProductsList();
                     $this->layout($data);
                 }
-              }  
             }
         }else{
             $data['metadata'] = "Quotation";
