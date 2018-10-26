@@ -105,31 +105,130 @@ class User_controller extends MY_Controller {
         $data['metadata'] = "Qoute";
         $data['template'] = "qoute_1";
         $data['name'] = "Qoute";
+        $data['product_list'] = $this->ProductList->getProductsList();
         $data['vehicle'] = $this->user->vehicle_list();
         $this->layout($data);
     }
 
     public function quick_qoute() {
+        
+        if($this->input->post()){
+            $post = $this->input->post();
+            printDie($post);
+            $this->form_validation->set_rules('fullname', 'Full Name', 'trim|required');
+            $this->form_validation->set_rules('mobile_no', 'Mobile Number', 'trim|required|numeric|regex_match[/^[0-9]{10}$/]');
+            $this->form_validation->set_rules('email_id', 'Email', 'trim|required|valid_email');
+            $this->form_validation->set_rules('starting_location', 'Starting Address', 'trim|required');
+            $this->form_validation->set_rules('delivery_location', 'Delivery Address', 'trim|required');
+            $this->form_validation->set_rules('vehicle_id', 'Vechicle', 'trim|required');
+            $this->form_validation->set_rules('shifting_date', 'Shifiting Date', 'trim|required');
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($this->form_validation->run() == TRUE){
+                $details = $post;
+                unset($details['ProductListName']);
+                unset($details['ProductListQuantity']);
+                $details['shifting_date'] = date("Y-m-d", strtotime($details['shifting_date']));
+                $details['user_id'] = $this->session->userdata('uid');
+                $details['created_at'] = date('Y-m-d H:i:s');
+                $details['updated_at'] = date('Y-m-d H:i:s');
+                $result = $this->QuotationModel->add($details);
 
-        $pin;
-        if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
+                foreach($post['ProductListName'] as $key_name => $val_name){
+                    foreach($post['ProductListQuantity'] as $key_qty => $val_qty){
+                        if($key_name == $key_qty){
+                            $data_product = array('quotation_id' => $result,
+                                                  'product_id' => $val_name,
+                                                  'quantity' => !empty($val_qty)?$val_qty:0,
+                                                  'created_at' => date('Y-m-d H:i:s')
+                                            );
+                            $this->QuotationHasProductModel->insert($data_product);
+                        }
+                    }
+                }
+
+                $enquiry_data = array('quotation_id' => $result,
+                                      'user_id' => $this->session->userdata('uid'),
+                                      'created_at' => date('Y-m-d H:i:s'),
+                                      'updated_at' => date('Y-m-d H:i:s'),
+                                );
+                $this->EnquiryModel->insert($enquiry_data);
+                if ($result) {
+                    $this->session->set_flashdata('Message', 'Your Quotation data has been send succesfully.Our support team will contact soon...!');
+                    return redirect('quote', 'refresh');
+                } else {
+                    $this->session->set_flashdata('Error', 'Failed to send quotation details');
+                    if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
+                        $pin = array(
+                                'pickupPoint' => $_POST['pickupPoint'],
+                                'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
+                                'dropPoint' => $_POST['dropPoint'],
+                                'dropzip' => $this->getZipcode($_POST['dropPoint']),
+                            );
+                    }
+                    $data['metadata'] = "Qoute";
+                    $data['template'] = "qoute";
+                    $data['name'] = "Qoute";
+                    $data['vehicle'] = $this->user->vehicle_list();
+                    $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
+                    $data['product_list'] = $this->ProductList->getProductsList();
+                    $data['details'] = $pin;
+                    if (!empty($this->session->userdata('uid'))) {
+                        $data['userDetails'] = $this->session->userdata();
+                    }else{
+                        $data['userDetails'] = '';
+                    }
+                    $this->layout($data);
+                }
+            }else{
+                if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
+                    $pin = array(
+                        'pickupPoint' => $_POST['pickupPoint'],
+                        'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
+                        'dropPoint' => $_POST['dropPoint'],
+                        'dropzip' => $this->getZipcode($_POST['dropPoint']),
+                    );
+                }
+                $data['metadata'] = "Qoute";
+                $data['template'] = "qoute";
+                $data['name'] = "Qoute";
+                $data['vehicle'] = $this->user->vehicle_list();
+                $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
+                $data['product_list'] = $this->ProductList->getProductsList();
+                $data['details'] = $pin;
+                if (!empty($this->session->userdata('uid'))) {
+                    $data['userDetails'] = $this->session->userdata();
+                }else{
+                    $data['userDetails'] = '';
+                }
+                $this->layout($data);
+            }
+        }  else {
             
-            $pin = array(
-                'pickupPoint' => $_POST['pickupPoint'],
-                'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
-                'dropPoint' => $_POST['dropPoint'],
-                'dropzip' => $this->getZipcode($_POST['dropPoint']),
-            );
-        }
-        $data['metadata'] = "Qoute";
-        $data['template'] = "qoute";
-        $data['name'] = "Qoute";
-        $data['vehicle'] = $this->user->vehicle_list();
-        $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
-        $data['details'] = $pin;
-        $this->layout($data);
-    }
+            if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
 
+                $pin = array(
+                    'pickupPoint' => $_POST['pickupPoint'],
+                    'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
+                    'dropPoint' => $_POST['dropPoint'],
+                    'dropzip' => $this->getZipcode($_POST['dropPoint']),
+                );
+            }
+            $data['metadata'] = "Qoute";
+            $data['template'] = "qoute";
+            $data['name'] = "Qoute";
+            $data['vehicle'] = $this->user->vehicle_list();
+            $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
+            $data['product_list'] = $this->ProductList->getProductsList();
+            $data['details'] = $pin;
+            if (!empty($this->session->userdata('uid'))) {
+                $data['userDetails'] = $this->session->userdata();
+            }else{
+                $data['userDetails'] = '';
+            }
+            $this->layout($data);
+        }
+    }
+    
     public function contactus() {
         $data['metadata'] = "Contactus";
         $data['template'] = "contactus";
