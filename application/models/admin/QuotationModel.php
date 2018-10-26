@@ -50,9 +50,10 @@ class QuotationModel extends MY_Model {
         $this->update($data_update);
         return $last_id;
     }
-    public function update($data){
-        $this->db->where('id',$data['id']);
-        $this->db->update('trans_quotation',$data);
+    public function update($updateData){
+        $this->db->where('id',$updateData['id']);
+        $this->db->update('trans_quotation',$updateData);
+        
         if($this->db->affected_rows()){
             return true;
         }else{

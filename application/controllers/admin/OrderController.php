@@ -48,10 +48,10 @@ class OrderController extends MY_Controller {
                                 'updated_at' => date('Y-m-d H:i:s'),
                             );
             $result = $this->OrderModel->add($order_data);
-            $quotation_data = array('is_order' => 1,
+            $quotation_update = array('is_order' => 1,
                                     'id' => $post['quotation_id']
                             );
-            $this->QuotationModel->update($quotation_data);
+            $this->QuotationModel->update($quotation_update);
             if($result){
                 echo true;
             }else{

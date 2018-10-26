@@ -311,3 +311,54 @@ ALTER TABLE `trans_quotation` ADD `is_order` INT(2) NOT NULL AFTER `is_send_user
 ALTER TABLE `trans_order` CHANGE `status` `status` INT(3) NOT NULL COMMENT '1=Pending,2=Completed,3=Cancelled';
 
 ALTER TABLE `trans_order` CHANGE `total_amount` `total_amount` FLOAT(11,2) NOT NULL;
+
+ALTER TABLE `trans_quotation` ADD `time_slots_id` INT(5) NOT NULL AFTER `vehicle_shifting`;
+
+--
+-- Table structure for table `trans_time_slots`
+--
+
+CREATE TABLE `trans_time_slots` (
+  `id` int(11) NOT NULL,
+  `time` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `trans_time_slots`
+--
+
+INSERT INTO `trans_time_slots` (`id`, `time`, `created_at`, `updated_at`) VALUES
+(1, '9-10', '2018-10-26 11:00:34', '2018-10-26 11:00:34'),
+(2, '10-11', '2018-10-26 11:00:34', '2018-10-26 11:00:34'),
+(3, '11-12', '2018-10-26 11:01:54', '2018-10-26 11:01:54'),
+(4, '12-13', '2018-10-26 11:01:54', '2018-10-26 11:01:54'),
+(5, '13-14', '2018-10-26 11:01:54', '2018-10-26 11:01:54'),
+(6, '14-15', '2018-10-26 11:01:54', '2018-10-26 11:01:54'),
+(7, '15-16', '2018-10-26 11:01:54', '2018-10-26 11:01:54'),
+(8, '16-17', '2018-10-26 11:01:54', '2018-10-26 11:01:54'),
+(9, '17-18', '2018-10-26 11:01:54', '2018-10-26 11:01:54'),
+(10, '18-19', '2018-10-26 11:01:54', '2018-10-26 11:01:54'),
+(11, '19-20', '2018-10-26 11:01:54', '2018-10-26 11:01:54'),
+(12, '20-21', '2018-10-26 11:01:54', '2018-10-26 11:01:54');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `trans_time_slots`
+--
+ALTER TABLE `trans_time_slots`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `trans_time_slots`
+--
+ALTER TABLE `trans_time_slots`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;

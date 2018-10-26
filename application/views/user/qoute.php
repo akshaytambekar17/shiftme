@@ -168,9 +168,24 @@
 <section id="map-section">
     <div class="container">
         <div class="row mymap">
-            <div class="col-md-6 ">
-                <div id="dvDistance">
+            <?php if($message = $this ->session->flashdata('Message')){?>
+                <div class="col-md-12 ">
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$message ?>
+                    </div>
                 </div>
+            <?php }?> 
+            <?php if($message = $this ->session->flashdata('Error')){?>
+                <div class="col-md-12 ">
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$message ?>
+                    </div>
+                </div>
+            <?php }?>
+            <div class="col-md-6 ">
+                <div id="dvDistance"></div>
                 <div class="estimate">
                     <p class="title">Estimate :</p>
 
@@ -204,9 +219,7 @@
 
                                         </a>
                                     </li>
-
                                     <li role="presentation" class="">
-<!--                                    <li role="presentation" class="disabled">-->
                                         <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
                                             <span class="round-tab">
                                                 2
@@ -214,16 +227,14 @@
                                         </a>
                                     </li>
                                     <li role="presentation" class="">
-<!--                                    <li role="presentation" class="disabled">-->
                                         <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
                                             <span class="round-tab">
                                                 3
                                             </span>
                                         </a>
                                     </li>
-
-                                    <li role="presentation" id="complete_1" class="">
 <!--                                    <li role="presentation" id="complete_1" class="disabled">-->
+                                    <li role="presentation" id="complete_1" class="">
                                         <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
                                             <span class="round-tab">
                                                 4
@@ -231,21 +242,12 @@
                                         </a>
                                     </li>
                                     <li role="presentation" class="">
-<!--                                    <li role="presentation" class="disabled">-->
                                         <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
                                             <span class="round-tab">
                                                 5
                                             </span>
                                         </a>
                                     </li>
-<!--                                    <li role="presentation" class="">
-                                    <li role="presentation" class="disabled">
-                                        <a href="#comlete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
-                                            <span class="round-tab">
-                                                6
-                                            </span>
-                                        </a>
-                                    </li>-->
                                 </ul>
                             </div>
 
@@ -271,12 +273,12 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Land Mark</label>
-                                                    <input type="text" name="starting_landmark" id="starting_landmark" class="form-control" value="<?php echo !empty($quotation_data['starting_landmark'])?$quotation_data['starting_landmark']:set_value('starting_landmark'); ?>" placeholder="Land mark" />
+                                                    <input type="text" name="starting_landmark" id="starting_landmark" class="form-control" value="<?php echo set_value('starting_landmark'); ?>" placeholder="Land mark" />
                                                     <span class="help-block"><?php echo form_error('starting_landmark'); ?></span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Pincode</label>
-                                                    <input type="text" name="starting_pincode" id="starting_pincode" class="form-control" value="<?php echo !empty($quotation_data['starting_pincode'])?$quotation_data['starting_pincode']:set_value('starting_pincode'); ?>" placeholder="Pincode" />
+                                                    <input type="text" name="starting_pincode" id="starting_pincode" class="form-control" value="<?php echo !empty($details['pickupzip'])?$details['pickupzip']:set_value('starting_pincode'); ?>" placeholder="Pincode" />
                                                     <span class="help-block"><?php echo form_error('starting_pincode'); ?></span>
                                                 </div>
                                                 <div class="form-group">
@@ -296,7 +298,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Pincode</label>
-                                                    <input type="text" name="delivery_pincode" id="delivery_pincode" class="form-control" value="<?php echo !empty($quotation_data['delivery_pincode'])?$quotation_data['delivery_pincode']:set_value('delivery_pincode'); ?>" placeholder="Pincode" />
+                                                    <input type="text" name="delivery_pincode" id="delivery_pincode" class="form-control" value="<?php echo !empty($details['dropzip'])?$details['dropzip']:set_value('delivery_pincode'); ?>" placeholder="Pincode" />
                                                     <span class="help-block"><?php echo form_error('delivery_pincode'); ?></span>
                                                 </div>
                                             
@@ -475,6 +477,22 @@
                                         <br>
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Select Time Slots</label>
+                                                    <select id="time_slots"  name="time_slots_id" class="fontawesome-select form-control">
+                                                        <option disabled="disabled" selected="selected">Select Time Slots</option>
+                                                        <?php foreach ($timeslots_list as $time) { ?>
+                                                            <option value="<?= $time['id']; ?>"  <?= set_select('time_slots_id',$time['id'],TRUE) ?>> <?php echo $time['time']; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                <p>Book at least 90 min prior.</p>
+                                                <span class="help-block"><?php echo form_error('time_slots_id'); ?></span>
+                                            </div>
+                                        </div>
+                                        <br>
+<!--                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <div class="que">
                                                     <p>Do you need a professional packing?  </p>
                                                 </div>
@@ -501,7 +519,7 @@
                                                     <label><input type="radio" name="vehicle_shifting" id="radio4" value="0" checked="">no</label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <ul class="list-inline">
                                             <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>
                                             <li style="padding-top: 1%;"><button type="button" class="btn btn-primary btn-info-full next-step" onclick="return validStep4()">Save and continue</button></li>
@@ -514,20 +532,32 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <input type="text"  class="form-control" name="fullname" id="fullname" placeholder="Full Name">
+                                                    <span class="help-block"><?php echo form_error('fullname'); ?></span>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <input class="form-control"  id="mobileNo" name="mobile_no" maxlength="10" type="text" placeholder="Mobile No." oninput="validateNumber(this);" value="<?= !empty($userDetails['mobileno'])?$userDetails['mobileno']:''?>">
+                                                    <span class="help-block"><?php echo form_error('mobile_no'); ?></span>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <input class="form-control"  id="email" name="email_id" type="email" placeholder="Email Address" value="<?= !empty($userDetails['email'])?$userDetails['email']:''?>">
+                                                    <span class="help-block"><?php echo form_error('email_id'); ?></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <ul class="list-inline">
                                             <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>
-                                            <li style="padding-top: 1%;"><button type="submit" name="quote" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Get Quotation</button> </li>
-                                            <li style="padding-top: 1%;"><button type="submit" name="order" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Make Order</button> </li>
+                                            <li style="padding-top: 1%;">
+                                                <input type="submit" value="Get Quotation" class="btn btn-success btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($this->session->userdata('uid'))?'disabled':''?> >
+<!--                                                <button type="submit" name="quote" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Get Quotation</button>-->
+                                            </li>
+                                            <li style="padding-top: 1%;">
+                                                <input type="submit" value="Make Order" class="btn btn-danger btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($this->session->userdata('uid'))?'disabled':''?>>
+<!--                                                <button type="submit" name="order" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Make Order</button>-->
+                                            </li>
                                         </ul>
+                                        <?php if(empty($this->session->userdata('uid'))) { ?>
+                                            <p style="color:red">Please login to Get Quotation or Make Order</p>
+                                        <?php }?>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -637,7 +667,9 @@
 <script>
     $(document).ready(function () {
         GetRoute();
-       
+        $(".alert").delay(5000).slideUp(200, function() {
+            $(this).alert('close');
+        });
         if (sessionStorage.getItem('step1') != null) {
             obj = JSON.parse(sessionStorage.getItem('step1'));
             console.log(JSON.parse(sessionStorage.getItem('step1')));
@@ -761,29 +793,32 @@
     function validStep1() {
 
         var flag = true;
-        if ($('#picAddress').val() == "") {
-            alert('picAddress');
-            $('#picAddress').css('border-color', '#ef4040');
+        if ($('#starting_address').val() == "") {
+            $('#starting_address').css('border-color', '#ef4040');
             flag = false;
         }
         if ($('#txtSource').val() == "") {
-            alert('txtSource');
             $('#txtSource').css('border-color', '#ef4040');
             flag = false;
         }
-        if ($('#pickpincode').val() == "") {
-            alert('pickpincode');
+        if ($('#starting_pincode').val() == "") {
             $('#pickpincode').css('border-color', '#ef4040');
             flag = false;
         }
-        if ($('#picklandmark').val() == "") {
-            alert('picklandmark');
-            $('#picklandmark').css('border-color', '#ef4040');
+        if ($('#starting_landmark').val() == "") {
+            $('#starting_landmark').css('border-color', '#ef4040');
             flag = false;
         }
-        if ($('#dropAddress').val() == "") {
-            alert('dropAddress');
-            $('#dropAddress').css('border-color', '#ef4040');
+        if ($('#deilvery_address').val() == "") {
+            $('#deilvery_address').css('border-color', '#ef4040');
+            flag = false;
+        }
+        if ($('#deilvery_landmark').val() == "") {
+            $('#deilvery_landmark').css('border-color', '#ef4040');
+            flag = false;
+        }
+        if ($('#deilvery_pincode').val() == "") {
+            $('#deilvery_pincode').css('border-color', '#ef4040');
             flag = false;
         }
         if ($('#txtDestination').val() == "") {
@@ -793,11 +828,11 @@
         if (flag) {
             sessionStorage.clear();
             var obj = {}
-            obj.picAddress = $('#picAddress').val(),
+            obj.picAddress = $('#starting_address').val(),
                     obj.txtSource = $('#txtSource').val(),
-                    obj.pickpincode = $('#pickpincode').val(),
-                    obj.picklandmark = $('#picklandmark').val(),
-                    obj.dropAddress = $('#dropAddress').val(),
+                    obj.pickpincode = $('#starting_address').val(),
+                    obj.picklandmark = $('#starting_landmark').val(),
+                    obj.dropAddress = $('#deilvery_ddress').val(),
                     obj.txtDestination = $('#txtDestination').val()
 
             sessionStorage.setItem('step1', JSON.stringify(obj));
