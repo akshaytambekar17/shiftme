@@ -39,17 +39,29 @@
         position: relative;
     }
 
-    .connecting-line {
+/*    .connecting-line {
         height: 2px;
         background: #e0e0e0;
         position: absolute;
-        width: 80%;
+        width: 50%;
         margin: 0 auto;
         left: 0;
         right: 0;
         top: 50%;
         z-index: 1;
-    }
+    }*/
+.wizard-inner .nav.nav-tabs {
+    position: relative;
+}
+
+.wizard-inner .nav.nav-tabs::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    top: 43px;
+}
 
     .wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
         color: #555555;
@@ -163,7 +175,12 @@
                      font-size: 18px;
                      color: #58a5de;
                      font-weight: 600;}
-
+    .has-error{
+        color:red;
+    }
+    .has-error-text{
+        border-color:red;
+    }
 </style>
 <section id="map-section">
     <div class="container">
@@ -219,14 +236,14 @@
 
                                         </a>
                                     </li>
-                                    <li role="presentation" class="">
+                                    <li role="presentation" class="disabled">
                                         <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
                                             <span class="round-tab">
                                                 2
                                             </span>
                                         </a>
                                     </li>
-                                    <li role="presentation" class="">
+                                    <li role="presentation" class="disabled">
                                         <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
                                             <span class="round-tab">
                                                 3
@@ -234,14 +251,14 @@
                                         </a>
                                     </li>
 <!--                                    <li role="presentation" id="complete_1" class="disabled">-->
-                                    <li role="presentation" id="complete_1" class="">
+                                    <li role="presentation" id="complete_1" class="disabled">
                                         <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
                                             <span class="round-tab">
                                                 4
                                             </span>
                                         </a>
                                     </li>
-                                    <li role="presentation" class="">
+                                    <li role="presentation" class="disabled">
                                         <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
                                             <span class="round-tab">
                                                 5
@@ -429,7 +446,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group col-md-8">
                                                             <div class="checkbox">
-                                                                <label><input type="checkbox" value="<?= $value['id']?>" name="ProductListName[]" id="product-list-<?= $count?>" <?= $checked?>><?= $value['name']?></label>
+                                                                <label><input type="checkbox" value="<?= $value['id']?>" class="product-list" name="ProductListName[]" id="product-list-<?= $count?>" <?= $checked?> data-count="<?= $count?>" ><?= $value['name']?></label>
                                                             </div>
                                                         </div>
                                                         <div class="form-group col-md-3">
@@ -441,8 +458,9 @@
 
                                                         </div>
                                                     </div>
-                                            <?php } }?>
+                                            <?php $count++; } }?>
                                             <br>
+                                            <span id="error-msg"></span>
                                         </div>
                                         
                                         <ul class="list-inline">
@@ -479,10 +497,10 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Select Time Slots</label>
-                                                    <select id="time_slots"  name="time_slots_id" class="fontawesome-select form-control">
+                                                    <select id="time_slots_id"  name="time_slots_id" class="fontawesome-select form-control">
                                                         <option disabled="disabled" selected="selected">Select Time Slots</option>
                                                         <?php foreach ($timeslots_list as $time) { ?>
-                                                            <option value="<?= $time['id']; ?>"  <?= set_select('time_slots_id',$time['id'],TRUE) ?>> <?php echo $time['time']; ?></option>
+                                                            <option value="<?= $time['id']; ?>"> <?php echo $time['time']; ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </div>
@@ -670,59 +688,66 @@
         $(".alert").delay(5000).slideUp(200, function() {
             $(this).alert('close');
         });
-        if (sessionStorage.getItem('step1') != null) {
-            obj = JSON.parse(sessionStorage.getItem('step1'));
-            console.log(JSON.parse(sessionStorage.getItem('step1')));
-            $('#picAddress').val(obj.picAddress);
-            $('#txtSource').val(obj.txtSource);
-            $('#pickpincode').val(obj.pickpincode);
-            $('#picklandmark').val(obj.picklandmark);
-            $('#dropAddress').val(obj.dropAddress);
-            $('#txtDestination').val(obj.txtDestination);
-            var $active = $('.wizard .nav-tabs li.active');
-            $active.next().removeClass('disabled');
-            nextTab($active);
-        }
-        if (sessionStorage.getItem('step2') != null) {
-            obj2 = JSON.parse(sessionStorage.getItem('step2'));
-            $('#Vehiclesdetails').val(obj2.Vehiclesdetails);
-            $('#Labour').val(obj2.Labour);
-            var $active = $('.wizard .nav-tabs li.active');
-            $active.next().removeClass('disabled');
-            nextTab($active);
-        }
-        if (sessionStorage.getItem('step4') != null) {
-            obj4 = JSON.parse(sessionStorage.getItem('step4'));
-            $('#bookingdate').val(obj4.bookingdate);
-            var $active = $('.wizard .nav-tabs li.active');
-            $active.next().removeClass('disabled');
-            nextTab($active);
-        }
-        var Uid = '<?php echo $this->session->userdata('uid') ?>';
-        if (sessionStorage.getItem('step5') != null) {
-            obj5 = JSON.parse(sessionStorage.getItem('step5'));
-            $('#fullname').val(obj5.fullname);
-            $('#email').val(obj5.email);
-            $('#mobileNo').val(obj5.mobileNo);
-
-        }
-
-        if (Uid != null && sessionStorage.getItem('step5') != null) {
-    
-            var $active = $('.wizard .nav-tabs li.active');
-            $active.next().removeClass('disabled');
-            nextTab($active);
-
-            var logoutTimer = setTimeout(function () {
-                sessionStorage.clear();
-//                window.location.href = site_url;
-            }, (10 * 60 * 100));
-//            }, (2 * 60 * 100));
-//            data=sessionStorage.getItem('step5');
-//            now = new Date();
-//                expiration = new Date(data.timestamp);
-//                expiration.setMinutes(expiration.getMinutes() + 2);
-        } 
+//        if (sessionStorage.getItem('step1') != null) {
+//            obj = JSON.parse(sessionStorage.getItem('step1'));
+//            console.log(JSON.parse(sessionStorage.getItem('step1')));
+//            $('#picAddress').val(obj.picAddress);
+//            $('#txtSource').val(obj.txtSource);
+//            $('#pickpincode').val(obj.pickpincode);
+//            $('#picklandmark').val(obj.picklandmark);
+//            $('#dropAddress').val(obj.dropAddress);
+//            $('#txtDestination').val(obj.txtDestination);
+//            var $active = $('.wizard .nav-tabs li.active');
+//            $active.next().removeClass('disabled');
+//            nextTab($active);
+//        }
+//        if (sessionStorage.getItem('step2') != null) {
+//            obj2 = JSON.parse(sessionStorage.getItem('step2'));
+//            $('#Vehiclesdetails').val(obj2.Vehiclesdetails);
+//            $('#Labour').val(obj2.Labour);
+//            var $active = $('.wizard .nav-tabs li.active');
+//            $active.next().removeClass('disabled');
+//            nextTab($active);
+//        }
+//        if (sessionStorage.getItem('step3') != null) {
+//            obj2 = JSON.parse(sessionStorage.getItem('step3'));
+//            $('.product-list').val(obj2.product-list);
+//            var $active = $('.wizard .nav-tabs li.active');
+//            $active.next().removeClass('disabled');
+//            nextTab($active);
+//        }
+//        if (sessionStorage.getItem('step4') != null) {
+//            obj4 = JSON.parse(sessionStorage.getItem('step4'));
+//            $('#bookingdate').val(obj4.bookingdate);
+//            var $active = $('.wizard .nav-tabs li.active');
+//            $active.next().removeClass('disabled');
+//            nextTab($active);
+//        }
+//        var Uid = '<?php echo $this->session->userdata('uid') ?>';
+//        if (sessionStorage.getItem('step5') != null) {
+//            obj5 = JSON.parse(sessionStorage.getItem('step5'));
+//            $('#fullname').val(obj5.fullname);
+//            $('#email').val(obj5.email);
+//            $('#mobileNo').val(obj5.mobileNo);
+//
+//        }
+//
+//        if (Uid != null && sessionStorage.getItem('step5') != null) {
+//    
+//            var $active = $('.wizard .nav-tabs li.active');
+//            $active.next().removeClass('disabled');
+//            nextTab($active);
+//
+//            var logoutTimer = setTimeout(function () {
+//                sessionStorage.clear();
+////                window.location.href = site_url;
+//            }, (10 * 60 * 100));
+////            }, (2 * 60 * 100));
+////            data=sessionStorage.getItem('step5');
+////            now = new Date();
+////                expiration = new Date(data.timestamp);
+////                expiration.setMinutes(expiration.getMinutes() + 2);
+//        } 
 
     });
 
@@ -802,23 +827,23 @@
             flag = false;
         }
         if ($('#starting_pincode').val() == "") {
-            $('#pickpincode').css('border-color', '#ef4040');
+            $('#starting_pincode').css('border-color', '#ef4040');
             flag = false;
         }
         if ($('#starting_landmark').val() == "") {
             $('#starting_landmark').css('border-color', '#ef4040');
             flag = false;
         }
-        if ($('#deilvery_address').val() == "") {
-            $('#deilvery_address').css('border-color', '#ef4040');
+        if ($('#delivery_address').val() == "") {
+            $('#delivery_address').css('border-color', '#ef4040');
             flag = false;
         }
-        if ($('#deilvery_landmark').val() == "") {
-            $('#deilvery_landmark').css('border-color', '#ef4040');
+        if ($('#delivery_landmark').val() == "") {
+            $('#delivery_landmark').css('border-color', '#ef4040');
             flag = false;
         }
-        if ($('#deilvery_pincode').val() == "") {
-            $('#deilvery_pincode').css('border-color', '#ef4040');
+        if ($('#delivery_pincode').val() == "") {
+            $('#delivery_pincode').css('border-color', '#ef4040');
             flag = false;
         }
         if ($('#txtDestination').val() == "") {
@@ -829,11 +854,14 @@
             sessionStorage.clear();
             var obj = {}
             obj.picAddress = $('#starting_address').val(),
-                    obj.txtSource = $('#txtSource').val(),
-                    obj.pickpincode = $('#starting_address').val(),
-                    obj.picklandmark = $('#starting_landmark').val(),
-                    obj.dropAddress = $('#deilvery_ddress').val(),
-                    obj.txtDestination = $('#txtDestination').val()
+            obj.txtSource = $('#txtSource').val(),
+            obj.pickpincode = $('#starting_pincode').val(),
+            obj.picklandmark = $('#starting_landmark').val(),
+            obj.dropAddress = $('#deilvery_ddress').val(),
+            obj.txtDestination = $('#txtDestination').val(),
+            obj.delivery_pincode = $('#delivery_pincode').val(),
+            obj.delivery_address = $('#delivery_address').val(),
+            obj.delivery_landmark = $('#delivery_landmark').val(),
 
             sessionStorage.setItem('step1', JSON.stringify(obj));
 //            console.log(sessionStorage.getItem('step1'));
@@ -860,7 +888,7 @@
         if (flag) {
             var obj2 = {}
             obj2.Vehiclesdetails = $('#Vehiclesdetails').val(),
-                    obj2.Labour = $('#Labour').val()
+            obj2.Labour = $('#Labour').val()
             sessionStorage.setItem('step2', JSON.stringify(obj2));
 //            console.log(sessionStorage.getItem('step2'));
             var $active = $('.wizard .nav-tabs li.active');
@@ -870,13 +898,54 @@
 
         return flag;
     }
+    function validStep3() {
+        var flag = true;
+        var flagChecked = false;
+        $(".product-list").each(function( index ) {
+            var count = $(this).data('count');
+            if($("#product-list-"+count).is(":checked")){
+                flagChecked = true;
+                var qty = $("#product-list-qty-"+count).val();
+                if(qty==''){
+                    $("#product-list-qty-"+count).addClass('has-error-text');
+                    flag = false;
+                }else{
+                    $("#product-list-qty-"+count).removeClass('has-error-text');
+                }
+            }else{
+                $("#product-list-qty-"+count).val('');
+                $("#product-list-qty-"+count).removeClass('has-error-text');
+            }
+        });
+        if(flag == true && flagChecked == true){
+            $("#error-msg").text("");
+            $("#error-msg").removeClass('has-error');
+            var $active = $('.wizard .nav-tabs li.active');
+            $active.next().removeClass('disabled');
+            nextTab($active);
+            return true;
+        }else{
+            $("#error-msg").text("Please select at least one product");
+            $("#error-msg").addClass('has-error');
+            return false;
+        }
+    }
     function validStep4() {
 
         var flag = true;
         if ($('#bookingdate').val() == "") {
-            $('#bookingdate').css('border-color', '#ef4040');
+            $('#bookingdate').addClass('has-error-text');
             flag = false;
+        }else{
+            $('#bookingdate').removeClass('has-error-text');;
         }
+        if($("#time_slots_id").val() == "" || $("#time_slots_id").val() == null){
+            $('#time_slots_id').addClass('has-error-text');
+            flag = false;
+        }else{
+            $('#time_slots_id').removeClass('has-error-text');
+        }
+        
         if (flag) {
             var obj4 = {}
             obj4.bookingdate = $('#bookingdate').val()
@@ -893,21 +962,29 @@
 
         var flag = true;
         if ($('#fullname').val() == "") {
-            $('#fullname').css('border-color', '#ef4040');
+            $('#fullname').addClass('has-error-text');
             flag = false;
+        }else{
+            $('#fullname').removeClass('has-error-text');
         }
         if ($('#mobileNo').val() == "") {
-            $('#mobileNo').css('border-color', '#ef4040');
+            $('#mobileNo').addClass('has-error-text');
             flag = false;
+        }else{
+            $('#mobileNo').removeClass('has-error-text');
         }
         len = $('#mobileNo').val();
         if (len.length != 10) {
-            $('#mobileNo').css('border-color', '#ef4040');
+            $('#mobileNo').addClass('has-error-text');
             flag = false;
+        }else{
+            $('#mobileNo').removeClass('has-error-text');
         }
         if ($('#email').val() == "") {
-            $('#email').css('border-color', '#ef4040');
+            $('#email').addClass('has-error-text');
             flag = false;
+        }else{
+            $('#email').removeClass('has-error-text');
         }
         var obj5 = {}
         obj5.fullname = $('#fullname').val(),
@@ -933,16 +1010,16 @@
         }
         return flag;
     }
-    function validStep3() {
-
-        var flag = true;
-        if (flag) {
-            var $active = $('.wizard .nav-tabs li.active');
-            $active.next().removeClass('disabled');
-            nextTab($active);
-        }
-        return flag;
-    }
+//    function validStep3() {
+//
+//        var flag = true;
+//        if (flag) {
+//            var $active = $('.wizard .nav-tabs li.active');
+//            $active.next().removeClass('disabled');
+//            nextTab($active);
+//        }
+//        return flag;
+//    }
 </script>
 <script>
     $(document).ready(function () {

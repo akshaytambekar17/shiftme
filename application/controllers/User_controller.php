@@ -176,14 +176,14 @@ class User_controller extends MY_Controller {
                                             );
                         $this->Quotation->update($quotation_update);
                     }else{
-                        $enquiry_data = array('quotation_id' => $result,
+                        $enquiry_data = array('quotation_id' => $quotationLastId,
                                               'user_id' => $this->session->userdata('uid'),
                                               'created_at' => date('Y-m-d H:i:s'),
                                               'updated_at' => date('Y-m-d H:i:s'),
                                         );
                         $this->Enquiry->insert($enquiry_data);
                     }
-                    if ($result) {
+                    if ($quotationLastId) {
                         $this->session->set_flashdata('Message', 'Your Quotation data has been send succesfully.Our support team will contact soon.');
                         return redirect('quick-quote', 'refresh');
                     } else {
