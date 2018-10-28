@@ -9,7 +9,26 @@
         <div class="content-top">
             <div class="col-md-12">
                 <div class="content-top-1">
-                    <div class="table-responsive">
+                    <?php if($message = $this ->session->flashdata('Message')){?>
+                        <div class="col-md-12 ">
+                            <div class="alert alert-dismissible alert-success">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <?=$message ?>
+                            </div>
+                        </div>
+                    <?php }?> 
+                    <?php if($message = $this ->session->flashdata('Error')){?>
+                        <div class="col-md-12 ">
+                            <div class="alert alert-dismissible alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <?=$message ?>
+                            </div>
+                        </div>
+                    <?php }?>
+                    <div class="pull-right">
+                        <a href="<?= base_url()?>invoice/create" class="btn btn-success" style="margin-bottom:-44px;margin-left: 11px;"><i class="fa fa-plus" aria-hidden="true"></i> Create Inovice</a>
+                    </div>
+                    <div class="table-responsive m-top90">
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="invoice_list">
                             <thead>
                                 <tr>
@@ -35,7 +54,7 @@
                                             <td><?= $value['order_no']; ?></td>
                                             <td><?= $value['total_amount']; ?></td>
                                             <td>
-                                                <a href="javascript:void(0)" class="btn btn-primary view-invoice" data-id="<?= $value['invoice_id'] ?>" name="view-invoice">View</a><br>
+                                                <a href="javascript:void(0)" class="btn btn-success view-invoice" data-id="<?= $value['invoice_id'] ?>" name="view-invoice">Send</a>
                                                 <a href="javascript:void(0)" class="btn btn-danger delete-invoice" data-id="<?= $value['invoice_id'] ?>" data-invoiceno="<?= $value['invoice_no']?>" name="delete-invoice" onclick="invoiceDelete(this)">Delete</a><br>
                                             </td>
                                         </tr>

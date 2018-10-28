@@ -15,16 +15,16 @@
         <h2 class="mg-sec-left-title mytitle" style="font-weight: 600;color: #71747b;">My Account</h2>
         <p></p>
         <div class="row" style="min-height:300px;" id="alert-msg-show">
-            <?php if ($this->session->flashdata('insert_msg')) { ?>
+            <?php if ($this->session->flashdata('Message')) { ?>
                 <div class = "alert alert-success alert-dismissable">
                     <button type = "button" class = "close" data-dismiss = "alert" aria-hidden = "true">&times</button>
-                    <?php echo $this->session->flashdata('insert_msg'); ?>
+                    <?php echo $this->session->flashdata('Message'); ?>
                 </div>
             <?php } ?>
-            <?php if ($this->session->flashdata('error_msg')) { ?>
+            <?php if ($this->session->flashdata('Error')) { ?>
                 <div class = "alert alert-danger alert-dismissable">
                     <button type = "button" class = "close" data-dismiss = "alert" aria-hidden = "true">&times;</button>
-                    <?php echo $this->session->flashdata('error_msg'); ?>
+                    <?php echo $this->session->flashdata('Error'); ?>
                 </div>
             <?php } ?>
             <div  class="col-sm-12 col-md-12 col-lg-12">

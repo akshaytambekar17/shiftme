@@ -460,8 +460,8 @@
                                                     </div>
                                             <?php $count++; } }?>
                                             <br>
-                                            <span id="error-msg"></span>
                                         </div>
+                                        <span id="error-msg"></span>
                                         
                                         <ul class="list-inline">
                                             <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>

@@ -65,6 +65,8 @@ $route['order/create'] = "admin/OrderController/create";
 $route['invoice'] = "admin/InvoiceController/index";
 $route['invoice/delete'] = "admin/InvoiceController/delete";
 $route['invoice/view'] = "admin/InvoiceController/view";
+$route['invoice/create'] = "admin/InvoiceController/create";
+$route['invoice/order-details'] = "admin/InvoiceController/getorderDetails";
 
 $route['enquiry'] = "admin/EnquiryController/index";
 $route['enquiry/delete'] = "admin/EnquiryController/delete";

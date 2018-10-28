@@ -53,7 +53,6 @@ class QuotationModel extends MY_Model {
     public function update($updateData){
         $this->db->where('id',$updateData['id']);
         $this->db->update('trans_quotation',$updateData);
-        
         if($this->db->affected_rows()){
             return true;
         }else{

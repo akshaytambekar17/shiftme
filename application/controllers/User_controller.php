@@ -140,6 +140,7 @@ class User_controller extends MY_Controller {
                     unset($details['quote']);
                     $details['shifting_date'] = date("Y-m-d", strtotime($details['shifting_date']));
                     $details['user_id'] = $this->session->userdata('uid');
+                    $details['is_send_user'] = 1;
                     $details['created_at'] = date('Y-m-d H:i:s');
                     $details['updated_at'] = date('Y-m-d H:i:s');
                     $quotationLastId = $this->Quotation->add($details);
@@ -185,7 +186,8 @@ class User_controller extends MY_Controller {
                     }
                     if ($quotationLastId) {
                         $this->session->set_flashdata('Message', 'Your Quotation data has been send succesfully.Our support team will contact soon.');
-                        return redirect('quick-quote', 'refresh');
+                        //return redirect('quick-quote', 'refresh');
+                        return redirect('myaccount', 'refresh');
                     } else {
                         $this->session->set_flashdata('Error', 'Failed to send quotation details');
                         if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {

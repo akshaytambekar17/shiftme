@@ -33,6 +33,34 @@ class InvoiceController extends MY_Controller {
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Invoices"));
         $this->admin_layout($this->data);
     }
+    public function create(){
+        if($this->input->post()){
+            $post = $this->input->post();
+            $details = $post;
+            $details['created_at'] = date('Y-m-d H:i:s');
+            $details['updated_at'] = date('Y-m-d H:i:s');
+            $result = $this->InvoiceModel->insert($details);
+            if($result){
+                $this->session->set_flashdata('Message', 'Quotation Added Succesfully');
+                return redirect('invoice', 'refresh');
+            }else{
+                $this->session->set_flashdata('Error', 'Something went wrong, Invoice not generated');
+                $this->data['order_list'] = $this->OrderModel->getOrders();
+                $this->data['template'] = "Invoice/form_data";
+                $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' =>  site_url('invoice'), 'page' => "Invoices"),array('link' => '#', 'page' => 'Create'));
+                $this->admin_layout($this->data);
+            }
+        }
+        $this->data['order_list'] = $this->OrderModel->getOrders();
+        $this->data['template'] = "Invoice/form_data";
+        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' =>  site_url('invoice'), 'page' => "Invoices"),array('link' => '#', 'page' => 'Create'));
+        $this->admin_layout($this->data);
+    }
+    public function getorderDetails(){
+        $post = $this->input->post();
+        $data['order_details'] = $this->OrderModel->getOrderByIdWithQuotation($post['id']);
+        $this->load->view('admin/Invoice/order_details',$data);
+    }
     public function delete(){
         $post = $this->input->post();
         $result = $this->OrderModel->delete($post['id']);

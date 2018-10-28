@@ -19,7 +19,7 @@ class InvoiceModel extends MY_Model {
     }
     
     public function getInvoices() {
-        $this->db->select('ti.id as invoice_id,to.*,tq.*');
+        $this->db->select('ti.id as invoice_id,ti.*,to.*,tq.*');
         $this->db->from('trans_invoice ti');
         $this->db->join('trans_order to','to.id = ti.order_id');
         $this->db->join('trans_quotation tq','tq.id = to.quotation_id');
@@ -28,11 +28,28 @@ class InvoiceModel extends MY_Model {
         $data= $query->result_array();
         return $data;
     }
+    public function getInvoiceById($id) {
+        $this->db->where('id',$id);
+        return $this->db->get('trans_invoice')->row_array();
+    }
     public function insert($data){
-        $this->db->trans_start();
         $this->db->insert('trans_invoice', $data);
-        $this->db->trans_complete();
-        return true;
+        $last_id = $this->db->insert_id();
+        $invoice_no = "INVOICE00".$last_id;
+        $data_update = array('id' => $last_id,
+                             'invoice_no' => $invoice_no
+                            );
+        $this->update($data_update);
+        return $last_id;
+    }
+    public function update($updateData){
+        $this->db->where('id',$updateData['id']);
+        $this->db->update('trans_invoice',$updateData);
+        if($this->db->affected_rows()){
+            return true;
+        }else{
+            return false;
+        }
     }
     public function delete($id) {
         $this->db->where('id',$id);
