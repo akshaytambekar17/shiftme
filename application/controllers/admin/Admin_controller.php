@@ -24,7 +24,7 @@ class Admin_controller extends MY_Controller {
         $this->load->helper('message');
         $this->load->model('site_model');
         $this->load->model('User_model');
-        $this->load->helper(array('url', 'form','email'));
+        $this->load->helper(array('url', 'form', 'email'));
         $this->load->library('session');
         $this->data['filters'] = $this->session->userdata('filters');
     }
@@ -674,7 +674,7 @@ class Admin_controller extends MY_Controller {
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Term & Conditions"));
         $this->admin_layout($this->data);
     }
-    
+
     public function trems_edit($id) {
         $this->data['result'] = $this->Admin_model->terms_data($id);
         $this->data['id'] = $id;
@@ -682,7 +682,7 @@ class Admin_controller extends MY_Controller {
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Terms & Conditions Edit"));
         $this->admin_layout($this->data);
     }
-    
+
     public function terms_update($id) {
         $this->form_validation->set_rules('description', 'Description', 'required');
         if ($this->form_validation->run() == FALSE) {
@@ -698,43 +698,51 @@ class Admin_controller extends MY_Controller {
             }
         }
     }
-    
-   public function users(){
+
+    public function users() {
         $this->data['user_list'] = $this->User_model->getUsers();
         $this->data['template'] = "Users/users_list";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "User List"));
         $this->admin_layout($this->data);
-   }
-   public function userDelete(){
+    }
+
+    public function userDelete() {
         $post = $this->input->post();
         $result = $this->User_model->deleteUser($post['user_id']);
-        if($result){
+        if ($result) {
             echo true;
-        }else{
+        } else {
             echo false;
         }
-   }
-   
-   
-   public function sms_sending(){
+    }
+
+    public function sms_sending() {
         $this->data['user_list'] = $this->User_model->getUsers();
         $this->data['template'] = "SmsSending/sms_sending";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "SMS Sending"));
         $this->admin_layout($this->data);
-   }
-   public function send_sms(){
-       $post = $this->input->post();
-       $message = strip_tags($post['message']);
-       $data =array( 'user_count' => $post['count'],
-                     'message' => $message,
-                     'send_at' => date('Y-m-d H:i:s')   
-                );
+    }
+    
+    public function send_sms() {
+        $post = $this->input->post();
+        $message = strip_tags($post['message']);
+        $data = array('user_count' => $post['count'],
+            'message' => $message,
+            'send_at' => date('Y-m-d H:i:s')
+        );
         $this->Admin_model->insertSMSDetails($data);
         $values = json_decode(stripslashes($post['values']));
-        foreach($values as $val){
+        foreach ($values as $val) {
             $user = $this->User_model->getUsersById($val);
             $this->sendSms($user['mobileno'], $message);
         }
         echo 1;
-   }
+    }
+    public function CMSPage() {
+        $this->data['user_list'] = $this->User_model->getUsers();
+        $this->data['template'] = "SmsSending/sms_sending";
+        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "SMS Sending"));
+        $this->admin_layout($this->data);
+    }
+
 }

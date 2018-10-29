@@ -32,6 +32,14 @@ class InvoiceModel extends MY_Model {
         $this->db->where('id',$id);
         return $this->db->get('trans_invoice')->row_array();
     }
+    public function getInvoiceByIdWithQuotationOrder($id) {
+        $this->db->select('ti.id as invoice_id,ti.*,to.*,tq.*');
+        $this->db->from('trans_invoice ti');
+        $this->db->join('trans_order to','to.id = ti.order_id');
+        $this->db->join('trans_quotation tq','tq.id = to.quotation_id');
+        $this->db->where('ti.id',$id);
+        return $this->db->get()->row_array();
+    }
     public function insert($data){
         $this->db->insert('trans_invoice', $data);
         $last_id = $this->db->insert_id();

@@ -41,7 +41,7 @@ class InvoiceController extends MY_Controller {
             $details['updated_at'] = date('Y-m-d H:i:s');
             $result = $this->InvoiceModel->insert($details);
             if($result){
-                $this->session->set_flashdata('Message', 'Quotation Added Succesfully');
+                $this->session->set_flashdata('Message', 'Inovice has been generated  Succesfully');
                 return redirect('invoice', 'refresh');
             }else{
                 $this->session->set_flashdata('Error', 'Something went wrong, Invoice not generated');
@@ -50,16 +50,30 @@ class InvoiceController extends MY_Controller {
                 $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' =>  site_url('invoice'), 'page' => "Invoices"),array('link' => '#', 'page' => 'Create'));
                 $this->admin_layout($this->data);
             }
+        }else{
+            $this->data['order_list'] = $this->OrderModel->getOrders();
+            $this->data['template'] = "Invoice/form_data";
+            $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' =>  site_url('invoice'), 'page' => "Invoices"),array('link' => '#', 'page' => 'Create'));
+            $this->admin_layout($this->data);
         }
-        $this->data['order_list'] = $this->OrderModel->getOrders();
-        $this->data['template'] = "Invoice/form_data";
-        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' =>  site_url('invoice'), 'page' => "Invoices"),array('link' => '#', 'page' => 'Create'));
-        $this->admin_layout($this->data);
     }
     public function getorderDetails(){
         $post = $this->input->post();
         $data['order_details'] = $this->OrderModel->getOrderByIdWithQuotation($post['id']);
         $this->load->view('admin/Invoice/order_details',$data);
+    }
+    public function sendInvoice(){
+        $get = $this->input->get();
+        if($this->input->post()){
+            $post = $this->input->post();
+            $this->session->set_flashdata('Message', 'Invoice has been send through Mail and SMS Succesfully');
+            return redirect('invoice','refresh');
+        }
+        $invoice_details = $this->InvoiceModel->getInvoiceByIdWithQuotationOrder($get['id']);
+        $this->data['invoice_details'] = $invoice_details;
+        $this->data['template'] = "Invoice/send_invoice";
+        $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' =>  site_url('invoice'), 'page' => "Invoices"),array('link' => '#', 'page' => $invoice_details['invoice_no']));
+        $this->admin_layout($this->data);
     }
     public function delete(){
         $post = $this->input->post();

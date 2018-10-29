@@ -67,6 +67,7 @@ $route['invoice/delete'] = "admin/InvoiceController/delete";
 $route['invoice/view'] = "admin/InvoiceController/view";
 $route['invoice/create'] = "admin/InvoiceController/create";
 $route['invoice/order-details'] = "admin/InvoiceController/getorderDetails";
+$route['invoice/send-invoice'] = "admin/InvoiceController/sendInvoice";
 
 $route['enquiry'] = "admin/EnquiryController/index";
 $route['enquiry/delete'] = "admin/EnquiryController/delete";
@@ -88,6 +89,19 @@ $route['product-list/edit'] = "admin/ProductListController/edit";
 
 $route['admin/sms-sending'] = "admin/Admin_controller/sms_sending";
 $route['admin/send_sms'] = "admin/Admin_controller/send_sms";
+
+$route['admin/cms-page'] = "admin/Admin_controller/CMSPage";
+
+$route['slider'] = "admin/SliderController/index";
+$route['slider/add'] = "admin/SliderController/add";
+$route['slider/update'] = "admin/SliderController/update";
+$route['slider/delete'] = "admin/SliderController/delete";
+
+$route['cms-page'] = "admin/CMSPageController/index";
+$route['cms-page/add'] = "admin/CMSPageController/add";
+$route['cms-page/update'] = "admin/CMSPageController/update";
+$route['cms-page/delete'] = "admin/CMSPageController/delete";
+
 
 /**************End Admin Routes**************/
 

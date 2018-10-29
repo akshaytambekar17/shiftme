@@ -133,6 +133,18 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                             <span class="nav-label">SMS Sending</span> 
                         </a>
                     </li>
+                    <li>
+                        <a href="<?= site_url('cms-page') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-file-o nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">CMS Pages</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('slider') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-picture-o nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Slider Images</span> 
+                        </a>
+                    </li>
                     
                     <?php foreach ($menus as $m) { ?>
 <!--                        <li>

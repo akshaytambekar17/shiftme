@@ -362,3 +362,78 @@ ALTER TABLE `trans_time_slots`
 --
 ALTER TABLE `trans_time_slots`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+
+--
+-- Table structure for table `trans_cms_page`
+--
+
+CREATE TABLE `trans_cms_page` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` longtext NOT NULL,
+  `main_image` varchar(255) NOT NULL,
+  `slider1` varchar(255) NOT NULL,
+  `slider2` varchar(255) NOT NULL,
+  `slider3` varchar(255) NOT NULL,
+  `meta_title` varchar(255) NOT NULL,
+  `meta_description` text NOT NULL,
+  `meta_keyword` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `trans_cms_page`
+--
+ALTER TABLE `trans_cms_page`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `trans_cms_page`
+--
+ALTER TABLE `trans_cms_page`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+--
+-- Table structure for table `trans_home_slider`
+--
+
+CREATE TABLE `trans_home_slider` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `images` text NOT NULL,
+  `status` int(3) NOT NULL COMMENT '1=Not Active, 2=Acitve',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `trans_home_slider`
+--
+ALTER TABLE `trans_home_slider`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `trans_home_slider`
+--
+ALTER TABLE `trans_home_slider`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

@@ -7,55 +7,61 @@
         <!--//banner-->
         <!--content-->
         <div class="content-top">
+            <?php if($message = $this ->session->flashdata('Message')){?>
+                <div class="col-md-12 ">
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$message ?>
+                    </div>
+                </div>
+            <?php }?> 
+            <?php if($message = $this ->session->flashdata('Error')){?>
+                <div class="col-md-12 ">
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$message ?>
+                    </div>
+                </div>
+            <?php }?>
             <div class="col-md-12">
                 <div class="content-top-1">
-                    <?php if($message = $this ->session->flashdata('Message')){?>
-                        <div class="col-md-12 ">
-                            <div class="alert alert-dismissible alert-success">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <?=$message ?>
-                            </div>
-                        </div>
-                    <?php }?> 
-                    <?php if($message = $this ->session->flashdata('Error')){?>
-                        <div class="col-md-12 ">
-                            <div class="alert alert-dismissible alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <?=$message ?>
-                            </div>
-                        </div>
-                    <?php }?>
                     <div class="pull-right">
-                        <a href="<?= base_url()?>invoice/create" class="btn btn-success" style="margin-bottom:-44px;margin-left: 11px;"><i class="fa fa-plus" aria-hidden="true"></i> Create Inovice</a>
+                        <a href="<?= base_url()?>slider/add" class="btn btn-success" style="margin-bottom:-44px;margin-left: 11px;"><i class="fa fa-plus" aria-hidden="true"></i> Add Slider Images</a>
                     </div>
                     <div class="table-responsive m-top90">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" id="invoice_list">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="slider_list">
                             <thead>
                                 <tr>
                                     <th class="hidden">Id</th>
-                                    <th>Full Name</th>
-                                    <th>Email Id</th>
-                                    <th>Invoice number</th>
-                                    <th>Order number</th>
-                                    <th>Total Amount</th>
+                                    <th>Title</th>
+                                    <th>Image</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php
-                                if (!empty($invoice_list)) {
-                                    foreach ($invoice_list as $key => $value) {
+                                if (!empty($slider_list)) {
+                                    foreach ($slider_list as $key => $value) {
                             ?>
-                                        <tr class="gradeX" id="order-<?= $value['invoice_id'] ?>">
-                                            <td class="hidden"><?= $value['invoice_id']; ?></td>
-                                            <td><?= $value['fullname']; ?></td>
-                                            <td><?= $value['email_id']; ?></td>
-                                            <td><?= $value['invoice_no']; ?></td>
-                                            <td><?= $value['order_no']; ?></td>
-                                            <td><?= $value['total_amount']; ?></td>
+                                        <tr class="gradeX" id="order-<?= $value['id'] ?>">
+                                            <td class="hidden"><?= $value['id']; ?></td>
+                                            <td><?= $value['title']; ?></td>
                                             <td>
-                                                <a href="<?= site_url('invoice/send-invoice?id='.$value['invoice_id'])?>" class="btn btn-success view-invoice" data-id="<?= $value['invoice_id'] ?>" name="view-invoice">Send</a>
-                                                <a href="javascript:void(0)" class="btn btn-danger delete-invoice" data-id="<?= $value['invoice_id'] ?>" data-invoiceno="<?= $value['invoice_no']?>" name="delete-invoice" onclick="invoiceDelete(this)">Delete</a><br>
+                                                <img src="<?= site_url()?>assets/images/<?= $value['images']?>" width="50px" height="50px">
+                                            </td>
+                                            <td>
+                                                <?php
+                                                    if($value['status'] == 1){
+                                                        echo "Not Active";
+                                                    }else{
+                                                        echo "Active";
+                                                    }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <a href="<?= site_url('slider/update?id='.$value['id'])?>" class="btn btn-success view-invoice" data-id="<?= $value['id'] ?>" name="update-slider">Update</a>
+                                                <a href="javascript:void(0)" class="btn btn-danger delete-invoice" data-id="<?= $value['id'] ?>"  name="delete-slider" onclick="sliderDelete(this)">Delete</a><br>
                                             </td>
                                         </tr>
                                         <?php
@@ -77,7 +83,7 @@
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="text-center popup-content">  
-                    <h5> By clicking on <span>"YES"</span>, Invoice number <span id="invoice-no-span"></span> will be deleted permanently. Do you wish to proceed?</h5><br><br>
+                    <h5> By clicking on <span>"YES"</span>, your slider images will be deleted permanently. Do you wish to proceed?</h5><br><br>
                     <input  type="hidden" name="id_modal" id="id_modal" value=""> 
                     <button type="button" id="confirm_btn" class="btn btn-success modal-box-button" >Yes</button>
                     <button type="button" class="btn btn-danger modal-box-button" data-dismiss="modal"  >No</button>
@@ -91,20 +97,20 @@
         $(".alert").delay(5000).slideUp(200, function() {
             $(this).alert('close');
         });
-        $('#invoice_list').dataTable({
+        $('#slider_list').dataTable({
             "aaSorting": [[0, "desc"]],
         });
         $("#confirm_btn").on('click',function(){
             var id=$("#id_modal").val();
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>" + "invoice/delete",
-                data: { 'order_id' : id },
+                url: "<?php echo base_url(); ?>" + "slider/delete",
+                data: { 'id' : id },
                 success: function(result){
                     $('#deleteConfirmationModal').modal('hide');
                     if(result){
                         $('html, body').animate({ scrollTop: 0 }, 'slow');
-                        $('.content-top-1').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  Invoice has been deleted successfully...! <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                        $('.content-top-1').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  Slider has been deleted successfully...! <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                         $('.alert').fadeIn().delay(3000).fadeOut(function () {
                             $(this).remove();
                         });
@@ -122,11 +128,9 @@
             });
         });
     });
-    function invoiceDelete(ths){
+    function sliderDelete(ths){
         var id = $(ths).data('id');
-        var invoice_no = $(ths).data('invoiceno');
         $("#id_modal").val(id);
-        $("#invoice-no-span").text(invoice_no);
         $('#deleteConfirmationModal').modal('show');
     }
 </script>
