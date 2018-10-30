@@ -7,24 +7,24 @@
         <!--//banner-->
         <!--content-->
         <div class="content-top">
+            <?php if($message = $this ->session->flashdata('Message')){?>
+                <div class="col-md-12 ">
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$message ?>
+                    </div>
+                </div>
+            <?php }?> 
+            <?php if($message = $this ->session->flashdata('Error')){?>
+                <div class="col-md-12 ">
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$message ?>
+                    </div>
+                </div>
+            <?php }?>
             <div class="col-md-12">
                 <div class="content-top-1">
-                    <?php if($message = $this ->session->flashdata('Message')){?>
-                        <div class="col-md-12 ">
-                            <div class="alert alert-dismissible alert-success">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <?=$message ?>
-                            </div>
-                        </div>
-                    <?php }?> 
-                    <?php if($message = $this ->session->flashdata('Error')){?>
-                        <div class="col-md-12 ">
-                            <div class="alert alert-dismissible alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <?=$message ?>
-                            </div>
-                        </div>
-                    <?php }?>
                     <div class="pull-right">
                         <a href="<?= base_url()?>invoice/create" class="btn btn-success" style="margin-bottom:-44px;margin-left: 11px;"><i class="fa fa-plus" aria-hidden="true"></i> Create Inovice</a>
                     </div>

@@ -439,3 +439,57 @@ ALTER TABLE `trans_home_slider`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `trans_cms_page` ADD `status` INT(3) NOT NULL COMMENT '1=Not Active, 2=Active' AFTER `meta_keyword`;
+
+ALTER TABLE `trans_user_login` ADD `fullname` VARCHAR(255) NOT NULL AFTER `user_id`;
+
+ALTER TABLE `trans_user_login` ADD `role` INT(3) NOT NULL COMMENT '1=User, 2=Vendor' AFTER `password`;
+
+--
+-- Table structure for table `trans_vendor`
+--
+
+CREATE TABLE `trans_vendor` (
+  `id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `address proof` varchar(255) NOT NULL,
+  `vehicle_model` varchar(255) NOT NULL,
+  `registration_no` varchar(255) NOT NULL,
+  `driver_name` varchar(255) NOT NULL,
+  `driver_license_no` varchar(150) NOT NULL,
+  `driver_contact` bigint(12) NOT NULL,
+  `driver_adhar_no` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `trans_vendor`
+--
+ALTER TABLE `trans_vendor`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_id` (`uid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `trans_vendor`
+--
+ALTER TABLE `trans_vendor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `trans_vendor`
+--
+ALTER TABLE `trans_vendor`
+  ADD CONSTRAINT `fk_uid_id` FOREIGN KEY (`uid`) REFERENCES `trans_user_login` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+

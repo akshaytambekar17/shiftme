@@ -12,10 +12,15 @@ app.controller('register', ['$scope', '$http', function ($scope, $http) {
             $("#user_password").css('border-color', '#ced4d7');
             $('#con_password').css('border-color', '#ced4d7');
             $('#passerror').text('');
+            if ($("#fullname").val() === "") {
+                $scope.flag = false;
+                $('#fullname').css('border-color', '#ef4040');
+            }
             if ($("#mobile").val() === "") {
                 $scope.flag = false;
                 $('#mobile').css('border-color', '#ef4040');
             }
+            
             if ($("#email").val() === "") {
                 $scope.flag = false;
                 $('#email').css('border-color', '#ef4040');
@@ -33,7 +38,7 @@ app.controller('register', ['$scope', '$http', function ($scope, $http) {
             if ($('#remember').is(":checked") != true) {
                 $scope.flag = false;
 //                document.getElementById("rememb").style.border = "1px solid red";
-                $('#passerror').text('Plase Select Terms And Conditions.');
+                $('#passerror').text('Please Select Terms And Conditions.');
                 $('#passerror').addClass('text-danger');
 //                $('#rememb').css('border-color', '#ef4040');
             }

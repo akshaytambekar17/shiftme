@@ -109,13 +109,13 @@
                                 </div>
                             </div>
                             <br><br>
-<!--                            <div class="row">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <b>Do you need a professional packers?           :</b> <?= $quotation['packer'] == 1 ? 'Yes':'No' ?> <br>
                                     <b>Do you need a storage facilities?             :</b> <?= $quotation['storage'] == 1 ? 'Yes':'No' ?> <br>
                                     <b>Do you need a shifting of your vehicle also?  :</b> <?= $quotation['vehicle_shifting'] == 1 ? 'Yes':'No' ?> <br>
                                 </div>
-                            </div>-->
+                            </div>
 
                         </div>
                     </div>

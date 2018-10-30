@@ -158,6 +158,11 @@
                                                 <span id="user_log_errors"></span>
                                                 <span id="user_log_sucess" class=""></span>
                                                 <div class="form-group">
+                                                    <label><input type="radio" name="role" value="1" checked>User</label>
+                                                    <label style="margin-left: 60px"><input type="radio" name="role" value="2">Vendor</label>
+                                                    <span id="radioError" class=""></span>
+                                                </div>
+                                                <div class="form-group">
                                                     <input type="text" name="log_username" id="log_username" tabindex="1" class="form-control" placeholder="Enter your Mobile or Email" value="" ng-model="log.log_username">
                                                 </div>
                                                 <div class="form-group">
@@ -186,21 +191,30 @@
                                                 <span id="sucess" class=""></span>
                                                 <span id="errors" class=""></span>
                                                 <div class="form-group">
-                                                    <input type="text" name="mobile" maxlength="10" id="mobile"  tabindex="1" class="form-control" placeholder="Mobile Number" value="" ng-model="reg.mobile">
+                                                    <label><input type="radio" name="role" value="1" checked>User</label>
+                                                    <label style="margin-left: 60px"><input type="radio" name="role" value="2">Vendor</label>
+                                                    <span id="radioError" class=""></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="fullname"  id="fullname"  tabindex="1" class="form-control" placeholder="Full Name" value="" ng-model="reg.fullname">
+                                                    <span id="fullnameError" class=""></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="mobile" maxlength="10" id="mobile"  tabindex="2" class="form-control" placeholder="Mobile Number" value="" ng-model="reg.mobile">
                                                     <span id="mobileError" class=""></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="email" name="email" id="email"  tabindex="1" class="form-control" placeholder="Email Address" value="" ng-model="reg.email">
+                                                    <input type="email" name="email" id="email"  tabindex="3" class="form-control" placeholder="Email Address" value="" ng-model="reg.email">
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" name="password" id="user_password" tabindex="2" oninput="validatePassword(this);" maxlength="6"  class="form-control" placeholder="Password" ng-model="reg.password">
+                                                    <input type="password" name="password" id="user_password" tabindex="4" oninput="validatePassword(this);" maxlength="6"  class="form-control" placeholder="Password" ng-model="reg.password">
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" name="con_password"  id="con_password" tabindex="2" oninput="validatePassword(this);" maxlength="6" class="form-control" placeholder="confirm password" ng-model="reg.con_password">
+                                                    <input type="password" name="con_password"  id="con_password" tabindex="5" oninput="validatePassword(this);" maxlength="6" class="form-control" placeholder="confirm password" ng-model="reg.con_password">
                                                 </div>
-
+                                                
                                                 <div class="form-group text-left" id="rememb">
-                                                    <input type="checkbox" tabindex="3" class=""  name="remember" id="remember" value="1" ng-nodel="reg.rember">
+                                                    <input type="checkbox" tabindex="3" class=""  name="remember" id="remember" value="1" ng-nodel="reg.rember" tabindex="6">
                                                     <label for="rememb" >I agree with your terms and conditions.</label>
                                                     <p><span id="passerror" class=""></span></p>
                                                 </div>
@@ -208,7 +222,7 @@
                                                 <div class="form-group" style="margin-bottom: 0">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Submit">
+                                                            <input type="submit" name="login-submit" id="login-submit" tabindex="7" class="form-control btn btn-login" value="Submit">
                                                         </div>
                                                     </div>
                                                 </div>

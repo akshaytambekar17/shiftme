@@ -49,6 +49,12 @@ class User_model extends MY_Model {
         }
         
         $this->db->insert('trans_user_login', $data);
+        $last_id = $this->db->insert_id();
+        $data_vendor = array('uid' => $last_id,
+                             'created_at' => date('Y-m-d H:i:s'),
+                             'updated_at' => date('Y-m-d H:i:s'),
+                        );
+        $this->db->insert('trans_vendor', $data_vendor);
         return ($this->db->affected_rows() != 1) ? false : true;
         
         
@@ -58,8 +64,10 @@ class User_model extends MY_Model {
     public function userlogin() {
         $pass = $this->site->encryptPass($this->input->post('log_password'));
         $username = $this->input->post('log_username');
+        $role = $this->input->post('role');
         $this->db->where("email ='" . $username . "' and  password ='" . $pass . "'");
         $this->db->or_where("mobileno ='" . $username . "' and  password ='" . $pass . "'");
+        $this->db->where("role",$role);
         $log = $this->db->get('trans_user_login');
 //        echo $this->db->last_query();
         if ($log->num_rows() > 0) {

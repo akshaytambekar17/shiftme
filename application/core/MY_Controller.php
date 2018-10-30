@@ -194,5 +194,33 @@ class MY_Controller extends CI_Controller {
         return TRUE;
 //        echo $output;
     }
-
+    public function sendEmail($to,$subject,$message){
+        $this->load->library('email');
+        $config = array();
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'ssl://smtp.gmail.com';
+        $config['smtp_user'] = 'akshaytambekar17@gmail.com';
+        $config['smtp_pass'] = '@kshay_1793';
+        $config['smtp_port'] = 465;
+        $config['charset']   = 'utf-8';
+        $config['newline']   = "\r\n";
+        $config['mailtype'] = 'html';
+        $config['wordwrap'] = TRUE;
+        $this->email->initialize($config);
+        $this->email->from('akshaytambekar17@gmail.com', 'Shift Me');
+        $this->email->to($to);
+        $this->email->subject($subject);
+        $this->email->message($message);
+        
+        if($this->email->send()){
+            $result['success'] = true;
+            $result['message'] = "Email has been sent Successfully";
+        }else{
+            $result['success'] = false;
+            $result['message'] = "Something went wrong please try again";
+            //printDie($this->email->print_debugger());
+        }
+        return $result;
+    }
+    
 }

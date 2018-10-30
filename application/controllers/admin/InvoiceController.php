@@ -19,6 +19,8 @@ class InvoiceController extends MY_Controller {
         $this->load->model('admin/Admin_model');
         $this->load->model('admin/OrderModel');
         $this->load->model('admin/InvoiceModel');
+        $this->load->model('admin/QuotationHasProductModel');
+        $this->load->model('admin/ProductListModel');
         $this->load->model('User_model');
         $this->load->library('form_validation');
         $this->load->helper('message');
@@ -68,31 +70,21 @@ class InvoiceController extends MY_Controller {
         if($this->input->post()){
             $post = $this->input->post();
             $user_details = $this->User_model->getUsersById($post['user_id']);
-            $this->load->library('email');
-            $config = array();
-            $config['protocol'] = 'smtp';
-            $config['smtp_host'] = 'ssl://smtp.gmail.com';
-            $config['smtp_user'] = 'akshaytambekar17@gmail.com';
-            $config['smtp_pass'] = '@kshay_1793';
-            $config['smtp_port'] = 465;
-            $config['charset']   = 'utf-8';
-            $config['newline']   = "\r\n";
-            $config['mailtype'] = 'text';
-            $config['wordwrap'] = TRUE;
-            $this->email->initialize($config);
-            $this->email->from('akshaytambekar17@gmail.com', 'Shift Me');
-            $this->email->to($user_details['email']);
+            $invoice_details = $this->InvoiceModel->getInvoiceByIdWithQuotationOrder($post['invoice_id']);
+            $data['invoice_details_product_data'] = $this->QuotationHasProductModel->getQuotationsHasProductByQuotationId($invoice_details['quotation_id']);   
+            $data['product_list'] = $this->ProductListModel->getProductsList();
+            $data['invoice_details'] = $invoice_details;
             
-            $this->email->subject('Email Test');
-            $this->email->message('Testing the email class.');
-
-            if($this->email->send()){
-                printDie($user_details);
+            $to = $user_details['email'];
+            $subject = "Shift Me Invoice for your Order number ".$invoice_details['order_no'];
+            $message = $this->load->view('admin/Email/invoiceTemplate',$data,TRUE);
+            $result = $this->sendEmail($to, $subject, $message);
+            
+            if($result){
+                $this->session->set_flashdata('Message', $result['message']);
             }else{
-                printDie($this->email->print_debugger());
+                $this->session->set_flashdata('Error', $result['message']);
             }
-            
-            $this->session->set_flashdata('Message', 'Invoice has been send through Mail and SMS Succesfully');
             return redirect('invoice','refresh');
         }
         $invoice_details = $this->InvoiceModel->getInvoiceByIdWithQuotationOrder($get['id']);

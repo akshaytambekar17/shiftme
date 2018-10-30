@@ -16,7 +16,8 @@
                                     <th class="hidden">Id</th>
                                     <th>Email id</th>
                                     <th>Phone Number</th>
-                                    <th>Created at</th>
+                                    <th>Role</th>
+                                    <th>Registration Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -29,6 +30,14 @@
                                             <td class="hidden"><?= $value['user_id']; ?></td>
                                             <td><?= $value['email']; ?></td>
                                             <td><?= $value['mobileno']; ?></td>
+                                            <td><?php
+                                                    if($value['role'] == 1){
+                                                        echo "User";
+                                                    }else{
+                                                        echo "Vendor";
+                                                    }
+                                                ?>
+                                            </td>
                                             <td class="center"><?= $value['create_date']; ?></td>
                                             <td>
                                                 <a href="javascript:void(0)" class="btn btn-danger delete-user" data-id="<?= $value['user_id'] ?>" name="delete-user" onclick="userDelete(this)">Delete</a><br>

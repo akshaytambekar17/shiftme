@@ -39,6 +39,8 @@ class User_controller extends MY_Controller {
     public function signup() {
         $post = $this->input->post();
         $data = array(
+            'role' => $post['role'],
+            'fullname' => $post['fullname'],
             'mobileno' => $post['mobile'],
             'email' => $post['email'],
             'password' => $this->site->encryptPass($post['password']),
