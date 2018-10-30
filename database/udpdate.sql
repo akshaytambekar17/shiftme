@@ -437,3 +437,5 @@ ALTER TABLE `trans_home_slider`
 --
 ALTER TABLE `trans_home_slider`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `trans_cms_page` ADD `status` INT(3) NOT NULL COMMENT '1=Not Active, 2=Active' AFTER `meta_keyword`;

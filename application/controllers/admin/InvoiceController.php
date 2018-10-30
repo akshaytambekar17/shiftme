@@ -19,6 +19,7 @@ class InvoiceController extends MY_Controller {
         $this->load->model('admin/Admin_model');
         $this->load->model('admin/OrderModel');
         $this->load->model('admin/InvoiceModel');
+        $this->load->model('User_model');
         $this->load->library('form_validation');
         $this->load->helper('message');
         $this->load->model('site_model');
@@ -66,6 +67,31 @@ class InvoiceController extends MY_Controller {
         $get = $this->input->get();
         if($this->input->post()){
             $post = $this->input->post();
+            $user_details = $this->User_model->getUsersById($post['user_id']);
+            $this->load->library('email');
+            $config = array();
+            $config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'ssl://smtp.gmail.com';
+            $config['smtp_user'] = 'akshaytambekar17@gmail.com';
+            $config['smtp_pass'] = '@kshay_1793';
+            $config['smtp_port'] = 465;
+            $config['charset']   = 'utf-8';
+            $config['newline']   = "\r\n";
+            $config['mailtype'] = 'text';
+            $config['wordwrap'] = TRUE;
+            $this->email->initialize($config);
+            $this->email->from('akshaytambekar17@gmail.com', 'Shift Me');
+            $this->email->to($user_details['email']);
+            
+            $this->email->subject('Email Test');
+            $this->email->message('Testing the email class.');
+
+            if($this->email->send()){
+                printDie($user_details);
+            }else{
+                printDie($this->email->print_debugger());
+            }
+            
             $this->session->set_flashdata('Message', 'Invoice has been send through Mail and SMS Succesfully');
             return redirect('invoice','refresh');
         }

@@ -65,6 +65,7 @@
                                     </div>
                                 </div>
                                 <input type="hidden" value="<?= $invoice_details['invoice_id']?>" name="invoice_id">
+                                <input type="hidden" value="<?= $invoice_details['user_id']?>" name="user_id">
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success" id="submit">Send Invoice</button>
