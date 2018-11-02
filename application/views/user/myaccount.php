@@ -28,13 +28,27 @@
                 </div>
             <?php } ?>
             <div  class="col-sm-12 col-md-12 col-lg-12">
-
+                <?php 
+                    if(!empty($vendor_details)){
+                        if($vendor_details['is_verified'] == 1){
+                            $href = true;
+                        }else{
+                            $href = false;
+                        }
+                    }else{
+                        $href = true;
+                    }
+                ?>
+                <?php if($href == false){ ?>
+                    <p class="help-block center">Please complete your profile details before proceeding further.</p>
+                    <br>
+                <?php } ?>
                 <div class="col-xs-12 col-lg-3 col-md-3 col-sm-12">
                     <ul class="nav nav-tabs tabs-left">
                         <li class="active"> <a href="#profile" data-toggle="tab">Profile</a></li>
-                        <li><a href="#myorders" data-toggle="tab">My Order</a></li>
-                        <li><a href="#myquotation" data-toggle="tab">My Quotation</a></li>
-                        <li><a href="#myenquires" data-toggle="tab">My Enquires</a></li>
+                        <li><a href="<?= $href==true?'#myorders':'javascript:void(0)'?>" data-toggle="tab">My Order</a></li>
+                        <li><a href="<?= $href==true?'#myquotation':'javascript:void(0)'?>" data-toggle="tab">My Quotation</a></li>
+                        <li><a href="<?= $href==true?'#myenquires':'javascript:void(0)'?>" data-toggle="tab">My Enquires</a></li>
                         <li><a href="#settings" data-toggle="tab">Change Password</a></li>
                     </ul>
                 </div>
@@ -43,96 +57,205 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="profile">
 
+                            <?php if($user_details['role'] == 1){ ?>
+                                <form action="<?= site_url() ?>User_controller/update_pro" method="POST" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Email :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="email" class="form-control" name="email" placeholder="E-mail" id="email" value="<?= $result[0]['email'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Mobile No. :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="mobileno" placeholder="Mobile No." id="mobileno" value="<?= $result[0]['mobileno'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Street :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="street" placeholder="Street" id="street" value="<?= $result[0]['street'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Landmark :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="landmark" placeholder="Landmark" id="landmark" value="<?= $result[0]['landmark'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>City :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <select class="form-control" name="city" id="city">
+                                                <option value="" selected> Select City </option>
+                                                <option value="Pune" <?= $result[0]['city'] == 'Pune' ? 'selected' : '' ?>>Pune</option>
+                                                <option value="Mumbai" <?= $result[0]['city'] == 'Mumbai' ? 'selected' : '' ?>>Mumbai</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Pin Code :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" name="pincode" class="form-control" placeholder="Pin Code" id="pincode" value="<?= $result[0]['pincode'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>State :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <select class="form-control" name="state" id="state">
+                                                <option value="" selected> Select State </option>
+                                                <option value="Maharastra" <?= $result[0]['state'] == 'Maharastra' ? 'selected' : '' ?>>Maharashtra</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Country :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <select class="form-control" name="country" id="country">
+                                                <option value="" selected> Select Country </option>
+                                                <option value="India" <?= $result[0]['country'] == 'India' ? 'selected' : '' ?> >India</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--                                <div class="row">
+                                                                        <div class="col-lg-2 col-md-2">
+                                                                            <label>Image :</label>
+                                                                        </div>
+                                                                        <div class="col-lg-8 col-md-8">
+                                                                            <input type="file" name="profiephoto" class="form-control" id="profiephoto"> 
+                                                                        </div>
+                                                                    </div>-->
 
-                            <form action="<?= site_url() ?>User_controller/update_pro" method="POST" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3">
-                                        <label>Email :</label>
+                                    <div class="row" style="text-align: center">
+                                        <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid()">
                                     </div>
-                                    <div class="col-lg-8 col-md-8">
-                                        <input type="email" class="form-control" name="email" placeholder="E-mail" id="email" value="<?= $result[0]['email'] ?>">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3">
-                                        <label>Mobile No. :</label>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8">
-                                        <input type="text" class="form-control" name="mobileno" placeholder="Mobile No." id="mobileno" value="<?= $result[0]['mobileno'] ?>">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3">
-                                        <label>Street :</label>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8">
-                                        <input type="text" class="form-control" name="street" placeholder="Street" id="street" value="<?= $result[0]['street'] ?>">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3">
-                                        <label>Landmark :</label>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8">
-                                        <input type="text" class="form-control" name="landmark" placeholder="Landmark" id="landmark" value="<?= $result[0]['landmark'] ?>">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3">
-                                        <label>City :</label>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8">
-                                        <select class="form-control" name="city" id="city">
-                                            <option value="" selected> Select City </option>
-                                            <option value="Pune" <?= $result[0]['city'] == 'Pune' ? 'selected' : '' ?>>Pune</option>
-                                            <option value="Mumbai" <?= $result[0]['city'] == 'Mumbai' ? 'selected' : '' ?>>Mumbai</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3">
-                                        <label>Pin Code :</label>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8">
-                                        <input type="text" name="pincode" class="form-control" placeholder="Pin Code" id="pincode" value="<?= $result[0]['pincode'] ?>">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3">
-                                        <label>State :</label>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8">
-                                        <select class="form-control" name="state" id="state">
-                                            <option value="" selected> Select State </option>
-                                            <option value="Maharastra" <?= $result[0]['state'] == 'Maharastra' ? 'selected' : '' ?>>Maharashtra</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3">
-                                        <label>Country :</label>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8">
-                                        <select class="form-control" name="country" id="country">
-                                            <option value="" selected> Select Country </option>
-                                            <option value="India" <?= $result[0]['country'] == 'India' ? 'selected' : '' ?> >India</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <!--                                <div class="row">
-                                                                    <div class="col-lg-2 col-md-2">
-                                                                        <label>Image :</label>
-                                                                    </div>
-                                                                    <div class="col-lg-8 col-md-8">
-                                                                        <input type="file" name="profiephoto" class="form-control" id="profiephoto"> 
-                                                                    </div>
-                                                                </div>-->
 
-                                <div class="row" style="text-align: center">
-                                    <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid()">
-                                </div>
+                                </form>
+                            <?php }else{ ?>
+                                <form action="<?= site_url() ?>myaccount?id=<?= $vendor_details['id']?>" method="POST" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Address :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="address" placeholder="Address" id="address" value="<?= !empty($vendor_details['address'])?$vendor_details['address']:set_value('address') ?>" required>
+                                            <span class="help-block"><?php echo form_error('address'); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Address Proof :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="address_proof" placeholder="Address Proof" id="address_proof" value="<?= !empty($vendor_details['address_proof'])?$vendor_details['address_proof']:set_value('address_proof') ?>" required>
+                                            <span class="help-block"><?php echo form_error('address_proof'); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Vehicle Model :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <select class="form-control" name="vehicle_id" id="vehicle_id" required>
+                                                <option selected disabled> Select Vehicle</option>
+                                                <?php foreach ($vehicle_services_list as $value) { 
+                                                        if(!empty($vendor_details['vehicle_id'])){
+                                                            if($vendor_details['vehicle_id'] == $value['id']){
+                                                                $selected = 'selected="selected"';
+                                                            }else{
+                                                                $selected = '';
+                                                            }
+                                                        }else{
+                                                            $selected = '';
+                                                        }
+                                                ?>
+                                                    <option value="<?= $value['id']?>" <?= !empty($vendor_details['vehicle_id'])?$selected:set_select('vehicle_id',$value['id']); ?> ><?= $value['vehicle_name']?></option> 
+                                                <?php }?>
+                                                
+                                            </select>
+                                            <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Registration Number :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="registration_no" placeholder="Registration Number" id="registration_no" value="<?= !empty($vendor_details['registration_no'])?$vendor_details['registration_no']:set_value('registration_no') ?>" required>
+                                            <span class="help-block"><?php echo form_error('registration_no'); ?></span>
+                                        </div>
+                                    </div>
+                                    <h5>Driver Details</h5>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Driver Name :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="driver_name" placeholder="Driver Name" id="driver_name" value="<?= !empty($vendor_details['driver_name'])?$vendor_details['driver_name']:set_value('driver_name') ?>" required>
+                                            <span class="help-block"><?php echo form_error('driver_name'); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Driver License No :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="driver_license_no" placeholder="Driver License No" id="driver_license_no" value="<?= !empty($vendor_details['driver_license_no'])?$vendor_details['driver_license_no']:set_value('driver_license_no') ?>" required>
+                                            <span class="help-block"><?php echo form_error('driver_license_no'); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Driver Contact Number:</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="driver_contact" placeholder="Driver Contact" id="driver_contact" value="<?= !empty($vendor_details['driver_contact'])?$vendor_details['driver_contact']:set_value('driver_contact') ?>" required>
+                                            <span class="help-block"><?php echo form_error('driver_contact'); ?></span>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Driver Aadhar No :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" class="form-control" name="driver_adhar_no" placeholder="Driver Aadhar Number" id="driver_adhar_no" value="<?= !empty($vendor_details['driver_adhar_no'])?$vendor_details['driver_adhar_no']:set_value('driver_adhar_no') ?>" required>
+                                            <span class="help-block"><?php echo form_error('driver_adhar_no'); ?></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!--                                <div class="row">
+                                                                        <div class="col-lg-2 col-md-2">
+                                                                            <label>Image :</label>
+                                                                        </div>
+                                                                        <div class="col-lg-8 col-md-8">
+                                                                            <input type="file" name="profiephoto" class="form-control" id="profiephoto"> 
+                                                                        </div>
+                                                                    </div>-->
+                                    <input type="hidden" name="id" value="<?= $vendor_details['id']?>">
+                                    <div class="row" style="text-align: center">
+                                        <input type="submit" value="Update" class="btn btn-success" name="submit">
+                                    </div>
 
-                            </form>
+                                </form>
+                            <?php }?>
+                            
                         </div>
                         <div class="tab-pane" id="myorders">
                            

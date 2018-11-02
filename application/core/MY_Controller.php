@@ -200,7 +200,7 @@ class MY_Controller extends CI_Controller {
         $config['protocol'] = 'smtp';
         $config['smtp_host'] = 'ssl://smtp.gmail.com';
         $config['smtp_user'] = 'akshaytambekar17@gmail.com';
-        $config['smtp_pass'] = '@kshay_1793';
+        $config['smtp_pass'] = '1793_@ksh@y';
         $config['smtp_port'] = 465;
         $config['charset']   = 'utf-8';
         $config['newline']   = "\r\n";

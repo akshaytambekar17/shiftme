@@ -9,6 +9,7 @@ class User_controller extends MY_Controller {
         $this->load->model('User_model', 'user');
         $this->load->model('admin/Admin_model');
         $this->load->model('admin/OrderModel','Order');
+        $this->load->model('admin/VendorModel','Vendor');
         $this->load->model('admin/InvoiceModel','Invoice');
         $this->load->model('admin/EnquiryModel','Enquiry');
         $this->load->model('admin/QuotationModel','Quotation');
@@ -80,10 +81,81 @@ class User_controller extends MY_Controller {
         if ($this->session->userdata('uid') == "") {
             redirect(site_url());
         }
+        if($this->input->post()){
+            $post = $this->input->post();
+            $this->form_validation->set_rules('address', 'Address', 'trim|required');
+            $this->form_validation->set_rules('address_proof', 'Address Proof', 'trim|required');
+            $this->form_validation->set_rules('vehicle_id', 'Vehicle', 'trim|required');
+            $this->form_validation->set_rules('registration_no', 'Registration Number', 'trim|required');
+            $this->form_validation->set_rules('driver_name', 'Driver Name', 'trim|required');
+            $this->form_validation->set_rules('driver_license_no', 'Driver License Number', 'trim|required');
+            $this->form_validation->set_rules('driver_contact', 'Driver Contact Number', 'trim|required|numeric|regex_match[/^[0-9]{10}$/]');
+            $this->form_validation->set_rules('driver_adhar_no', 'Driver Aadhar No', 'trim|required|numeric|regex_match[/^[0-9]{12}$/]');
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($this->form_validation->run() == TRUE){
+                $details = $post;
+                unset($details['submit']);
+                $details['is_verified'] = 1;
+                $details['uid'] = $this->session->userdata('uid');
+                $details['updated_at'] = date('Y-m-d H:i:s');
+                $result = $this->Vendor->update($details);
+                if ($result) {
+                    $this->session->set_flashdata('Message', 'Profile has been updated');
+                    return redirect('myaccount', 'refresh');
+                } else {
+                    $this->session->set_flashdata('Error', 'Failed to update profile');
+                    $user_id = $this->session->userdata('uid');
+                    $data = $this->myaccountFuntion($user_id);
+                    $this->layout($data);
+                }
+            }else{
+                $user_id = $this->session->userdata('uid');
+                $data = $this->myaccountFuntion($user_id);
+                $this->layout($data);
+            }
+        }else{
+            $user_id = $this->session->userdata('uid');
+            $data = $this->myaccountFuntion($user_id);
+            $this->layout($data);
+        }
+        
+    }
+    public function myaccountFuntion($user_id){
+        $data['metadata'] = "My Account";
+        $data['template'] = "myaccount";
+        $data['name'] = "My Account";
+        $user_details = $this->user->getUsersById($user_id);
+        if($user_details['role'] == 2){
+            $data['vendor_details'] = $this->Vendor->getVendorByUserId($user_id);
+        }else{
+            $data['vendor_details'] = '';
+        }
+        $data['user_details'] = $user_details;
+        $data['result'] = $this->user->user_details();
+        $data['enquiry_list'] = $this->Enquiry->getEnquiryByUserId($user_id);
+        $data['quotation_list'] = $this->Quotation->getQuotationByUserId($user_id);
+        $data['orders_list'] = $this->Order->getOrdersByUserId($user_id);
+        $data['inquery_list'] = $this->user->user_inquery_list();
+        $data['quote_list'] = $this->user->user_quote_list();
+        $data['vehicle_services_list'] = $this->user->vehicle_list();
+        
+        return $data;
+    }
+    public function vendor() {
+        if ($this->session->userdata('uid') == "") {
+            redirect(site_url());
+        }
         $user_id = $this->session->userdata('uid');
         $data['metadata'] = "My Account";
         $data['template'] = "myaccount";
         $data['name'] = "My Account";
+        $user_details = $this->user->getUsersById($user_id);
+        if($user_details['role'] == 2){
+            $data['vendor_details'] = $this->Vendor->getVendorByUserId($user_id);
+        }else{
+            $data['vendor_details'] = '';
+        }
+        $data['user_details'] = $user_details;
         $data['result'] = $this->user->user_details();
         $data['enquiry_list'] = $this->Enquiry->getEnquiryByUserId($user_id);
         $data['quotation_list'] = $this->Quotation->getQuotationByUserId($user_id);

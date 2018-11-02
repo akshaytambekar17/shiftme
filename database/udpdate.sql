@@ -493,3 +493,8 @@ ALTER TABLE `trans_vendor`
 ALTER TABLE `trans_vendor`
   ADD CONSTRAINT `fk_uid_id` FOREIGN KEY (`uid`) REFERENCES `trans_user_login` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
+ALTER TABLE `trans_vendor` ADD `is_verified` INT(3) NOT NULL COMMENT '1=Verified, 0= Not Verified' AFTER `driver_adhar_no`;
+
+ALTER TABLE `trans_vendor` CHANGE `address proof` `address_proof` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+
+ALTER TABLE `trans_vendor` CHANGE `vehicle_id` `vehicle_id` INT(11) NULL;

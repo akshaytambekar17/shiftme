@@ -109,6 +109,8 @@ $route['cms-page/delete'] = "admin/CMSPageController/delete";
 $route['quote'] = "QuotationController/create";
 $route['quote/view'] = "QuotationController/view";
 
+$route['vendor'] = "User_controller/vendor";
+
 $route['makeOrder'] = "OrderController/make";
 /**************End User Routes**************/
 
