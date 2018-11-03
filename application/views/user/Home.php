@@ -98,16 +98,27 @@ and (max-device-width : 480px) {  }
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="<?= base_url(); ?>upload/slider images/slide_3.jpg" alt="..." >
+            <div class="carousel-caption">
+                <div class="row">
+                    <div class="slider-text">
+                        <h2>Slider Images</h2>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <?php
         $i = 0;
         foreach ($slider as $s) {
-            ?>
+        ?>
             <div class="item <?php
             if ($i == 0) {
                 echo 'active';
             }
             ?>">
-                <img src="<?= base_url(); ?>upload/slider images/<?= $s['images'] ?>" alt="..." >
+                <img src="<?= base_url(); ?>upload/slider images/slide_3.jpg" alt="..." >
                 <div class="carousel-caption">
                     <div class="row">
                         <div class="slider-text">
