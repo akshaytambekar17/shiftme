@@ -4,10 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/test2/application/config/routes.php</file>
-            <file>file:/var/www/test2/application/controllers/admin/InvoiceController.php</file>
-            <file>file:/var/www/test2/application/models/User_model.php</file>
-            <file>file:/var/www/test2/application/views/admin/Invoice/send_invoice.php</file>
-            <file>file:/var/www/test2/application/models/admin/InvoiceModel.php</file>
+            <file>file:/var/www/test2/application/views/user/myaccount.php</file>
+            <file>file:/var/www/test2/application/views/user/createQuotation.php</file>
+            <file>file:/var/www/test2/application/controllers/User_controller.php</file>
+            <file>file:/var/www/test2/application/controllers/Services_controller.php</file>
+            <file>file:/var/www/test2/application/views/user/qoute.php</file>
         </group>
     </open-files>
 </project-private>

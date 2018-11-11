@@ -231,7 +231,7 @@ class QuotationController extends MY_Controller {
         
         
     }
-   public function delete(){
+    public function delete(){
         $post = $this->input->post();
         $result = $this->Admin_model->deleteQuotation($post['id']);
         if($result){

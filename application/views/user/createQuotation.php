@@ -90,7 +90,7 @@
                                 <select name='vehicle_id'  class="form-control">
                                     <option disabled="disabled" selected="selected">Select Vehicle</option>
                                     <?php foreach ($vehicle_services_list as $value) { ?>
-                                        <option value="<?= $value['id']?>" <?= set_select('vehicle_id',$value['id'],TRUE); ?> ><?= $value['vehicle_name']?></option> 
+                                        <option value="<?= $value['id']?>" <?= set_select('vehicle_id',$value['id']); ?> ><?= $value['vehicle_name']?></option> 
                                     <?php }?>
                                 </select>
                             </div>

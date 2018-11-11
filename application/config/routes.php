@@ -167,6 +167,7 @@ $route['logout'] = "User_controller/logout";
 $route['myaccount'] = "User_controller/myaccount";
 $route['change-password'] = "User_controller/updatepassword";
 $route['shifting'] = "Services_controller/shifting";
+$route['vendor-shifting'] = "Services_controller/vendor_shifting";
 $route['labour'] = "Services_controller/labour";
 $route['vehicle'] = "Services_controller/vehicle";
 $route['aboutus'] = "Services_controller/aboutus";

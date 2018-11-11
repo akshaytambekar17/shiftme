@@ -50,11 +50,13 @@ class User_model extends MY_Model {
         
         $this->db->insert('trans_user_login', $data);
         $last_id = $this->db->insert_id();
-        $data_vendor = array('uid' => $last_id,
-                             'created_at' => date('Y-m-d H:i:s'),
-                             'updated_at' => date('Y-m-d H:i:s'),
-                        );
-        $this->db->insert('trans_vendor', $data_vendor);
+        if($data['role'] == 2){
+            $data_vendor = array('uid' => $last_id,
+                                 'created_at' => date('Y-m-d H:i:s'),
+                                 'updated_at' => date('Y-m-d H:i:s'),
+                            );
+            $this->db->insert('trans_vendor', $data_vendor);
+        }
         return ($this->db->affected_rows() != 1) ? false : true;
         
         

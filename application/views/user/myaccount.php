@@ -46,9 +46,14 @@
                 <div class="col-xs-12 col-lg-3 col-md-3 col-sm-12">
                     <ul class="nav nav-tabs tabs-left">
                         <li class="active"> <a href="#profile" data-toggle="tab">Profile</a></li>
-                        <li><a href="<?= $href==true?'#myorders':'javascript:void(0)'?>" data-toggle="tab">My Order</a></li>
-                        <li><a href="<?= $href==true?'#myquotation':'javascript:void(0)'?>" data-toggle="tab">My Quotation</a></li>
-                        <li><a href="<?= $href==true?'#myenquires':'javascript:void(0)'?>" data-toggle="tab">My Enquires</a></li>
+                        <?php if($user_details['role'] == 1){ ?>
+                            <li><a href="<?= $href==true?'#myorders':'javascript:void(0)'?>" data-toggle="tab">My Order</a></li>
+                            <li><a href="<?= $href==true?'#myquotation':'javascript:void(0)'?>" data-toggle="tab">My Quotation</a></li>
+                            <li><a href="<?= $href==true?'#myenquires':'javascript:void(0)'?>" data-toggle="tab">My Enquires</a></li>
+                        <?php }else{ ?>
+                            <li><a href="<?= $href==true?'#shifting_information':'javascript:void(0)'?>" data-toggle="tab">Shifting Information</a></li>
+                            <li><a href="<?= $href==true?'#myorders_vendor':'javascript:void(0)'?>" data-toggle="tab">My Order</a></li>
+                        <?php } ?>
                         <li><a href="#settings" data-toggle="tab">Change Password</a></li>
                     </ul>
                 </div>
@@ -455,6 +460,33 @@
                                         <p><span id="changepasserror" class=""></span></p>
                                     </div>
                                 </div>
+                                <div class="row" style="text-align: center">
+                                    <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid_chagepass()">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="shifting_information">
+                            <form action="<?= site_url() ?>vendor-shifting" method="POST" id="vendor-shifting">
+                                <div class="form-group">
+                                    <label>Starting Location</label>
+                                    <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?= !empty($details['starting_location']) ? $details['starting_location'] :set_value('starting_location'); ?>">
+                                    <span class="help-block"><?php echo form_error('starting_location'); ?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>End Location</label>
+                                    <input type="text" class="form-control" name="end_location" id="to_loc" value="<?= !empty($details['end_location']) ? $details['end_location'] :set_value('end_location'); ?>">
+                                    <span class="help-block"><?php echo form_error('starting_location'); ?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Vehicle</label>
+                                    <select name='vehicle_id'  class="form-control">
+                                        <option disabled="disabled" selected="selected">Select Vehicle</option>
+                                        <?php foreach ($vehicle_services_list as $value) { ?>
+                                            <option value="<?= $value['id']?>" <?= set_select('vehicle_id',$value['id']); ?> ><?= $value['vehicle_name']?></option> 
+                                        <?php }?>
+                                    </select>
+                                </div>
+                                <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
                                 <div class="row" style="text-align: center">
                                     <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid_chagepass()">
                                 </div>

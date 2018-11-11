@@ -498,3 +498,56 @@ ALTER TABLE `trans_vendor` ADD `is_verified` INT(3) NOT NULL COMMENT '1=Verified
 ALTER TABLE `trans_vendor` CHANGE `address proof` `address_proof` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
 
 ALTER TABLE `trans_vendor` CHANGE `vehicle_id` `vehicle_id` INT(11) NULL;
+
+/********** Tablespace if sql file required  ******************/
+CREATE TABLESPACE soyomonitor_me ADD DATAFILE 'soyomonitor_me.ibd' Engine=InnoDB 
+
+/********** End Tablespace if sql file required  ******************/
+
+CREATE TABLE `trans_vendor_shifting_information` (
+  `id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `vendor_shifiting_no` varchar(150) NOT NULL,
+  `starting_location` varchar(255) NOT NULL,
+  `end_location` varchar(255) NOT NULL,
+  `vehicle_id` int(11) NOT NULL,
+  `base_fare` float(11,2) NOT NULL,
+  `charges_per_km` int(11) NOT NULL,
+  `total_price` float(11,2) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `trans_vendor_shifting_information`
+--
+ALTER TABLE `trans_vendor_shifting_information`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_uid` (`uid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `trans_vendor_shifting_information`
+--
+ALTER TABLE `trans_vendor_shifting_information`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `trans_vendor_shifting_information`
+--
+ALTER TABLE `trans_vendor_shifting_information`
+  ADD CONSTRAINT `fk_uid_vendor` FOREIGN KEY (`uid`) REFERENCES `trans_user_login` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

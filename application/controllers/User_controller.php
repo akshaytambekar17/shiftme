@@ -49,6 +49,10 @@ class User_controller extends MY_Controller {
             'create_date' => date('Y-m-d H:i:s'),
         );
         $result = $this->user->sign_up($data);
+        $to = $post['email'];
+        $subject = "Registration Mail";
+        $message = $this->load->view('admin/Email/registration',$post,TRUE);
+        $result_mail = $this->sendEmail($to, $subject, $message);
         echo $result;
     }
 
