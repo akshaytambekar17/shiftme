@@ -47,25 +47,28 @@
                                     <h3>QUICK LINKS</h3>
                                     <ul>
                                         <li>
-                                            <div class="twitter-icon"><i class="fa fa-phone"></i></div>
-                                            <div class="tweet-detail">
-                                                <p>FAQ</p>
-                                                <a href="#" class="tweet-meta"></a>
-                                            </div>
+                                            <a href="<?= base_url()?>faq" class="tweet-meta">
+                                                <div class="twitter-icon"><i class="fa fa-phone"></i></div>
+                                                <div class="tweet-detail">
+                                                    <p>FAQ</p>
+                                                </div>
+                                            </a>
                                         </li>
                                         <li>
-                                            <div class="twitter-icon"><i class="fa fa-phone"></i></div>
-                                            <div class="tweet-detail">
-                                                <p>Privacy Policy</p>
-                                                <a href="#" class="tweet-meta"></a>
-                                            </div>
+                                            <a href="<?= base_url()?>policy" class="tweet-meta">
+                                                <div class="twitter-icon"><i class="fa fa-phone"></i></div>
+                                                <div class="tweet-detail">
+                                                    <p>Privacy Policy</p>
+                                                </div>
+                                            </a>
                                         </li>
                                         <li>
-                                            <div class="twitter-icon"><i class="fa fa-phone"></i></div>
-                                            <div class="tweet-detail">
-                                                <p>Term and Conditions</p>
-                                                <a href="#" class="tweet-meta"></a>
-                                            </div>
+                                            <a href="<?= base_url()?>terms" class="tweet-meta">
+                                                <div class="twitter-icon"><i class="fa fa-phone"></i></div>
+                                                <div class="tweet-detail">
+                                                    <p>Term and Conditions</p>
+                                                </div>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -74,12 +77,12 @@
                                 <div class="single-footer-widget list-widget">
                                     <h3>SITE</h3>
                                     <ul>
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#">about us</a></li>
+                                        <li><a href="<?= base_url()?>">Home</a></li>
+                                        <li><a href="<?= base_url()?>aboutus">about us</a></li>
                                         <li><a href="<?= base_url()?>service">Shifting And Packing</a></li>
 <!--                                        <li><a href="#">Labour</a></li>-->
                                         <li><a href="<?= base_url()?>vehicles">Price</a></li>
-                                        <li><a href="#">Contact Us</a></li>
+                                        <li><a href="<?= base_url()?>contactus">Contact Us</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -110,7 +113,8 @@
                             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                 <div class="footer-copyright wow fadeIn">
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Website <i class="" aria-hidden="true"></i> by <a href="#" target="_blank">Team</a></p>
+<!--                                    <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Website <i class="" aria-hidden="true"></i> by <a href="#" target="_blank">Team</a></p>-->
+                                    <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </div>
                             </div>

@@ -44,7 +44,7 @@
                         </div>-->
                         <div id="main-nav" class="stellarnav">
                             <ul id="nav" class="nav navbar-nav">
-                                <li><a href="index.html">Home</a>
+                                <li><a href="<?= base_url()?>">Home</a>
                                     <!--<ul>
                                         <li><a href="index.html">Home Version 1</a></li>
                                         <li><a href="index-2.html">Home Version 2</a></li>
@@ -52,7 +52,7 @@
                                         <li><a href="index-4.html">Home Version 4</a></li>
                                     </ul>-->
                                 </li>
-                                <li><a href="about.html">About Us</a>
+                                <li><a href="<?= base_url()?>aboutus">About Us</a>
                                     <!--<ul>
                                         <li><a href="about.html">About</a></li>
                                         <li><a href="about-company-profile.html">About Profile</a></li>
@@ -77,7 +77,7 @@
                                         <li><a href="single-blog.html">Single Blog</a></li>
                                     </ul>-->
                                 </li>
-                                <li><a href="contact.html">Contact Us</a>
+                                <li><a href="<?= base_url()?>contactus">Contact Us</a>
                                     <!--<ul>
                                         <li><a href="contact.html">Contact Version 1</a></li>
                                         <li><a href="contact-2.html">Contact Version 2</a></li>

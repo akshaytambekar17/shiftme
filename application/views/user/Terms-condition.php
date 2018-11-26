@@ -5,7 +5,7 @@ $terms = $result[0];
 //echo "</pre>";
 //die();
 ?>
-<div class="mg-page-title parallax">
+<!--<div class="mg-page-title parallax">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -13,13 +13,19 @@ $terms = $result[0];
             </div>
         </div>
     </div>
-</div>
+</div>-->
  <!--Testimonials-->
-<div class="mg-page">
+<div class="mg-page section-md-50">
     <div class="container">
         <div class="row">
             <div class="col-md-12 service-contain" style="padding: 0 15px">
-                <h2 class="mg-sec-left-title" style="font-weight: 600;color: #71747b;">Terms and Conditions</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
+                        <div class="area-title text-center wow fadeIn">
+                            <h2>Terms and Conditions</h2>
+                        </div>
+                    </div>
+                </div>
                 <p><?php echo $terms->description?></p>
             </div>
 <!--            <div class="col-md-5">
@@ -30,6 +36,6 @@ $terms = $result[0];
         </div>
     </div>  
 </div>
-
+ <div class="section-md-50"></div>
 <?php include_once("analyticstracking.php") ?>
 <!--end Testimonials-->

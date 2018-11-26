@@ -1,23 +1,30 @@
 <style>
  .navbar-inverse .navbar-nav > li > a { color:#fff;}
  </style>
-<div class="mg-page-title parallax" style=" background-image: url(<?=USERASSETS?>images/banner.png);">
+<!--<div class="mg-page-title parallax" style=" background-image: url(<?=USERASSETS?>images/banner.png);">
     <div class="container">
         <div class="row ">
             <div class="col-md-12">
                 <h2>Contact Us</h2>
-                <!--<p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>-->
+                <p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <!--Testimonials-->
-<div class="mg-page">
+<div class="mg-page section-md-50">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h2 class="mg-sec-left-title" style="font-weight: 600;color: #71747b;">Send an E-mail</h2>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="area-title wow fadeIn">
+                            <h2>Send an E-mail</h2>
+                        </div>
+                    </div>
+                </div>
+<!--                <h2 class="mg-sec-left-title" style="font-weight: 600;color: #71747b;">Send an E-mail</h2>-->
                 <form action="<?= site_url()?>User_controller/save_userEmail" method="POST" class="clearfix col-md-10 contactform">
                     <div class="mg-contact-form-input requared">
                         <label for="full-name">Full Name</label>
@@ -41,12 +48,23 @@
                         <label for="subject">Message</label>
                         <textarea class="form-control" name="message"  id="message" rows="5" required></textarea>
                     </div>
-                    <input type="submit" class="btn btn-dark-main pull-right" value="Send" onclick="return valid()">
+                    <br>
+                    <div class="col-md-12" style="text-align: center">
+                        <input type="submit" class="btn btn-danger center" value="Send" onclick="return valid()">
+                    </div>
+                    
                 </form>
             </div>
             <div class="col-md-6">
-                <h2 class="mg-sec-left-title" style="font-weight: 600;color: #71747b;">Office Address</h2>
-                <p><strong>ShiftMe </strong> is very much responsible towards their work and we understand the value of our business and our work so you can easily hire us for your relocation so that we can easily start your Shifting process and then complete it on the time..</p>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="area-title wow fadeIn">
+                            <h2>Office Address</h2>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="contact-us-p"><strong>ShiftMe </strong> is very much responsible towards their work and we understand the value of our business and our work so you can easily hire us for your relocation so that we can easily start your Shifting process and then complete it on the time..</p>
                 <ul class="mg-contact-info">
                     <li class="row"><i class="fa fa-map-marker col-xs-1"></i><p class="col-xs-9"> ShiftMe , Bavdhan, Pune - 411021.</p></li>
                     <li class="row"><i class="fa fa-phone col-xs-1"></i><p class="col-xs-9">(+91) 9689 622 000</p></li>

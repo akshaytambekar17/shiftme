@@ -144,7 +144,8 @@
                         <?php } ?>
 
                     </div>
-                    <div class="col-md-12" style="padding: 20px;" align="center"><a class="btn btn-danger" data-toggle="modal" data-target="#inquery">Enquiry</a></div>
+<!--                    <div class="col-md-12" style="padding: 20px;" align="center"><a class="btn btn-danger" data-toggle="modal" data-target="#inquery">Enquiry</a></div>-->
+                    <div class="col-md-12" style="padding: 20px;" align="center"><a href="<?= base_url()?>quote" class="btn btn-danger" >Enquiry</a></div>
                 </div>
 
             </div>

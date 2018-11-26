@@ -180,16 +180,28 @@ class User_controller extends MY_Controller {
         $this->layout($data);
     }
 
+//    public function getterms() {
+//        $data['metadata'] = "Terms Conditiont";
+//        $data['template'] = "Terms-condition";
+//        $data['name'] = "Terms Conditiont";
+//        $data['result'] = $this->user->getterms();
+////        echo '<pre>';
+////        print_r($data['result']);
+////        echo '</pre>';
+////        die();
+//        $this->layout($data);
+//    }
     public function getterms() {
-        $data['metadata'] = "Terms Conditiont";
-        $data['template'] = "Terms-condition";
-        $data['name'] = "Terms Conditiont";
+        $data['metadata'] = "Terms & Conditions";
+        $data['title'] = "Terms & Conditions";
+        $data['view'] = "Terms-condition";
+        $data['name'] = "Terms & Conditions";
+        $data['slider'] = true;
+        $data['slider_details'] = true;
+        $data['slider_heading'] = 'Terms & Conditions';
+        $data['slider_description'] = '';
         $data['result'] = $this->user->getterms();
-//        echo '<pre>';
-//        print_r($data['result']);
-//        echo '</pre>';
-//        die();
-        $this->layout($data);
+        $this->frontendLayout($data);
     }
 
     public function qoute() {
@@ -575,11 +587,23 @@ class User_controller extends MY_Controller {
         }
     }
     
+//    public function contactus() {
+//        $data['metadata'] = "Contactus";
+//        $data['template'] = "contactus";
+//        $data['name'] = "Contactus";
+//        $this->layout($data);
+//    }
     public function contactus() {
-        $data['metadata'] = "Contactus";
-        $data['template'] = "contactus";
-        $data['name'] = "Contactus";
-        $this->layout($data);
+        $data['metadata'] = "Contact us";
+        $data['title'] = "Contact us";
+        $data['view'] = "contactus";
+        $data['name'] = "Contact us";
+        $data['slider'] = true;
+        $data['slider_details'] = true;
+        $data['slider_heading'] = 'Contact us';
+        $data['slider_description'] = '';
+        $this->frontendLayout($data);
+        
     }
 
     public function update_pro() {

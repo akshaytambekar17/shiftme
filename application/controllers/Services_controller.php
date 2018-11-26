@@ -36,15 +36,15 @@ class Services_controller extends MY_Controller {
         $data['vehicle'] = $this->user->vehicle_list();
         $this->layout($data);
     }
-    public function aboutus() {
-        $data['metadata'] = "Aboutus";
-        $data['template'] = "aboutus";
-        $data['name'] = "About us";
-        $data['result'] = $this->services->getabout();
-        $data['staff'] = $this->services->getstaff();
-        $data['clients'] = $this->services->getClients();
-        $this->layout($data);
-    }
+//    public function aboutus() {
+//        $data['metadata'] = "Aboutus";
+//        $data['template'] = "aboutus";
+//        $data['name'] = "About us";
+//        $data['result'] = $this->services->getabout();
+//        $data['staff'] = $this->services->getstaff();
+//        $data['clients'] = $this->services->getClients();
+//        $this->layout($data);
+//    }
 
     public function cost() {
         $data['metadata'] = "Cost";
@@ -58,21 +58,21 @@ class Services_controller extends MY_Controller {
         $this->layout($data);
     }
     
-    public function faq() {
-        $data['metadata'] = "faq";
-        $data['template'] = "faq";
-        $data['name'] = "FAQ";
-        $data['faq'] = $this->services->getfaq();
-        $this->layout($data);
-    }
-
-    public function privacy_policy() {
-        $data['metadata'] = "privacy_policy";
-        $data['template'] = "privacy_policy";
-        $data['name'] = "Privacy Policy";
-        $data['policy'] = $this->services->get_privacy_policy();
-        $this->layout($data);
-    }
+//    public function faq() {
+//        $data['metadata'] = "faq";
+//        $data['template'] = "faq";
+//        $data['name'] = "FAQ";
+//        $data['faq'] = $this->services->getfaq();
+//        $this->layout($data);
+//    }
+//
+//    public function privacy_policy() {
+//        $data['metadata'] = "privacy_policy";
+//        $data['template'] = "privacy_policy";
+//        $data['name'] = "Privacy Policy";
+//        $data['policy'] = $this->services->get_privacy_policy();
+//        $this->layout($data);
+//    }
     public function services() {
         $data['title'] = "Shifting Service";
         $data['services'] = $this->services->getShiftingServices();
@@ -98,6 +98,45 @@ class Services_controller extends MY_Controller {
                                 requirements of our customers with a standardized and economical pricing. Our customers do not need to haggle for the rates with the drivers anymore.';
         $data['services'] = $this->services->getVehicleServices();
         $data['vehicle'] = $this->user->vehicle_list();
+        $this->frontendLayout($data);
+    }
+    public function aboutus() {
+        $data['metadata'] = "About us";
+        $data['title'] = "About us";
+        $data['view'] = "aboutus";
+        $data['name'] = "About us";
+        $data['slider'] = true;
+        $data['slider_details'] = true;
+        $data['slider_heading'] = 'About us';
+        $data['slider_description'] = '';
+        $data['result'] = $this->services->getabout();
+        $data['staff'] = $this->services->getstaff();
+        $data['clients'] = $this->services->getClients();
+        $this->frontendLayout($data);
+    }
+    public function faq() {
+        $data['metadata'] = "FAQ";
+        $data['title'] = "FAQ";
+        $data['view'] = "faq";
+        $data['name'] = "FAQ";
+        $data['slider'] = true;
+        $data['slider_details'] = true;
+        $data['slider_heading'] = 'FAQ';
+        $data['slider_description'] = '';
+        $data['faq'] = $this->services->getfaq();
+        $this->frontendLayout($data);
+    }
+
+    public function privacy_policy() {
+        $data['metadata'] = "Privacy Policy";
+        $data['title'] = "Privacy Policy";
+        $data['view'] = "privacy_policy";
+        $data['name'] = "Privacy Policy";
+        $data['slider'] = true;
+        $data['slider_details'] = true;
+        $data['slider_heading'] = 'Privacy Policy';
+        $data['slider_description'] = '';
+        $data['policy'] = $this->services->get_privacy_policy();
         $this->frontendLayout($data);
     }
     

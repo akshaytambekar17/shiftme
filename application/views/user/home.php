@@ -135,7 +135,7 @@
                     <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 col-sm-12 col-xs-12 text-center">
                         <div class="promo-bottom-content wow fadeIn">
                             <h2>WE OFFER QUICK & POWERFUL SOLUTION</h2>
-                            <a href="#" class="read-more">Get a quote</a>
+                            <a href="<?= base_url()?>quote" class="read-more">Get a quote</a>
                         </div>
                     </div>
                 </div>

@@ -2231,6 +2231,9 @@ blockquote::before {
 .service-p{
     font-size: 18px;
 }
+.contact-us-p{
+    font-size: 18px;
+}
 .contactform {
     margin-bottom: 30px;
     box-shadow: 0 1px 3px rgba(0,0,0,.2);
@@ -2241,6 +2244,37 @@ blockquote::before {
     padding: 20px;
     margin-bottom: 20px;
 }
+.mg-feature .mg-feature-icon-title i {
+    display: block;
+    width: 50px;
+    line-height: 50px;
+    background-color: #56ba81;
+    text-align: center;
+    font-size: 21px;
+    color: #fff;
+    border-radius: 50%;
+    float: left;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+.mg-feature .mg-feature-icon-title h3 {
+    display: block;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 20px;
+    color: #4d4b4b;
+    font-weight: 400;
+    margin-left: 60px;
+    margin-top: 13px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+.mg-feature p {
+    margin-bottom: 0;
+}
+.service-contain ul{
+    list-style: circle;
+}
+
 .shift-border-box, .shift-border-box:hover .icon{
     -webkit-transition:all .3s ease;transition:all .3s ease;
 }
@@ -2257,3 +2291,4 @@ blockquote::before {
 .step-shift .desc{color:#7e7e7e;}
 .carousel-inner .item.active .carousel-caption > p{line-height:1;font-weight:500;}
 @media screen and (max-width:767px){.shift-border-box{display:inline-block;margin-bottom:50px;margin-left:15px;}
+
