@@ -3,16 +3,16 @@
 
 
 
-<div class="mg-page-title parallax" style=" background-image: url(<?= USERASSETS ?>/images/office-relocation-compressed-1500x630.jpg);">
+<!--<div class="mg-page-title parallax" style=" background-image: url(<?= USERASSETS ?>/images/office-relocation-compressed-1500x630.jpg);">
     <div class="container">
         <div class="row ">
             <div class="col-md-12">
                 <h2>request a free quote</h2>
-                <!--                        <p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>-->
+                                        <p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <style>
     /*Qoute section*/
     #map-section{padding: 40px 0;background: rgba(128, 128, 128, 0.08)}

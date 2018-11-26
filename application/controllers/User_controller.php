@@ -201,6 +201,182 @@ class User_controller extends MY_Controller {
         $this->layout($data);
     }
 
+//    public function quick_qoute() {
+//        
+//        if($this->input->post()){
+//            $post = $this->input->post();
+//            if(!empty($post['quote'])){
+//                $this->form_validation->set_rules('fullname', 'Full Name', 'trim|required');
+//                $this->form_validation->set_rules('mobile_no', 'Mobile Number', 'trim|required|numeric|regex_match[/^[0-9]{10}$/]');
+//                $this->form_validation->set_rules('email_id', 'Email', 'trim|required|valid_email');
+//                $this->form_validation->set_rules('starting_address', 'Address', 'trim|required');
+//                $this->form_validation->set_rules('starting_location', 'Starting Location', 'trim|required');
+//                $this->form_validation->set_rules('starting_landmark','Landmark', 'required');
+//                $this->form_validation->set_rules('starting_pincode', 'Pincode', 'trim|required|numeric|regex_match[/^[0-9]{6}$/]');
+//                $this->form_validation->set_rules('delivery_address', 'Address', 'trim|required');
+//                $this->form_validation->set_rules('delivery_location', 'Delivery Location', 'trim|required');
+//                $this->form_validation->set_rules('delivery_landmark','Landmark', 'required');
+//                $this->form_validation->set_rules('delivery_pincode', 'Pincode', 'trim|required|numeric|regex_match[/^[0-9]{6}$/]');
+//                $this->form_validation->set_rules('vehicle_id', 'Vechicle', 'trim|required');
+//                $this->form_validation->set_rules('shifting_date', 'Shifting Date', 'trim|required');
+//                $this->form_validation->set_rules('time_slots_id', 'Time Slot', 'trim|required');
+//                $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+//                if($this->form_validation->run() == TRUE){
+//                    $details = $post;
+//                    unset($details['ProductListName']);
+//                    unset($details['ProductListQuantity']);
+//                    unset($details['total_amount']);
+//                    unset($details['quote']);
+//                    $details['shifting_date'] = date("Y-m-d", strtotime($details['shifting_date']));
+//                    $details['user_id'] = $this->session->userdata('uid');
+//                    $details['is_send_user'] = 1;
+//                    $details['created_at'] = date('Y-m-d H:i:s');
+//                    $details['updated_at'] = date('Y-m-d H:i:s');
+//                    $quotationLastId = $this->Quotation->add($details);
+//                    $productListName = array_filter($post['ProductListName']);
+//                    $productListQuantity = array_filter($post['ProductListQuantity']);
+//                    foreach($productListName as $key_name => $val_name){
+//                        foreach(array_values($productListQuantity) as $key_qty => $val_qty){
+//                            if($key_name == $key_qty){
+//                                $data_product = array('quotation_id' => $quotationLastId,
+//                                                      'product_id' => $val_name,
+//                                                      'quantity' => !empty($val_qty)?$val_qty:0,
+//                                                      'created_at' => date('Y-m-d H:i:s')
+//                                                );
+//                                $this->QuotationHasProduct->insert($data_product);
+//                            }
+//                        }
+//                    }
+//                    $pricing['total_amount'] = $post['total_amount'];
+//                    $pricing['quotation_id'] = $quotationLastId;
+//                    $result_pricing = $this->QuotationHasPricing->insert($pricing);
+//                    
+//                    if($post['quote'] == 'Make Order'){
+//                        $order_data = array('quotation_id' => $quotationLastId,
+//                                            'user_id' => $this->session->userdata('uid'),
+//                                            'status' => 1,
+//                                            'total_amount' => $post['total_amount'],
+//                                            'vehicle_id' => $post['vehicle_id'],
+//                                            'created_at' => date('Y-m-d H:i:s'),
+//                                            'updated_at' => date('Y-m-d H:i:s'),
+//                                        );
+//                        $result = $this->Order->add($order_data);
+//                        $quotation_update = array('is_order' => 1,
+//                                                'id' => $quotationLastId
+//                                            );
+//                        $this->Quotation->update($quotation_update);
+//                    }else{
+//                        $enquiry_data = array('quotation_id' => $quotationLastId,
+//                                              'user_id' => $this->session->userdata('uid'),
+//                                              'created_at' => date('Y-m-d H:i:s'),
+//                                              'updated_at' => date('Y-m-d H:i:s'),
+//                                        );
+//                        $this->Enquiry->insert($enquiry_data);
+//                    }
+//                    if ($quotationLastId) {
+//                        $this->session->set_flashdata('Message', 'Your Quotation data has been send succesfully.Our support team will contact soon.');
+//                        //return redirect('quick-quote', 'refresh');
+//                        return redirect('myaccount', 'refresh');
+//                    } else {
+//                        $this->session->set_flashdata('Error', 'Failed to send quotation details');
+//                        if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
+//                            $pin = array(
+//                                    'pickupPoint' => $_POST['pickupPoint'],
+//                                    'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
+//                                    'dropPoint' => $_POST['dropPoint'],
+//                                    'dropzip' => $this->getZipcode($_POST['dropPoint']),
+//                                );
+//                        }
+//                        $data['metadata'] = "Qoute";
+//                        $data['template'] = "qoute";
+//                        $data['name'] = "Qoute";
+//                        $data['vehicle'] = $this->user->vehicle_list();
+//                        $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
+//                        $data['product_list'] = $this->ProductList->getProductsList();
+//                        $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
+//                        $data['details'] = $pin;
+//                        if (!empty($this->session->userdata('uid'))) {
+//                            $data['userDetails'] = $this->session->userdata();
+//                        }else{
+//                            $data['userDetails'] = '';
+//                        }
+//                        $this->layout($data);
+//                    }
+//                }else{
+//                    if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
+//                        $pin = array(
+//                            'pickupPoint' => $_POST['pickupPoint'],
+//                            'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
+//                            'dropPoint' => $_POST['dropPoint'],
+//                            'dropzip' => $this->getZipcode($_POST['dropPoint']),
+//                        );
+//                    }
+//                    $data['metadata'] = "Qoute";
+//                    $data['template'] = "qoute";
+//                    $data['name'] = "Qoute";
+//                    $data['vehicle'] = $this->user->vehicle_list();
+//                    $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
+//                    $data['product_list'] = $this->ProductList->getProductsList();
+//                    $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
+//                    $data['details'] = $pin;
+//                    if (!empty($this->session->userdata('uid'))) {
+//                        $data['userDetails'] = $this->session->userdata();
+//                    }else{
+//                        $data['userDetails'] = '';
+//                    }
+//                    $this->layout($data);
+//                }
+//            }else{
+//                if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
+//                    $pin = array(
+//                        'pickupPoint' => $_POST['pickupPoint'],
+//                        'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
+//                        'dropPoint' => $_POST['dropPoint'],
+//                        'dropzip' => $this->getZipcode($_POST['dropPoint']),
+//                    );
+//                }
+//                $data['metadata'] = "Qoute";
+//                $data['template'] = "qoute";
+//                $data['name'] = "Qoute";
+//                $data['vehicle'] = $this->user->vehicle_list();
+//                $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
+//                $data['product_list'] = $this->ProductList->getProductsList();
+//                $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
+//                $data['details'] = $pin;
+//                if (!empty($this->session->userdata('uid'))) {
+//                    $data['userDetails'] = $this->session->userdata();
+//                }else{
+//                    $data['userDetails'] = '';
+//                }
+//                $this->layout($data);
+//            }
+//        }  else {
+//            
+//            if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
+//
+//                $pin = array(
+//                    'pickupPoint' => $_POST['pickupPoint'],
+//                    'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
+//                    'dropPoint' => $_POST['dropPoint'],
+//                    'dropzip' => $this->getZipcode($_POST['dropPoint']),
+//                );
+//            }
+//            $data['metadata'] = "Qoute";
+//            $data['template'] = "qoute";
+//            $data['name'] = "Qoute";
+//            $data['vehicle'] = $this->user->vehicle_list();
+//            $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
+//            $data['product_list'] = $this->ProductList->getProductsList();
+//            $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
+//            $data['details'] = $pin;
+//            if (!empty($this->session->userdata('uid'))) {
+//                $data['userDetails'] = $this->session->userdata();
+//            }else{
+//                $data['userDetails'] = '';
+//            }
+//            $this->layout($data);
+//        }
+//    }
     public function quick_qoute() {
         
         if($this->input->post()){
@@ -287,9 +463,14 @@ class User_controller extends MY_Controller {
                                     'dropzip' => $this->getZipcode($_POST['dropPoint']),
                                 );
                         }
-                        $data['metadata'] = "Qoute";
-                        $data['template'] = "qoute";
-                        $data['name'] = "Qoute";
+                        $data['metadata'] = "Quick Quote";
+                        $data['title'] = "Quick Quote";
+                        $data['view'] = "qoute";
+                        $data['name'] = "Quick Quote";
+                        $data['slider'] = true;
+                        $data['slider_details'] = true;
+                        $data['slider_heading'] = 'Quick Quote';
+                        $data['slider_description'] = '<strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote.';
                         $data['vehicle'] = $this->user->vehicle_list();
                         $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
                         $data['product_list'] = $this->ProductList->getProductsList();
@@ -300,7 +481,7 @@ class User_controller extends MY_Controller {
                         }else{
                             $data['userDetails'] = '';
                         }
-                        $this->layout($data);
+                        $this->frontendLayout($data);
                     }
                 }else{
                     if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
@@ -311,9 +492,14 @@ class User_controller extends MY_Controller {
                             'dropzip' => $this->getZipcode($_POST['dropPoint']),
                         );
                     }
-                    $data['metadata'] = "Qoute";
-                    $data['template'] = "qoute";
-                    $data['name'] = "Qoute";
+                    $data['metadata'] = "Quick Quote";
+                    $data['title'] = "Quick Quote";
+                    $data['view'] = "qoute";
+                    $data['name'] = "Quick Quote";
+                    $data['slider'] = true;
+                    $data['slider_details'] = true;
+                    $data['slider_heading'] = 'Quick Quote';
+                    $data['slider_description'] = '<strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote.';
                     $data['vehicle'] = $this->user->vehicle_list();
                     $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
                     $data['product_list'] = $this->ProductList->getProductsList();
@@ -324,7 +510,7 @@ class User_controller extends MY_Controller {
                     }else{
                         $data['userDetails'] = '';
                     }
-                    $this->layout($data);
+                    $this->frontendLayout($data);
                 }
             }else{
                 if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
@@ -335,9 +521,14 @@ class User_controller extends MY_Controller {
                         'dropzip' => $this->getZipcode($_POST['dropPoint']),
                     );
                 }
-                $data['metadata'] = "Qoute";
-                $data['template'] = "qoute";
-                $data['name'] = "Qoute";
+                $data['metadata'] = "Quick Quote";
+                $data['title'] = "Quick Quote";
+                $data['view'] = "qoute";
+                $data['name'] = "Quick Quote";
+                $data['slider'] = true;
+                $data['slider_details'] = true;
+                $data['slider_heading'] = 'Quick Quote';
+                $data['slider_description'] = '<strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote.';
                 $data['vehicle'] = $this->user->vehicle_list();
                 $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
                 $data['product_list'] = $this->ProductList->getProductsList();
@@ -348,7 +539,7 @@ class User_controller extends MY_Controller {
                 }else{
                     $data['userDetails'] = '';
                 }
-                $this->layout($data);
+                $this->frontendLayout($data);
             }
         }  else {
             
@@ -361,9 +552,14 @@ class User_controller extends MY_Controller {
                     'dropzip' => $this->getZipcode($_POST['dropPoint']),
                 );
             }
-            $data['metadata'] = "Qoute";
-            $data['template'] = "qoute";
-            $data['name'] = "Qoute";
+            $data['metadata'] = "Quick Quote";
+            $data['title'] = "Quick Quote";
+            $data['view'] = "qoute";
+            $data['name'] = "Quick Quote";
+            $data['slider'] = true;
+            $data['slider_details'] = true;
+            $data['slider_heading'] = 'Quick Quote';
+            $data['slider_description'] = '<strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote.';
             $data['vehicle'] = $this->user->vehicle_list();
             $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
             $data['product_list'] = $this->ProductList->getProductsList();
@@ -374,7 +570,8 @@ class User_controller extends MY_Controller {
             }else{
                 $data['userDetails'] = '';
             }
-            $this->layout($data);
+            $this->frontendLayout($data);
+            //$this->layout($data);
         }
     }
     

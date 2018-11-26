@@ -2225,6 +2225,9 @@ blockquote::before {
 .section-md-50{
     margin-top: 56px;
 }
+.mt-70{
+    margin-top: 70px;
+}
 .service-p{
     font-size: 18px;
 }
@@ -2233,7 +2236,11 @@ blockquote::before {
     box-shadow: 0 1px 3px rgba(0,0,0,.2);
     padding: 20px;
 }
-
+.tab-content {
+    border: 1px solid #eaedee;
+    padding: 20px;
+    margin-bottom: 20px;
+}
 .shift-border-box, .shift-border-box:hover .icon{
     -webkit-transition:all .3s ease;transition:all .3s ease;
 }

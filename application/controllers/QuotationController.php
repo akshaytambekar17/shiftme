@@ -97,19 +97,29 @@ class QuotationController extends MY_Controller {
                     } else {
                         $this->session->set_flashdata('Error', 'Failed to send quotation details');
                         $data['metadata'] = "Quotation";
-                        $data['template'] = "createQuotation";
-                        $data['name'] = "Quotation";
+                        $data['title'] = "Quotation";
+                        $data['view'] = "createQuotation";
+                        $data['name'] = "Vehicle";
+                        $data['slider'] = true;
+                        $data['slider_details'] = true;
+                        $data['slider_heading'] = 'REQUEST A QUICK QUOTE';
+                        $data['slider_description'] = '<strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote.';
                         $data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
                         $data['product_list'] = $this->ProductListModel->getProductsList();
-                        $this->layout($data);
+                        $this->frontendLayout($data);
                     }
                 }else{
                     $data['metadata'] = "Quotation";
-                    $data['template'] = "createQuotation";
-                    $data['name'] = "Quotation";
+                    $data['title'] = "Quotation";
+                    $data['view'] = "createQuotation";
+                    $data['name'] = "Vehicle";
+                    $data['slider'] = true;
+                    $data['slider_details'] = true;
+                    $data['slider_heading'] = 'REQUEST A QUICK QUOTE';
+                    $data['slider_description'] = '<strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote.';
                     $data['vehicle_services_list'] = $this->Admin_model->getVehicleServices();
                     $data['product_list'] = $this->ProductListModel->getProductsList();
-                    $this->layout($data);
+                    $this->frontendLayout($data);
                 }
             }
         }else{
