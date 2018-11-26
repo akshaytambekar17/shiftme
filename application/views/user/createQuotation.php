@@ -1,18 +1,25 @@
-<div class="mg-page-title parallax" style=" background-image: url(<?=USERASSETS?>images/office-relocation-compressed-1500x630.jpg);">
+<!--<div class="mg-page-title parallax" style=" background-image: url(<?=USERASSETS?>images/office-relocation-compressed-1500x630.jpg);">
     <div class="container">
         <div class="row ">
             <div class="col-md-12">
                 <h2>request a free quote</h2>
-                <!--                        <p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>-->
+                                        <p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <section class="section-70 section-md-50 section-bottom-110">
     <div class="container text-left">
-        <h2 class="mg-sec-left-title div-bottom-5 text-center" style="font-weight: 600;color: #71747b;">REQUEST A QUICK QUOTE</h2>
-        <p class="text-center"><strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote. </p>
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
+                <div class="area-title text-center wow fadeIn">
+                    <h2>REQUEST A QUICK QUOTE</h2>
+                </div>
+            </div>
+        </div>
+<!--        <h2 class="mg-sec-left-title div-bottom-5 text-center" style="font-weight: 600;color: #71747b;">REQUEST A QUICK QUOTE</h2>-->
+<!--        <p class="text-center"><strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote. </p>-->
         <div class="range range-xs-center offset-top-50"></div>
         <div class="row">
             <?php if($message = $this ->session->flashdata('Message')){?>
@@ -164,7 +171,7 @@
                     <div class="row">
                         <div class="col-md-12" style="text-align: center">
                             <br>
-                            <input type="submit" class="btn btn-dark-main" value="Send" >
+                            <input type="submit" class="btn btn-success" value="Send" >
                         </div>
                     </div>
                 </form>

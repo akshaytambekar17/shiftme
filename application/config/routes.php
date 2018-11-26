@@ -110,6 +110,9 @@ $route['quote'] = "QuotationController/create";
 $route['quote/view'] = "QuotationController/view";
 
 $route['vendor'] = "User_controller/vendor";
+$route['home'] = "User_controller/home";
+$route['vehicles'] = "Services_controller/vehicles";
+$route['services'] = "Services_controller/services";
 
 $route['makeOrder'] = "OrderController/make";
 /**************End User Routes**************/

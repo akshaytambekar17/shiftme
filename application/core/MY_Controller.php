@@ -35,6 +35,9 @@ class MY_Controller extends CI_Controller {
         $this->config->set_item('less', $this->less);
         $this->load->view('user/layout/index', $temp);
     }
+    public function frontendLayout($data) {
+        includesAll($data);
+    }
 
     public function user_layout($data) {
         $temp['footer'] = $this->site_model->getFooterContent();

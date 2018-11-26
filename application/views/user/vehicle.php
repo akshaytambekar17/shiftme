@@ -2,38 +2,50 @@
 <style>
  .navbar-inverse .navbar-nav > li > a { color:#fff;}
  </style>
-<div class="mg-page-title parallax" style="background-image: url(<?=USERASSETS?>images/slide1.jpg); background-position-y: -350%;">
-    <div class="container">
-        <div class="row ">
-            <div class="col-md-12">
-                <h2>Vehicle Services</h2>
+<!--<div class="mg-page-title parallax" style="background-image: url(<?= USERASSETS?>images/slide1.jpg); background-position-y: -350%;">-->
+
+<!--    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
+                <div class="area-title text-center wow fadeIn">
+                    <h2>Our Service</h2>
+                    <p>The best part of a successful Shift is flawless logistics during the Shifting process. The following steps are taken to ensure that you are satisfied with your Shifting</p>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>-->
+<!--</div>-->
 <!--Our services-->
 <section>
-    <div class="mg-best-vehicle section-md-50">
+<!--    <div class="mg-best-vehicle section-md-50">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="range range-xs-center">
-                        <div class="col-12 offset-top-30 offset-sm-top-0">
-                            <p class="wow fadeInDown" style="visibility: visible; animation-name: fadeInDown;">We offer customized logistics solutions for individuals and enterprises to suit their
+                <div class="col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
+                    <div class="area-title text-center wow fadeIn">
+                        <h2>Vehicle Service</h2>
+                        <p class="wow fadeInDown" style="visibility: visible; animation-name: fadeInDown;">We offer customized logistics solutions for individuals and enterprises to suit their
                                 requirements. We have different sized vehicles from Tata ace, Piaggio Ape, Pick-up, Tata 407, Mahindra Champion, Eicher 14 feet, 17 feet and 19 feet trucks and many more as per the
-                                requirements of our customers with a standardized and economical pricing. Our customers do not need to haggle for the rates with the drivers anymore.</p>
-                        </div>
+                                requirements of our customers with a standardized and economical pricing. Our customers do not need to haggle for the rates with the drivers anymore.
+                        </p>
+                        
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
-    <div class="container">
+    <div class="container section-md-50">
         <div class="row">
-            <div class="mg-sec-title">
-                <h2 style="font-weight: 600;color: #71747b;">Price Chart</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
+                    <div class="area-title text-center wow fadeIn">
+                        <h2>Price Chart</h2>
+                    </div>
+                </div>
             </div>
+<!--            <div class="mg-sec-title">
+                <h2 style="font-weight: 600;color: #71747b;">Price Chart</h2>
+            </div>-->
             <div class="col-md-12">
                 <div class="mg-tab-top-nav">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
@@ -132,7 +144,7 @@
                         <?php } ?>
 
                     </div>
-                    <div class="col-md-12" style="padding: 20px;" align="center"><a class="btn btn-primary" data-toggle="modal" data-target="#inquery">Inquiry</a></div>
+                    <div class="col-md-12" style="padding: 20px;" align="center"><a class="btn btn-danger" data-toggle="modal" data-target="#inquery">Enquiry</a></div>
                 </div>
 
             </div>

@@ -32,7 +32,18 @@ class User_controller extends MY_Controller {
 
         $this->layout($data);
     }
-
+    public function home() {
+        $data['test'] = $this->user->getTestimonials();
+        $data['slider'] = $this->user->getslider();
+        $data['title'] = "Home";
+        $data['metadata'] = "Home";
+        $data['view'] = "home";
+        $data['slider'] = true;
+        $data['slider_details'] = false;
+        $data['vehicle_list'] = $this->user->vehicle_list();
+        //printDie($data['vehicle']);
+        $this->frontendLayout($data);
+    }
     public function sendotp() {
         
     }

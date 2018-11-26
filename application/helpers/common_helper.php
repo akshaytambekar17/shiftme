@@ -29,3 +29,10 @@ function prints($data){
     echo "<pre>";
     print_r($data);
 }
+function includesAll($data){
+    $ci=& get_instance();
+    $ci->load->view('user/includes/header',$data);
+    $ci->load->view('user/includes/menubar',$data);
+    $ci->load->view('user/'.$data['view'],$data);
+    $ci->load->view('user/includes/footer',$data);
+}

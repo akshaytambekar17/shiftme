@@ -3,7 +3,7 @@ $service = $services[0];
 $obj = array();
 $obj = json_decode($service->objectives);
 ?>
-<div class="mg-page-title parallax">
+<!--<div class="mg-page-title parallax">
     <div class="container">
         <div class="row ">
             <div class="col-md-12">
@@ -11,7 +11,7 @@ $obj = json_decode($service->objectives);
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <?php if ($this->session->flashdata('insert_msg')) { ?>
     <script>
 //        alert('sdf');
@@ -27,7 +27,7 @@ $obj = json_decode($service->objectives);
 
 <?php } ?>
 <section class="section-70 section-md-50 ">
-    <div class="container text-left">
+<!--    <div class="container text-left">
         <h2 class="mg-sec-left-title div-bottom-5" style="font-weight: 600;color: #71747b;">SHIFTING SERVICES</h2>
         <div class="range range-xs-center offset-top-50">
             <div class="col-xs-12 col-sm-5 text-left"><img src="<?php echo $service->image ?>" width="450" height="304" alt="" class="img-responsive reveal-inline-block"></div>
@@ -36,18 +36,46 @@ $obj = json_decode($service->objectives);
 
             </div>
         </div>
+    </div>-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
+                <div class="area-title text-center wow fadeIn">
+                    <h2>SHIFTING SERVICES</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                <div class="about-left-content-area wow fadeIn">
+                    <img src="<?= base_url()?>assets/themenew/img/about/truck.gif" alt="">
+                </div>
+            </div>
+            <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                <div class="about-content-area wow fadeIn">
+                    <div class="about-content">
+                        <p class="wow fadeInDown service-p" style="visibility: visible; animation-name: fadeInDown;"><?php echo $service->long_desc; ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <!--End Our services-->
-<div class="mg-best-vehicle">
+<div class="mg-best-vehicle section-md-50">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="mg-sec-title col-md-11 col-md-offset-1">
-                    <p><?php echo $service->short_desc; ?></p>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
+                        <div class="area-title text-center wow fadeIn">
+                            <p class="service-p"><?php echo $service->short_desc; ?></p>
+                            <h2></h2>
+                        </div>
+                    </div>
                 </div>
-
-                <div style="margin-top: 20px">
+                
+                <div>
                     <?php foreach ($obj as $val) { ?>
                         <div class="col-md-6 wow fadeInDown" style="visibility: visible; animation-name: fadeInDown; animation-duration: 1s; animation-iteration-count: 1;">
                             <div class="step-shift shift-border-box text-left col-sm-11 col-xs-12">
@@ -66,7 +94,8 @@ $obj = json_decode($service->objectives);
         </div>
     </div>
 </div>
-<div class="row bigrow " style="background: rgba(53, 185, 230, 0.71); padding-bottom:0px;">
+<div class="section-md-50"></div>
+<!--<div class="row bigrow " style="background: rgba(53, 185, 230, 0.71); padding-bottom:0px;">
     <div class="skew-block"></div>
     <div class="container mid">
         <h2 class="h1 low">The ShiftMe.in selects the most suitable means of transport according to strict criteria based on cost, reliability and the minimization of damage to the environment. These Shifting services are available across India. We provide PAN India solution.</h2>
@@ -75,6 +104,6 @@ $obj = json_decode($service->objectives);
         </div>
     </div>
     <div id="logo"> </div>
-</div>
+</div>-->
 
 <?php include_once("analyticstracking.php") ?>

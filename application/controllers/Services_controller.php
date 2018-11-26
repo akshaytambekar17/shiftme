@@ -19,7 +19,6 @@ class Services_controller extends MY_Controller {
 
         $this->layout($data);
     }
-
     public function labour() {
         $data['metadata'] = "Labour";
         $data['template'] = "labour";
@@ -30,13 +29,13 @@ class Services_controller extends MY_Controller {
 
     public function vehicle() {
         $data['metadata'] = "Vehicle";
+        $data['title'] = "Vehicle";
         $data['template'] = "vehicle";
         $data['name'] = "Vehicle";
         $data['services'] = $this->services->getVehicleServices();
         $data['vehicle'] = $this->user->vehicle_list();
         $this->layout($data);
     }
-
     public function aboutus() {
         $data['metadata'] = "Aboutus";
         $data['template'] = "aboutus";
@@ -58,7 +57,7 @@ class Services_controller extends MY_Controller {
         $data['vehicle'] = $this->user->vehicle_list();
         $this->layout($data);
     }
-
+    
     public function faq() {
         $data['metadata'] = "faq";
         $data['template'] = "faq";
@@ -74,5 +73,32 @@ class Services_controller extends MY_Controller {
         $data['policy'] = $this->services->get_privacy_policy();
         $this->layout($data);
     }
-
+    public function services() {
+        $data['title'] = "Shifting Service";
+        $data['services'] = $this->services->getShiftingServices();
+        $data['slider'] = true;
+        $data['slider_details'] = true;
+        $data['slider_heading'] = 'Shifting Service';
+        $data['slider_description'] = 'The ShiftMe.in selects the most suitable means of transport according to strict criteria based on cost, reliability and the minimization of damage to the environment. These Shifting services are available across India. We provide PAN India solution.';
+        $data['services'] = $this->services->getShiftingServices();
+        $data['view'] = "shifting";
+        $this->frontendLayout($data);
+        
+    }
+    public function vehicles() {
+        $data['metadata'] = "Vehicle";
+        $data['title'] = "Vehicle Services";
+        $data['view'] = "vehicle";
+        $data['name'] = "Vehicle";
+        $data['slider'] = true;
+        $data['slider_details'] = true;
+        $data['slider_heading'] = 'Vehicle Service';
+        $data['slider_description'] = 'We offer customized logistics solutions for individuals and enterprises to suit their
+                                requirements. We have different sized vehicles from Tata ace, Piaggio Ape, Pick-up, Tata 407, Mahindra Champion, Eicher 14 feet, 17 feet and 19 feet trucks and many more as per the
+                                requirements of our customers with a standardized and economical pricing. Our customers do not need to haggle for the rates with the drivers anymore.';
+        $data['services'] = $this->services->getVehicleServices();
+        $data['vehicle'] = $this->user->vehicle_list();
+        $this->frontendLayout($data);
+    }
+    
 }
