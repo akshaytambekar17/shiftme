@@ -83,6 +83,18 @@
                                         <li><a href="contact-2.html">Contact Version 2</a></li>
                                     </ul>-->
                                 </li>
+                                <?php 
+                                    $seesion = $this->session->userdata();
+                                    if (empty($seesion['uid'])) { ?>
+                                        <li><a href="javascript:void(0)" id="login">Login</a></li>
+                                <?php }else{ ?>
+                                        <li><a href="<?= base_url()?>contactus">My Account</a>
+                                            <ul>
+                                                <li class="<?= $title == 'My Account' ? 'active' : '' ?>"><a href="<?= site_url('myaccount') ?>">My Account</a></li>
+                                                <li><a href="<?= site_url(); ?>logout" >Sign Out</a></li>
+                                            </ul>
+                                        </li>
+                                <?php } ?>
                             </ul>
                         </div>
                     </div>

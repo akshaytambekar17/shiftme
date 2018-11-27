@@ -66,6 +66,25 @@ class User_controller extends MY_Controller {
         $result_mail = $this->sendEmail($to, $subject, $message);
         echo $result;
     }
+    public function registration() {
+        $post = $this->input->post();
+        printDie($post);
+        $data = array(
+            'role' => $post['role'],
+            'fullname' => $post['fname']." ".$post['lname'],
+            'mobileno' => $post['mobile'],
+            'email' => $post['email'],
+            'password' => $this->site->encryptPass($post['password']),
+            'remember' => $post['remember'],
+            'create_date' => date('Y-m-d H:i:s'),
+        );
+        $result = $this->user->sign_up($data);
+        $to = $post['email'];
+        $subject = "Registration Mail";
+        $message = $this->load->view('admin/Email/registration',$post,TRUE);
+        $result_mail = $this->sendEmail($to, $subject, $message);
+        echo $result;
+    }
 
     public function signin() {
         $rs = $this->user->userlogin();
@@ -74,6 +93,16 @@ class User_controller extends MY_Controller {
             echo '1';
         } else {
             echo '0';
+        }
+    }
+    public function login() {
+        $post = $this->input->post();
+        $result = $this->user->validateLogin($post);
+        if($result) {
+            $this->session->set_userdata($result);
+            echo true;
+        } else {
+            echo false;
         }
     }
 

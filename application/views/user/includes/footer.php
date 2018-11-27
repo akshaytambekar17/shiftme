@@ -136,6 +136,81 @@
         <!--FOOER AREA END-->
 
         </footer>
+        <div class="modal fade login" id="loginModal">
+            <div class="modal-dialog login animated">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close h4-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title h4-title center">Login</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="error has-text center"></div>
+                        <div class="box login-box-content">
+                            <div class="content">
+<!--                                <div class="social">
+                                    <a class="circle github" href="#">
+                                        <i class="fa fa-github fa-fw"></i>
+                                    </a>
+                                    <a id="google_login" class="circle google" href="#">
+                                        <i class="fa fa-google-plus fa-fw"></i>
+                                    </a>
+                                    <a id="facebook_login" class="circle facebook" href="#">
+                                        <i class="fa fa-facebook fa-fw"></i>
+                                    </a>
+                                </div>
+                                <div class="division">
+                                    <div class="line l"></div>
+                                    <span>or</span>
+                                    <div class="line r"></div>
+                                </div>-->
+                                
+                                <div class="form loginBox">
+                                    <form method="post"  accept-charset="UTF-8">
+                                        <div class="form-group">
+                                            <label><input type="radio" name="role" value="1" checked>User</label>
+                                            <label style="margin-left: 60px"><input type="radio" name="role" value="2">Vendor</label>
+                                        </div>
+                                        <input id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                        <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                        <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box registerBox">
+                            <div class="content">
+                                <div class="form">
+                                    <form method="post" data-remote="true" action="" accept-charset="UTF-8" id="registration-form">
+                                        <div class="form-group">
+                                            <label><input type="radio" name="role" value="1" checked>User</label>
+                                            <label style="margin-left: 60px"><input type="radio" name="role" value="2">Vendor</label>
+                                        </div>
+                                        <input id="fname" class="form-control" type="text" placeholder="First Name" name="fname">
+                                        <input id="lname" class="form-control" type="text" placeholder="Last Name" name="lname">
+                                        <input id="mobileno" class="form-control" type="text" placeholder="Mobile Number" name="mobileno">
+                                        <input id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                        <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                        <input id="password_confirmation" class="form-control" type="password" placeholder="Confirm Password" name="password_confirmation">
+                                        <input class="btn btn-default btn-register" type="button" value="Create account" name="registration" onclick="registrationAjax()">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="forgot login-footer">
+                            <span>Looking to
+                                <a href="javascript:void(0)" class="a-link" id="showRegisterForm">create an account</a>
+                                ?</span>
+                        </div>
+                        <div class="forgot register-footer" style="display:none">
+                            <span>Already have an account?</span>
+                            <a href="javascript:void(0)" id="showLoginForm" class="a-link">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--====== SCRIPTS JS ======-->
         <script src="<?= base_url()?>assets/themenew/js/vendor/jquery-1.12.4.min.js"></script>
         <script src="<?= base_url()?>assets/themenew/js/vendor/bootstrap.min.js"></script>
@@ -152,15 +227,30 @@
         <!--===== ACTIVE JS=====-->
         <script src="<?= base_url()?>assets/themenew/js/main.js"></script>
         <script>
-            function validatePassword(e) {
-                //updated by neeta
-                var textInput = e.value;
-                textInput = textInput.replace(/[^A-Za-z/0-9\-@_#.!$%^&*()=+|\ ]/g, "");
-                e.value = textInput;
-
-                //end
-            }
             $(document).ready(function() {
+                $("#login").on('click',function(){
+                    $(".h4-title").text('Login');
+                    $(".login-box-content").show();
+                    $(".login-footer").show();
+                    $(".registerBox").hide();
+                    $(".register-footer").hide();
+                    $("#loginModal").modal('show');
+                });        
+                $("#showRegisterForm").on('click',function(){
+                    $(".login-box-content").hide();
+                    $(".login-footer").hide();
+                    $(".h4-title").text('Registration');
+                    $(".registerBox").show();
+                    $(".register-footer").show();
+                });        
+                $("#showLoginForm").on('click',function(){
+                    $(".registerBox").hide();
+                    $(".register-footer").hide();
+                    $(".h4-title").text('Login');
+                    $(".login-box-content").show();
+                    $(".login-footer").show();
+                });        
+        
                 $('.form-control').focus(function() {
         //        $("textarea").css();
                     var $parent = $(this).parent();
@@ -168,8 +258,6 @@
                     $('span.text-danger', $parent).fadeOut();
                     $('#mobile').css('border-color', 'rgb(206,212,215)');
                 });
-            });
-            $(document).ready(function() {
                 $('#remember').focus(function() {
         //        $("textarea").css();
                     var $parent = $(this).parent();
@@ -179,6 +267,68 @@
                     $('#remember').css('border-color', 'rgb(206,212,215)');
                 });
             });
+            function validatePassword(e) {
+                //updated by neeta
+                var textInput = e.value;
+                textInput = textInput.replace(/[^A-Za-z/0-9\-@_#.!$%^&*()=+|\ ]/g, "");
+                e.value = textInput;
+
+                //end
+            }
+            function loginAjax(){
+                var email = $("#email").val();
+                var password = $("#password").val();
+                var role = $('input[name=role]:checked').val();
+                
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + "login",
+                    data: { 'email' : email, 'password' : password , 'role': role},
+                    success: function(result){
+                        if(result){
+                            $(".has-text").removeClass('has-error');
+                            $(".has-text").addClass('has-success');
+                            $(".has-text").text("You have Successfully Login");
+                            setTimeout(function(){ 
+                                location.reload();
+                            }, 2000);
+                        }else{
+                            $(".has-text").addClass('has-error');
+                            $(".has-text").removeClass('has-success');
+                            $(".has-text").text("You have enter wrong Email id or Password.");
+                        }
+                        
+                    }
+                });
+            }
+            function registrationAjax(){
+                var id = document.getElementById("registration-form");
+                var myform = new FormData(id )
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + "registration",
+                    data: new FormData(myform),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(result){
+                        console.log(result);
+//                        if(result){
+//                            $(".has-text").removeClass('has-error');
+//                            $(".has-text").addClass('has-success');
+//                            $(".has-text").text("You have Successfully Login");
+////                            setTimeout(function(){ 
+////                                location.reload();
+////                            }, 2000);
+//                        }else{
+//                            $(".has-text").addClass('has-error');
+//                            $(".has-text").removeClass('has-success');
+//                            $(".has-text").text("You have enter wrong Email id or Password.");
+//                        }
+                        
+                    }
+                });
+            }
         </script>
     </body>
 </html>

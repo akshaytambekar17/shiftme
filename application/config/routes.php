@@ -111,6 +111,8 @@ $route['quote/view'] = "QuotationController/view";
 
 $route['vendor'] = "User_controller/vendor";
 $route['home'] = "User_controller/home";
+$route['login'] = "User_controller/login";
+$route['registration'] = "User_controller/registration";
 $route['vehicles'] = "Services_controller/vehicles";
 $route['services'] = "Services_controller/services";
 

@@ -84,6 +84,25 @@ class User_model extends MY_Model {
         }
         return false;
     }
+    public function validateLogin($data) {
+        $password = $this->site->encryptPass($data['password']);
+        $this->db->where("email ='" . $data['email'] . "' and  password ='" . $password. "'");
+        $this->db->or_where("mobileno ='" . $data['email'] . "' and  password ='" . $password . "'");
+        $this->db->where("role",$data['role']);
+        $result = $this->db->get('trans_user_login');
+//        echo $this->db->last_query();
+        if ($result->num_rows() > 0) {
+            $data = array(
+                'uid' => $result->row()->user_id,
+                'mobileno' => $result->row()->mobileno,
+                'password' => $result->row()->password,
+                'email' => $result->row()->email,
+                'role' => $result->row()->role,
+            );
+            return $data;
+        }
+        return false;
+    }
 
     public function update_profile() {
 
