@@ -1,18 +1,25 @@
 
-<div class="mg-page-title parallax" style=" background-image: url(<?= USERASSETS ?>images/1-banner-Transports.jpg);">
+<!--<div class="mg-page-title parallax" style=" background-image: url(<?= USERASSETS ?>images/1-banner-Transports.jpg);">
     <div class="container">
         <div class="row ">
             <div class="col-md-12">
                 <h2>My Account Details</h2>
-                <!--                        <p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>-->
+                                        <p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
-<div class="mg-about-features">
+<div class="mg-about-features section-md-50">
     <div class="container">
-        <h2 class="mg-sec-left-title mytitle" style="font-weight: 600;color: #71747b;">My Account</h2>
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
+                <div class="area-title text-center wow fadeIn">
+                    <h2>My Account</h2>
+                </div>
+            </div>
+        </div>
+<!--        <h2 class="mg-sec-left-title mytitle" style="font-weight: 600;color: #71747b;">My Account</h2>-->
         <p></p>
         <div class="row" style="min-height:300px;" id="alert-msg-show">
             <?php if ($this->session->flashdata('Message')) { ?>
@@ -44,7 +51,7 @@
                     <br>
                 <?php } ?>
                 <div class="col-xs-12 col-lg-3 col-md-3 col-sm-12">
-                    <ul class="nav nav-tabs tabs-left">
+                    <ul class="nav nav-tabs tabs-left" style="border: 1px solid #ddd;">
                         <li class="active"> <a href="#profile" data-toggle="tab">Profile</a></li>
                         <?php if($user_details['role'] == 1){ ?>
                             <li><a href="<?= $href==true?'#myorders':'javascript:void(0)'?>" data-toggle="tab">My Order</a></li>
@@ -64,7 +71,7 @@
 
                             <?php if($user_details['role'] == 1){ ?>
                                 <form action="<?= site_url() ?>User_controller/update_pro" method="POST" enctype="multipart/form-data">
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Email :</label>
                                         </div>
@@ -72,7 +79,7 @@
                                             <input type="email" class="form-control" name="email" placeholder="E-mail" id="email" value="<?= $result[0]['email'] ?>">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Mobile No. :</label>
                                         </div>
@@ -80,7 +87,7 @@
                                             <input type="text" class="form-control" name="mobileno" placeholder="Mobile No." id="mobileno" value="<?= $result[0]['mobileno'] ?>">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Street :</label>
                                         </div>
@@ -88,7 +95,7 @@
                                             <input type="text" class="form-control" name="street" placeholder="Street" id="street" value="<?= $result[0]['street'] ?>">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Landmark :</label>
                                         </div>
@@ -96,7 +103,7 @@
                                             <input type="text" class="form-control" name="landmark" placeholder="Landmark" id="landmark" value="<?= $result[0]['landmark'] ?>">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>City :</label>
                                         </div>
@@ -108,7 +115,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Pin Code :</label>
                                         </div>
@@ -116,7 +123,7 @@
                                             <input type="text" name="pincode" class="form-control" placeholder="Pin Code" id="pincode" value="<?= $result[0]['pincode'] ?>">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>State :</label>
                                         </div>
@@ -127,7 +134,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Country :</label>
                                         </div>
@@ -147,14 +154,14 @@
                                                                         </div>
                                                                     </div>-->
 
-                                    <div class="row" style="text-align: center">
+                                    <div class="form-group row" style="text-align: center">
                                         <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid()">
                                     </div>
 
                                 </form>
                             <?php }else{ ?>
                                 <form action="<?= site_url() ?>myaccount?id=<?= $vendor_details['id']?>" method="POST" enctype="multipart/form-data">
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Address :</label>
                                         </div>
@@ -163,7 +170,7 @@
                                             <span class="help-block"><?php echo form_error('address'); ?></span>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Address Proof :</label>
                                         </div>
@@ -172,7 +179,7 @@
                                             <span class="help-block"><?php echo form_error('address_proof'); ?></span>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Vehicle Model :</label>
                                         </div>
@@ -197,7 +204,7 @@
                                             <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Registration Number :</label>
                                         </div>
@@ -207,7 +214,7 @@
                                         </div>
                                     </div>
                                     <h5>Driver Details</h5>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Driver Name :</label>
                                         </div>
@@ -216,7 +223,7 @@
                                             <span class="help-block"><?php echo form_error('driver_name'); ?></span>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Driver License No :</label>
                                         </div>
@@ -225,7 +232,7 @@
                                             <span class="help-block"><?php echo form_error('driver_license_no'); ?></span>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Driver Contact Number:</label>
                                         </div>
@@ -235,7 +242,7 @@
                                         </div>
                                         
                                     </div>
-                                    <div class="row">
+                                    <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Driver Aadhar No :</label>
                                         </div>
@@ -435,7 +442,7 @@
                         </div>
                         <div class="tab-pane" id="settings">
                             <form action="<?= site_url() ?>User_controller/changePassword" method="POST" id="change_pass">
-                                <div class="row">
+                                <div class="form-group row">
                                     <div class="col-lg-3 col-md-3">
                                         <label>Old Password :</label>
                                     </div>
@@ -443,7 +450,7 @@
                                         <input type="password" class="form-control" name="old_password" placeholder="Old Password" id="old_password" >
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="form-group row">
                                     <div class="col-lg-3 col-md-3">
                                         <label>New Password :</label>
                                     </div>
@@ -451,7 +458,7 @@
                                         <input type="password" class="form-control" maxlength="8" oninput="validatePassword(this);" name="new_password" placeholder="New Password" id="new_password" >
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="form-group row">
                                     <div class="col-lg-3 col-md-3">
                                         <label>Conform Password :</label>
                                     </div>
@@ -460,7 +467,7 @@
                                         <p><span id="changepasserror" class=""></span></p>
                                     </div>
                                 </div>
-                                <div class="row" style="text-align: center">
+                                <div class="form-group row" style="text-align: center">
                                     <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid_chagepass()">
                                 </div>
                             </form>

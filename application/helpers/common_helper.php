@@ -36,3 +36,17 @@ function includesAll($data){
     $ci->load->view('user/'.$data['view'],$data);
     $ci->load->view('user/includes/footer',$data);
 }
+function userSession(){
+    $ci = & get_instance();
+    $details = $ci->session->all_userdata();
+    if(empty($details['userData'])){
+        $ci->load->model('User_model', 'User');
+        $details = $ci->User->getUsersById(232);
+        $details['uid'] = $details['user_id'];
+     }
+    if(!empty($details)){
+        return $details;
+    }else{
+        return false;
+    }
+}

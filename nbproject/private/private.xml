@@ -4,12 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/html/shiftme/application/controllers/User_controller.php</file>
+            <file>file:/var/www/html/shiftme/application/views/user/includes/footer.php</file>
+            <file>file:/var/www/html/shiftme/application/views/user/layout/header.php</file>
             <file>file:/var/www/html/shiftme/application/config/routes.php</file>
-            <file>file:/var/www/html/shiftme/application/controllers/Services_controller.php</file>
-            <file>file:/var/www/html/shiftme/application/views/user/layout/head.php</file>
-            <file>file:/var/www/html/shiftme/application/controllers/QuotationController.php</file>
+            <file>file:/var/www/html/shiftme/application/helpers/common_helper.php</file>
+            <file>file:/var/www/html/shiftme/application/models/User_model.php</file>
             <file>file:/var/www/html/shiftme/application/views/user/qoute.php</file>
-            <file>file:/var/www/html/shiftme/assets/themenew/css/style.css</file>
+            <file>file:/var/www/html/shiftme/application/views/user/includes/menubar.php</file>
+            <file>file:/var/www/html/shiftme/application/config/config.php</file>
+            <file>file:/var/www/html/shiftme/application/core/MY_Controller.php</file>
         </group>
     </open-files>
 </project-private>

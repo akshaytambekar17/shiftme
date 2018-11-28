@@ -171,7 +171,9 @@
                                             <label style="margin-left: 60px"><input type="radio" name="role" value="2">Vendor</label>
                                         </div>
                                         <input id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                        <span class="has-error error-email"></span>
                                         <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                        <span class="has-error error-password"></span>
                                         <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
                                     </form>
                                 </div>
@@ -180,18 +182,24 @@
                         <div class="box registerBox">
                             <div class="content">
                                 <div class="form">
-                                    <form method="post" data-remote="true" action="" accept-charset="UTF-8" id="registration-form">
+                                    <form method="post" action="" id="registration-form" name="registration-form" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label><input type="radio" name="role" value="1" checked>User</label>
                                             <label style="margin-left: 60px"><input type="radio" name="role" value="2">Vendor</label>
                                         </div>
                                         <input id="fname" class="form-control" type="text" placeholder="First Name" name="fname">
+                                        <span class="has-error error-fname"></span>
                                         <input id="lname" class="form-control" type="text" placeholder="Last Name" name="lname">
-                                        <input id="mobileno" class="form-control" type="text" placeholder="Mobile Number" name="mobileno">
-                                        <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                        <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                        <span class="has-error error-lname"></span>
+                                        <input id="mobileno" class="form-control" type="text" placeholder="Mobile Number" name="mobileno" maxlength="10">
+                                        <span class="has-error error-mobileno"></span>
+                                        <input id="email_id" class="form-control" type="text" placeholder="Email" name="email">
+                                        <span class="has-error error-email-id"></span>
+                                        <input id="password_reg" class="form-control" type="password" placeholder="Password" name="password">
+                                        <span class="has-error error-password-reg"></span>
                                         <input id="password_confirmation" class="form-control" type="password" placeholder="Confirm Password" name="password_confirmation">
-                                        <input class="btn btn-default btn-register" type="button" value="Create account" name="registration" onclick="registrationAjax()">
+                                        <span class="has-error error-password-confirmation"></span>
+                                        <input class="btn btn-default btn-register" type="button" value="Create account" name="registration" onclick="registrationAjax()" id="registration">
                                     </form>
                                 </div>
                             </div>
@@ -234,6 +242,7 @@
                     $(".login-footer").show();
                     $(".registerBox").hide();
                     $(".register-footer").hide();
+                    clearLoginField();
                     $("#loginModal").modal('show');
                 });        
                 $("#showRegisterForm").on('click',function(){
@@ -252,14 +261,12 @@
                 });        
         
                 $('.form-control').focus(function() {
-        //        $("textarea").css();
                     var $parent = $(this).parent();
                     $parent.removeClass('text-danger');
                     $('span.text-danger', $parent).fadeOut();
                     $('#mobile').css('border-color', 'rgb(206,212,215)');
                 });
                 $('#remember').focus(function() {
-        //        $("textarea").css();
                     var $parent = $(this).parent();
                     $parent.removeClass('text-danger');
                     $('span.text-danger', $parent).fadeOut();
@@ -279,55 +286,188 @@
                 var email = $("#email").val();
                 var password = $("#password").val();
                 var role = $('input[name=role]:checked').val();
-                
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url(); ?>" + "login",
-                    data: { 'email' : email, 'password' : password , 'role': role},
-                    success: function(result){
-                        if(result){
-                            $(".has-text").removeClass('has-error');
-                            $(".has-text").addClass('has-success');
-                            $(".has-text").text("You have Successfully Login");
-                            setTimeout(function(){ 
-                                location.reload();
-                            }, 2000);
-                        }else{
-                            $(".has-text").addClass('has-error');
-                            $(".has-text").removeClass('has-success');
-                            $(".has-text").text("You have enter wrong Email id or Password.");
+                var validate = validateLoginField();
+                if(validate){
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + "login",
+                        data: { 'email' : email, 'password' : password , 'role': role},
+                        success: function(result){
+                            if(result){
+                                $(".has-text").removeClass('has-error');
+                                $(".has-text").addClass('has-success');
+                                $(".has-text").text("You have Successfully Login");
+                                setTimeout(function(){ 
+                                    location.reload();
+                                }, 1000);
+                            }else{
+                                $(".has-text").addClass('has-error');
+                                $(".has-text").removeClass('has-success');
+                                $(".has-text").text("You have enter wrong Email id or Password.");
+                            }
+
                         }
-                        
-                    }
-                });
+                    });
+                }
             }
             function registrationAjax(){
-                var id = document.getElementById("registration-form");
-                var myform = new FormData(id )
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url(); ?>" + "registration",
-                    data: new FormData(myform),
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function(result){
-                        console.log(result);
-//                        if(result){
-//                            $(".has-text").removeClass('has-error');
-//                            $(".has-text").addClass('has-success');
-//                            $(".has-text").text("You have Successfully Login");
-////                            setTimeout(function(){ 
-////                                location.reload();
-////                            }, 2000);
-//                        }else{
-//                            $(".has-text").addClass('has-error');
-//                            $(".has-text").removeClass('has-success');
-//                            $(".has-text").text("You have enter wrong Email id or Password.");
-//                        }
-                        
+                var validate = validateRegistrationField();
+                if(validate == true){
+                    $("#registration").prop("disabled",true);
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + "registration",
+                        data: jQuery('#registration-form').serializeArray(),
+                        dataType:'json',
+                        success: function(result){
+                            $("#registration").prop("disabled",false);
+                            if(result['success'] == true){
+                                $(".registerBox").hide();
+                                $(".register-footer").hide();
+                                $(".h4-title").text('Login');
+                                $(".login-box-content").show();
+                                $(".login-footer").show();
+                                $(".has-text").removeClass('has-error');
+                                $(".has-text").addClass('has-success');
+                                $(".has-text").text(result['message']);
+                                clearRegistrationField();
+                            }else{
+                                $(".has-text").addClass('has-error');
+                                $(".has-text").removeClass('has-success');
+                                $(".has-text").text(result['message']);
+                            }
+                        }
+                    });
+                }
+            }
+            function validateRegistrationField(){
+                var fname = $("#fname").val();
+                var lname = $("#lname").val();
+                var mobileno = $("#mobileno").val();
+                var email_id = $("#email_id").val();
+                var password_reg = $("#password_reg").val();
+                var password_confirmation = $("#password_confirmation").val();
+                flag = true;
+                if(fname == ''){
+                    $('.error-fname').text("Please enter the First name");
+                    flag = false;
+                }else{
+                    $('.error-fname').text("");
+                }
+                if(fname == ''){
+                    $('.error-fname').text("First name cannot be blank");
+                    flag = false;
+                }else{
+                    $('.error-fname').text("");
+                }
+                if(lname == ''){
+                    $('.error-lname').text("Last name cannot be blank");
+                    flag = false;
+                }else{
+                    $('.error-lname').text("");
+                }
+                if(mobileno == ''){
+                    $('.error-mobileno').text("Mobile number cannot be blank");
+                    flag = false;
+                }else{
+                    if(validateMobileNumber(mobileno)){
+                        $('.error-mobileno').text("");
+                    }else{
+                        $('.error-mobileno').text("Mobile number is invalid");
+                        flag = false;
                     }
-                });
+                }
+                if(email_id == ''){
+                    $('.error-email-id').text("Email id cannot be blank");
+                    flag = false;
+                }else{
+                    if(validateEmail(email_id)){
+                        $('.error-email-id').text("");
+                    }else{
+                        $('.error-email-id').text("Email id not in proper format");
+                        flag = false;
+                    }
+                }
+                if(password_reg == ''){
+                    $('.error-password-reg').text("Password cannot be blank");
+                    flag = false;
+                }else{
+                    if(password_reg.length <= 5){
+                        $('.error-password-reg').text("Password must be greater than 5 letter");
+                        flag = false;
+                    }else{
+                        $('.error-password-reg').text("");
+                    }
+                }
+                if(password_confirmation == ''){
+                    $('.error-password-confirmation').text("Confiramtion Password cannot be blank");
+                    flag = false;
+                }else{
+                    if(password_reg == password_confirmation){
+                        $('.error-password-confirmation').text("");
+                    }else{
+                        $('.error-password-confirmation').text("Confirmation Password and Password does not match");
+                    }
+                }
+                return flag;
+            }
+            function validateLoginField(){
+                var email_id = $("#email").val();
+                var password = $("#password").val();
+                flag = true;
+                if(email_id == ''){
+                    $('.error-email').text("Email id cannot be blank");
+                    flag = false;
+                }else{
+                    if(validateEmail(email_id)){
+                        $('.error-email').text("");
+                    }else{
+                        $('.error-email').text("Email id not in proper format");
+                        flag = false;
+                    }
+                }
+                if(password == ''){
+                    $('.error-password').text("Password cannot be blank");
+                    flag = false;
+                }else{
+                    if(password.length <= 5){
+                        $('.error-password').text("Password must be greater than 5 letter");
+                        flag = false;
+                    }else{
+                        $('.error-password').text("");
+                    }
+                }
+                return flag;
+            }
+            function clearRegistrationField(){
+                $("#fname").val("");
+                $("#lname").val("");
+                $("#mobileno").val("");
+                $("#email_id").val("");
+                $("#password_reg").val("");
+                $("#password_confirmation").val("");
+            }
+            function clearLoginField(){
+                $("#email").val("");
+                $("#password").val("");
+            }
+            function validateEmail(email) {
+                var email_format = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                if(email_format.test(email)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            function validateMobileNumber(mobileno) {
+                var number_format = /^\d{10}$/;
+                if(number_format.test(mobileno)){
+                    return true;
+                }else{
+                    return false;
+                }
+                
             }
         </script>
     </body>

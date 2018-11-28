@@ -18,7 +18,6 @@ class User_controller extends MY_Controller {
         $this->load->model('admin/ProductListModel','ProductList');
         $this->load->model('admin/TimeSlotsModel','TimeSlots');
         $this->load->helper('message');
-//        $this->load->model('Event_model', 'event');
     }
 
 //Home Page
@@ -41,7 +40,6 @@ class User_controller extends MY_Controller {
         $data['slider'] = true;
         $data['slider_details'] = false;
         $data['vehicle_list'] = $this->user->vehicle_list();
-        //printDie($data['vehicle']);
         $this->frontendLayout($data);
     }
     public function sendotp() {
@@ -68,28 +66,38 @@ class User_controller extends MY_Controller {
     }
     public function registration() {
         $post = $this->input->post();
-        printDie($post);
-        $data = array(
-            'role' => $post['role'],
-            'fullname' => $post['fname']." ".$post['lname'],
-            'mobileno' => $post['mobile'],
-            'email' => $post['email'],
-            'password' => $this->site->encryptPass($post['password']),
-            'remember' => $post['remember'],
-            'create_date' => date('Y-m-d H:i:s'),
-        );
-        $result = $this->user->sign_up($data);
+        $details = $post;
+        unset($details['password_confirmation']);
+        unset($details['fname']);
+        unset($details['lname']);
+        $details['fullname'] = $post['fname']." ".$post['lname'];
+        $details['password'] = $this->site->encryptPass($details['password']);
+        $details['create_date'] = date('Y-m-d H:i:s');
+        $details['updated_at'] = date('Y-m-d H:i:s');
+        $result = $this->user->sign_up($details);
         $to = $post['email'];
         $subject = "Registration Mail";
         $message = $this->load->view('admin/Email/registration',$post,TRUE);
         $result_mail = $this->sendEmail($to, $subject, $message);
-        echo $result;
+        if($result == 1){
+            $response['success'] = true;
+            $response['message'] = 'You have Successfully Register. Please login to continue';
+        }else if($result == -1){
+            $response['success'] = false;
+            $response['message'] = 'Mobile number already exists.';
+        }else if($result == -2){
+            $response['success'] = false;
+            $response['message'] = 'Email id already exists.';
+        }else{ 
+            $response['success'] = false;
+            $response['message'] = 'Something went wrong please try again.';
+        }
+        echo json_encode($response);
     }
 
     public function signin() {
         $rs = $this->user->userlogin();
         if ($rs) {
-
             echo '1';
         } else {
             echo '0';
@@ -99,7 +107,6 @@ class User_controller extends MY_Controller {
         $post = $this->input->post();
         $result = $this->user->validateLogin($post);
         if($result) {
-            $this->session->set_userdata($result);
             echo true;
         } else {
             echo false;
@@ -122,9 +129,10 @@ class User_controller extends MY_Controller {
     }
 
     public function myaccount() {
-        if ($this->session->userdata('uid') == "") {
+        if (!$this->loggedIn) {
             redirect(site_url());
         }
+        $userSession = userSession();
         if($this->input->post()){
             $post = $this->input->post();
             $this->form_validation->set_rules('address', 'Address', 'trim|required');
@@ -140,7 +148,7 @@ class User_controller extends MY_Controller {
                 $details = $post;
                 unset($details['submit']);
                 $details['is_verified'] = 1;
-                $details['uid'] = $this->session->userdata('uid');
+                $details['uid'] = $userSession['uid'];
                 $details['updated_at'] = date('Y-m-d H:i:s');
                 $result = $this->Vendor->update($details);
                 if ($result) {
@@ -148,25 +156,25 @@ class User_controller extends MY_Controller {
                     return redirect('myaccount', 'refresh');
                 } else {
                     $this->session->set_flashdata('Error', 'Failed to update profile');
-                    $user_id = $this->session->userdata('uid');
+                    $user_id = $userSession['uid'];
                     $data = $this->myaccountFuntion($user_id);
-                    $this->layout($data);
+                    $this->frontendLayout($data);
                 }
             }else{
-                $user_id = $this->session->userdata('uid');
+                $user_id = $userSession['uid'];
                 $data = $this->myaccountFuntion($user_id);
-                $this->layout($data);
+                $this->frontendLayout($data);
             }
         }else{
-            $user_id = $this->session->userdata('uid');
+            $user_id = $userSession['uid'];
             $data = $this->myaccountFuntion($user_id);
-            $this->layout($data);
+            $this->frontendLayout($data);
         }
         
     }
     public function myaccountFuntion($user_id){
         $data['metadata'] = "My Account";
-        $data['template'] = "myaccount";
+        $data['view'] = "myaccount";
         $data['name'] = "My Account";
         $user_details = $this->user->getUsersById($user_id);
         if($user_details['role'] == 2){
@@ -182,7 +190,10 @@ class User_controller extends MY_Controller {
         $data['inquery_list'] = $this->user->user_inquery_list();
         $data['quote_list'] = $this->user->user_quote_list();
         $data['vehicle_services_list'] = $this->user->vehicle_list();
-        
+        $data['slider'] = true;
+        $data['slider_details'] = true;
+        $data['slider_heading'] = 'My Account Details';
+        $data['slider_description'] = '';
         return $data;
     }
     public function vendor() {

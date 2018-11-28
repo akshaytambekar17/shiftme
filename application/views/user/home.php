@@ -17,10 +17,10 @@
         transition: all 0.3s ease 0s;
     }
     .slider-form{
-            background-color: rgba(243, 156, 18, 0.81);
+            background-color: rgba(48, 197, 168, 0.76);
             padding: 22px 16px;
             position: absolute;
-            top: 96%;
+            top: 72%;
             left: 7%;
             z-index: 10;
     }
@@ -76,7 +76,7 @@
                 <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
                     <div class="about-content-area wow fadeIn">
                         <div class="about-content">
-                            <h2>Shiftme offer specialized Packing services to make your shifting as easy and hassle-free as possible.</h2>
+                            <h2>What We Offer.</h2>
                             <p>Shiftme is always looking for ways to improve our ability to meet the needs of our individual and corporate customers. We have specialized equipments and a team of dedicated professionals who are committed to excellence in customer service. Our motto is to satisfy our customers through our work.</p>
                             <a href="<?= base_url()?>services">read more <i class="fa fa-angle-right"></i></a>
                         </div>
@@ -145,7 +145,7 @@
     <!--PROMO AREA END-->
 
     <!--BLOG AREA-->
-    <section class="blog-area section-padding">
+    <!--<section class="blog-area section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
@@ -197,7 +197,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     <!--BLOG AREA END-->
     
     <!--SERVICE AREA-->

@@ -99,6 +99,7 @@ class User_model extends MY_Model {
                 'email' => $result->row()->email,
                 'role' => $result->row()->role,
             );
+            $this->session->set_userdata('userData',$data);
             return $data;
         }
         return false;

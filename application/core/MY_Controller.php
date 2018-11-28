@@ -4,6 +4,7 @@ class MY_Controller extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        //session_start(); 
         $this->less = $this->config->item('less');
         define("ADMINASSETS", base_url() . "assets/admin/");
         define("ADMINLTE", base_url() . "assets/adminlte/");
@@ -22,7 +23,14 @@ class MY_Controller extends CI_Controller {
         $this->load->helper(array('url', 'language'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
         $this->lang->load('auth');
-        $this->loggedIn = $this->ion_auth->logged_in();
+        //$this->loggedIn = $this->ion_auth->logged_in();
+        $userSession = userSession();
+        if(!empty($userSession)){
+            $this->loggedIn = true;
+        }else{
+            $this->loggedIn = false;
+        } 
+        
     }
 
     public function layout($data) {

@@ -13,7 +13,8 @@
 .preloader-spinner {
     -webkit-animation: 1s ease-out 0s normal none infinite running pulsate;
     animation: 1s ease-out 0s normal none infinite running pulsate;
-    border: 5px solid #f39c12;
+    /*border: 5px solid #f39c12;*/
+    border: 5px solid #30c5a8;
     border-radius: 40px;
     display: block;
     height: 40px;
