@@ -11,7 +11,9 @@
 .feedback-rating-first{
     margin-right: 15px !important;
 }
-
+.mt-10{
+    margin : 11px 0px; 
+}
 /********Star rating css***********/
 div.stars {
   display: inline-block;

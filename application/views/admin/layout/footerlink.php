@@ -16,11 +16,11 @@
 <script src="<?= ADMINASSETS ?>jstree/jstree.min.js"></script>
 
 <script type="text/javascript">
-            $(document).ready(function () {
-                
-              
-                 $('select, .select').select2();
-            }); // END document.ready
+    $(document).ready(function () {
+
+
+        $('select, .select').select2();
+    }); // END document.ready
 
 </script>
 
@@ -29,8 +29,8 @@
 <script type="text/javascript">
     var site_url = '<?= site_url() ?>';</script>
 <script src="<?= ADMINASSETS ?>js/bootstrap.min.js"></script>
+<script src="<?php echo ADMINLTE ?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
-        
 <script type="text/javascript" src="<?= USERASSETS ?>tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
     tinyMCE.init({
@@ -72,19 +72,39 @@
     });
 </script>
 <script>
-            var autocomplete = new google.maps.places.Autocomplete($("#pickupPoint")[0], {});
+    var autocomplete = new google.maps.places.Autocomplete($("#pickupPoint")[0], {});
 
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var place = autocomplete.getPlace();
-                console.log(place.address_components);
-            });
-            var autocomplete = new google.maps.places.Autocomplete($("#dropPoint")[0], {});
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var place = autocomplete.getPlace();
+        console.log(place.address_components);
+    });
+    var autocomplete = new google.maps.places.Autocomplete($("#dropPoint")[0], {});
 
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var place = autocomplete.getPlace();
-                console.log(place.address_components);
-            });
-        </script>
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var place = autocomplete.getPlace();
+        console.log(place.address_components);
+    });
+    var autocomplete4 = new google.maps.places.Autocomplete($("#from_loc")[0], {});
+    autocomplete4.setComponentRestrictions(
+            {'country': ['in']}
+    );
+    google.maps.event.addListener(autocomplete4, 'place_changed', function () {
+        var place = autocomplete4.getPlace();
+        console.log(place.address_components);
+    });
+    var autocomplete5 = new google.maps.places.Autocomplete($("#to_loc")[0], {});
+    autocomplete5.setComponentRestrictions(
+            {'country': ['in']}
+    );
+    google.maps.event.addListener(autocomplete5, 'place_changed', function () {
+        var place = autocomplete5.getPlace();
+        console.log(place.address_components);
+    });
+    $('.datepicker').datepicker({
+        autoclose: true,
+        startDate: new Date()
+    });
+</script>
 <script src="<?= ANGULARURL ?>bower_components/angular/angular.min.js" type="text/javascript"></script>
 <script src="<?= ANGULARURL ?>jquery.placepicker.js" type="text/javascript"></script>
 <script src="<?= ANGULARURL ?>angular-ui.min.js" type="text/javascript"></script>

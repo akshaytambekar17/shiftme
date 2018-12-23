@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_controller extends MY_Controller {
@@ -22,13 +22,13 @@ class User_controller extends MY_Controller {
 
 //Home Page
     public function index() {
+  
         $data['test'] = $this->user->getTestimonials();
         $data['slider'] = $this->user->getslider();
         $data['metadata'] = "Home";
         $data['template'] = "Home";
         $data['name'] = "Home";
         $data['vehicle'] = $this->user->vehicle_list();
-
         $this->layout($data);
     }
     public function home() {
@@ -77,7 +77,7 @@ class User_controller extends MY_Controller {
         $result = $this->user->sign_up($details);
         $to = $post['email'];
         $subject = "Registration Mail";
-        $message = $this->load->view('admin/Email/registration',$post,TRUE);
+        $message = $this->load->view('admin/Email/registration',$details,TRUE);
         $result_mail = $this->sendEmail($to, $subject, $message);
         if($result == 1){
             $response['success'] = true;
@@ -115,7 +115,7 @@ class User_controller extends MY_Controller {
 
     public function logout() {
         $this->session->sess_destroy();
-        redirect(site_url());
+        redirect(site_url('home'));
     }
 
     public function changePassword() {
@@ -176,6 +176,7 @@ class User_controller extends MY_Controller {
         $data['metadata'] = "My Account";
         $data['view'] = "myaccount";
         $data['name'] = "My Account";
+        $data['title'] = "My Account";
         $user_details = $this->user->getUsersById($user_id);
         if($user_details['role'] == 2){
             $data['vendor_details'] = $this->Vendor->getVendorByUserId($user_id);
@@ -430,7 +431,7 @@ class User_controller extends MY_Controller {
 //        }
 //    }
     public function quick_qoute() {
-        
+        $userSession = userSession();
         if($this->input->post()){
             $post = $this->input->post();
             if(!empty($post['quote'])){
@@ -456,7 +457,7 @@ class User_controller extends MY_Controller {
                     unset($details['total_amount']);
                     unset($details['quote']);
                     $details['shifting_date'] = date("Y-m-d", strtotime($details['shifting_date']));
-                    $details['user_id'] = $this->session->userdata('uid');
+                    $details['user_id'] = $userSession['uid'];
                     $details['is_send_user'] = 1;
                     $details['created_at'] = date('Y-m-d H:i:s');
                     $details['updated_at'] = date('Y-m-d H:i:s');
@@ -481,7 +482,7 @@ class User_controller extends MY_Controller {
                     
                     if($post['quote'] == 'Make Order'){
                         $order_data = array('quotation_id' => $quotationLastId,
-                                            'user_id' => $this->session->userdata('uid'),
+                                            'user_id' => $userSession['uid'],
                                             'status' => 1,
                                             'total_amount' => $post['total_amount'],
                                             'vehicle_id' => $post['vehicle_id'],
@@ -495,7 +496,7 @@ class User_controller extends MY_Controller {
                         $this->Quotation->update($quotation_update);
                     }else{
                         $enquiry_data = array('quotation_id' => $quotationLastId,
-                                              'user_id' => $this->session->userdata('uid'),
+                                              'user_id' => $userSession['uid'],
                                               'created_at' => date('Y-m-d H:i:s'),
                                               'updated_at' => date('Y-m-d H:i:s'),
                                         );
@@ -528,8 +529,8 @@ class User_controller extends MY_Controller {
                         $data['product_list'] = $this->ProductList->getProductsList();
                         $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
                         $data['details'] = $pin;
-                        if (!empty($this->session->userdata('uid'))) {
-                            $data['userDetails'] = $this->session->userdata();
+                        if (!empty($userSession)) {
+                            $data['userDetails'] = $userSession;
                         }else{
                             $data['userDetails'] = '';
                         }
@@ -557,8 +558,8 @@ class User_controller extends MY_Controller {
                     $data['product_list'] = $this->ProductList->getProductsList();
                     $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
                     $data['details'] = $pin;
-                    if (!empty($this->session->userdata('uid'))) {
-                        $data['userDetails'] = $this->session->userdata();
+                    if (!empty($userSession)) {
+                        $data['userDetails'] = $userSession;
                     }else{
                         $data['userDetails'] = '';
                     }
@@ -582,12 +583,12 @@ class User_controller extends MY_Controller {
                 $data['slider_heading'] = 'Quick Quote';
                 $data['slider_description'] = '<strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote.';
                 $data['vehicle'] = $this->user->vehicle_list();
-                $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
+                $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle_id']);
                 $data['product_list'] = $this->ProductList->getProductsList();
                 $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
                 $data['details'] = $pin;
-                if (!empty($this->session->userdata('uid'))) {
-                    $data['userDetails'] = $this->session->userdata();
+                if (!empty($userSession)) {
+                    $data['userDetails'] = $userSession;
                 }else{
                     $data['userDetails'] = '';
                 }
@@ -613,15 +614,16 @@ class User_controller extends MY_Controller {
             $data['slider_heading'] = 'Quick Quote';
             $data['slider_description'] = '<strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote.';
             $data['vehicle'] = $this->user->vehicle_list();
-            $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
+            $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle_id']);
             $data['product_list'] = $this->ProductList->getProductsList();
             $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
             $data['details'] = $pin;
-            if (!empty($this->session->userdata('uid'))) {
-                $data['userDetails'] = $this->session->userdata();
+            if (!empty($userSession)) {
+                $data['userDetails'] = $userSession;
             }else{
                 $data['userDetails'] = '';
             }
+            
             $this->frontendLayout($data);
             //$this->layout($data);
         }
@@ -652,6 +654,20 @@ class User_controller extends MY_Controller {
             $this->session->set_flashdata('insert_msg', 'Profile Updated Successfully.');
         } else {
             $this->session->set_flashdata('error_msg', 'Profile updated Failed.');
+        }
+        redirect('myaccount');
+    }
+    public function updateProfile() {
+        $post = $this->input->post();
+        $userSession = userSession();
+        $details = $post;
+        $details['user_id'] = $userSession['uid'];
+        $details['updated_at'] = date('Y-m-d H:i:s');
+        $result = $this->user->update($details);
+        if ($result) {
+            $this->session->set_flashdata('Message', 'Profile has been updated successfully.');
+        } else {
+            $this->session->set_flashdata('Error', 'Profile cannot updated.Something went wrong. Please try again later');
         }
         redirect('myaccount');
     }
@@ -832,14 +848,13 @@ class User_controller extends MY_Controller {
             //Formatted address
             $formattedAddr = str_replace(' ', '+', $address);
             //Send request and receive json data by address
-            $geocodeFromAddr = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address=' . $formattedAddr . '&sensor=true_or_false');
-            //printDie($geocodeFromAddr);
+            $geocodeFromAddr = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAFw1kDJaTDVNmiSF5UHCYVOCbP57ZKpmw&address=' . $formattedAddr . '&sensor=true_or_false');
             $output1 = json_decode($geocodeFromAddr);
             //Get latitude and longitute from json data
             $latitude = $output1->results[0]->geometry->location->lat;
             $longitude = $output1->results[0]->geometry->location->lng;
             //Send request and receive json data by latitude longitute
-            $geocodeFromLatlon = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?latlng=' . $latitude . ',' . $longitude . '&sensor=true_or_false');
+            $geocodeFromLatlon = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAFw1kDJaTDVNmiSF5UHCYVOCbP57ZKpmw&latlng=' . $latitude . ',' . $longitude . '&sensor=true_or_false');
             $output2 = json_decode($geocodeFromLatlon);
             if (!empty($output2)) {
                 $addressComponents = $output2->results[0]->address_components;

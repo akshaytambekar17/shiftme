@@ -50,7 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   | Examples:	my-controller/index	-> my_controller/index
   |		my-controller/my-method	-> my_controller/my_method
  */
-$route['default_controller'] = 'User_controller/home';
+$route['default_controller'] = "User_controller";
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;
 $route['admin'] = "Auth";
 $route['admin/dashboard'] = "admin/Admin_controller/dashboard";
 
@@ -81,6 +83,12 @@ $route['quotation/view'] = "admin/QuotationController/view";
 
 $route['admin/users'] = "admin/Admin_controller/users";
 $route['admin/user-delete'] = "admin/Admin_controller/userDelete";
+
+$route['admin/vendor'] = "admin/VendorController";
+$route['admin/vendor/update'] = "admin/VendorController/update";
+$route['admin/vendor/assign-order'] = "admin/VendorController/AssignOrder";
+$route['admin/vendor/assign-order-list'] = "admin/VendorController/AssignOrderList";
+$route['admin/vendor/assign-order-delete'] = "admin/VendorController/AssignOrderDelete";
 
 $route['product-list'] = "admin/ProductListController/index";
 $route['product-list/delete'] = "admin/ProductListController/delete";
@@ -170,6 +178,7 @@ $route['admin/FooterContent-update/(:any)'] = "admin/Setting_controller/FooterCo
 //Users
 $route['logout'] = "User_controller/logout";
 $route['myaccount'] = "User_controller/myaccount";
+$route['update-profile'] = "User_controller/updateProfile";
 $route['change-password'] = "User_controller/updatepassword";
 $route['shifting'] = "Services_controller/shifting";
 $route['vendor-shifting'] = "Services_controller/vendor_shifting";
@@ -249,4 +258,3 @@ $route['admin/policy-update/(:any)'] = "admin/Setting_controller/Privacy_Policy_
 $route['admin/terms'] = "admin/Admin_controller/trems";
 $route['admin/trems-edit/(:any)'] = "admin/Admin_controller/trems_edit/$1";
 $route['admin/terms_update/(:any)'] = "admin/Admin_controller/terms_update/$1";
-

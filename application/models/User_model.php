@@ -86,11 +86,10 @@ class User_model extends MY_Model {
     }
     public function validateLogin($data) {
         $password = $this->site->encryptPass($data['password']);
-        $this->db->where("email ='" . $data['email'] . "' and  password ='" . $password. "'");
-        $this->db->or_where("mobileno ='" . $data['email'] . "' and  password ='" . $password . "'");
+        $this->db->where("(email ='" . $data['email'] . "' and  password ='" . $password. "' or mobileno ='" . $data['email'] . "' and  password ='" . $password . "')");
         $this->db->where("role",$data['role']);
         $result = $this->db->get('trans_user_login');
-//        echo $this->db->last_query();
+        //echo $this->db->last_query();die;
         if ($result->num_rows() > 0) {
             $data = array(
                 'uid' => $result->row()->user_id,
@@ -98,6 +97,7 @@ class User_model extends MY_Model {
                 'password' => $result->row()->password,
                 'email' => $result->row()->email,
                 'role' => $result->row()->role,
+                'fullname' => $result->row()->fullname,
             );
             $this->session->set_userdata('userData',$data);
             return $data;
@@ -347,6 +347,15 @@ class User_model extends MY_Model {
     public function deleteUser($user_id) {
         $this->db->where('user_id',$user_id);
         $this->db->delete('trans_user_login'); 
+        if($this->db->affected_rows()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function update($updateData){
+        $this->db->where('user_id',$updateData['user_id']);
+        $this->db->update('trans_user_login',$updateData);
         if($this->db->affected_rows()){
             return true;
         }else{

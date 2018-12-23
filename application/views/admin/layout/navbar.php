@@ -97,15 +97,30 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                         </a>
                     </li>    
                     <li>
+                        <a href="<?= site_url('admin/vendor') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-user-times nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Vendors</span> 
+                        </a>
+                    </li>    
+                    <li>
                         <a href="<?= site_url('enquiry') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-list nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">Enquires</span> 
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-yellow mt-10">
+                                    <?= !empty(getEnquiresByNotRead())?count(getEnquiresByNotRead()):0?>
+                                </small>
+                            </span>
                         </a>
                     </li>
                     <li>
                         <a href="<?= site_url('quotation') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-list-alt nav_icon" aria-hidden="true"></i>
-                            <span class="nav-label">Quotation</span> 
+                            <span class="nav-label">Quotation
+                                <small class="label pull-right bg-aqua mt-10">
+                                    <?= !empty(getQuotationsByNotRead())?count(getQuotationsByNotRead()):0?>
+                                </small>
+                            </span> 
                         </a>
                     </li>
                     <li>

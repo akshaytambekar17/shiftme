@@ -34,7 +34,8 @@ class OrderController extends MY_Controller {
         $this->admin_layout($this->data);
     }
     public function make(){
-        if($this->session->userdata('uid') == ''){
+        $userSession = userSession();
+        if(empty($userSession['uid'])){
             $this->session->set_flashdata('Error', 'Please Login');
             return redirect('', 'refresh');
         }else{
@@ -42,7 +43,7 @@ class OrderController extends MY_Controller {
             $post = $this->input->post();
             $quotation_data = $this->QuotationModel->getQuotationByIdWithPrice($post['quotation_id']);
             $order_data = array('quotation_id' => $post['quotation_id'],
-                                'user_id' => $this->session->userdata('uid'),
+                                'user_id' => $userSession['uid'],
                                 'status' => 1,
                                 'total_amount' => $quotation_data['total_amount'],
                                 'vehicle_id' => $quotation_data['vehicle_id'],
@@ -55,6 +56,12 @@ class OrderController extends MY_Controller {
                             );
             $this->QuotationModel->update($quotation_data);
             if($result){
+                $order_details = $this->OrderModel->getOrderByIdWithQuotation($result);
+                $data['order_details'] = $order_details;
+                $to = $order_details['email_id'];
+                $subject = "New Order ".$order_details['order_no']." has been placed against quotation number ".$order_details['quotation_no'];
+                $message = $this->load->view('admin/Email/order',$data,TRUE);
+                $result = $this->sendEmail($to, $subject, $message);
                 echo true;
             }else{
                 echo false;

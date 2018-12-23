@@ -81,15 +81,50 @@
                     <a href="<?= site_url('order') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <br>
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3><?= !empty($enquires_list)?count($enquires_list):0 ?></h3>
+                        <p>Total Enquires</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-info-circle"></i>
+                    </div>
+                    <a href="<?= site_url('enquiry') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <br>
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3><?= !empty($quotation_list)?count($quotation_list):0 ?></h3>
+                        <p>Total Quotations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-list-alt"></i>
+                    </div>
+                    <a href="<?= site_url('quotation') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <br>
+            <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3><?= !empty($vendor_list)?count($vendor_list):0 ?></h3>
+                        <p>Vendors</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user-times"></i>
+                    </div>
+                    <a href="<?= site_url('admin/vendor') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
         </div>
-
-
-
     </div>
     <div class="clearfix"></div>
-    <?php $this->load->view('admin/layout/footer'); ?>
+    <?php //$this->load->view('admin/layout/footer'); ?>
 </div>
-<script>
-
-
-</script>

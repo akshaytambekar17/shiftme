@@ -10,7 +10,25 @@ class Services_controller extends MY_Controller {
         $this->load->model('User_model', 'user');
 //        $this->load->model('Event_model', 'event');
     }
-
+    public function index() {
+        $data['test'] = $this->user->getTestimonials();
+        $data['slider'] = $this->user->getslider();
+        $data['title'] = "Home";
+        $data['metadata'] = "Home";
+        $data['view'] = "home";
+        $data['slider'] = true;
+        $data['slider_details'] = false;
+        $data['vehicle_list'] = $this->user->vehicle_list();
+        $this->frontendLayout($data);
+//        $data['test'] = $this->user->getTestimonials();
+//        $data['slider'] = $this->user->getslider();
+//        $data['metadata'] = "Home";
+//        $data['template'] = "Home";
+//        $data['name'] = "Home";
+//        $data['vehicle'] = $this->user->vehicle_list();
+//
+//        $this->layout($data);
+    }
     public function shifting() {
         $data['metadata'] = "Shifting";
         $data['template'] = "shifting";

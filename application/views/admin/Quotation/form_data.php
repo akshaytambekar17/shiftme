@@ -152,7 +152,7 @@
                                         <label for="subject">Shifting Date</label>
                                         <div class="input-group date mg-check-in ">
                                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                            <input type="text" class="form-control" id="shifting_date" name="shifting_date"  value="<?php echo !empty($quotation_data['shifting_date'])?$quotation_data['shifting_date']:set_value('shifting_date'); ?>" required >
+                                            <input type="text" class="form-control datepicker" id="shifting_date" name="shifting_date"  value="<?php echo !empty($quotation_data['shifting_date'])?date('m/d/Y',strtotime($quotation_data['shifting_date'])):set_value('shifting_date'); ?>" required >
                                         </div>
                                         <span class="help-block"><?php echo form_error('shifting_date'); ?></span>
                                     </div>
@@ -264,7 +264,23 @@
                                             <span class="help-block"><?php echo form_error('company_desc'); ?></span>
                                         </div>
                                     </div>-->
+                                            
                                 </div>
+                                <?php if($quotation_data['is_send_user'] == 0){ ?>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group col-md-11">
+                                                <label>Send Quotation to user</label>
+                                                <select name='is_send_user'  class="form-control">
+                                                    <option disabled="disabled" selected="selected">Select Option</option>
+                                                    <option value="1" <?= set_select('is_send_user',1) ?> >Yes</option> 
+                                                    <option value="0" <?= set_select('is_send_user',0) ?> >No</option> 
+                                                </select>
+                                                <span class="help-block"><?php echo form_error('is_send_user'); ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success">Submit</button>

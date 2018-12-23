@@ -9,7 +9,7 @@
         <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
         <!--====== TITLE TAG ======-->
-        <title><?= $title?></title>
+        <title><?= !empty($title)?$title:'ShiftMe'?></title>
 
         <!--====== FAVICON ICON =======-->
         <link rel="shortcut icon" type="image/ico" href="<?= base_url(); ?>/assets/themenew/img/logo1.png" />
@@ -25,8 +25,15 @@
         <!--====== MAIN STYLESHEETS ======-->
         <link href="<?= base_url(); ?>assets/themenew/css/style.css" rel="stylesheet">
         <link href="<?= base_url(); ?>assets/themenew/css/responsive.css" rel="stylesheet">
-
+        <link href="<?= USERASSETS ?>css/dataTables.bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="<?php echo ADMINLTE?>bower_components/select2/dist/css/select2.min.css">
+        <link rel="stylesheet" href="<?php echo ADMINLTE?>bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+        
+<!--        <link href="<?php echo ADMINLTE?>bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel='stylesheet' type='text/css' />-->
+        
         <script src="<?= base_url(); ?>assets/themenew/js/vendor/modernizr-2.8.3.min.js"></script>
+        
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFw1kDJaTDVNmiSF5UHCYVOCbP57ZKpmw&libraries=places"></script>
         <!--[if lt IE 9]>
             <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
             <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

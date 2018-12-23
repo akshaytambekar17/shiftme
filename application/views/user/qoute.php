@@ -1,7 +1,4 @@
-<!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>-->
-<!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>-->
-
-
+<script src="<?= base_url()?>assets/themenew/js/vendor/jquery-1.12.4.min.js"></script>
 
 <!--<div class="mg-page-title parallax" style=" background-image: url(<?= USERASSETS ?>/images/office-relocation-compressed-1500x630.jpg);">
     <div class="container">
@@ -485,7 +482,7 @@
                                                     <label>Shifting Date</label>
                                                     <div class="input-group date mg-check-in  focus">
                                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                        <input type="text" class="form-control" name="shifting_date"  id="bookingdate" placeholder="00/00/0000">
+                                                        <input type="text" class="form-control datepicker" name="shifting_date"  id="bookingdate" placeholder="00/00/0000">
                                                     </div>
                                                 </div>
                                                 <p>Book at least 90 min prior.</p>
@@ -549,15 +546,15 @@
                                             <label>We need your mobile number to confirm the booking</label>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input type="text"  class="form-control" name="fullname" id="fullname" placeholder="Full Name">
+                                                    <input type="text"  class="form-control" name="fullname" id="fullname" placeholder="Full Name" value="<?= !empty($userDetails['fullname'])?$userDetails['fullname']: set_value('fullname')?>">
                                                     <span class="help-block"><?php echo form_error('fullname'); ?></span>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <input class="form-control"  id="mobileNo" name="mobile_no" maxlength="10" type="text" placeholder="Mobile No." oninput="validateNumber(this);" value="<?= !empty($userDetails['mobileno'])?$userDetails['mobileno']:''?>">
+                                                    <input class="form-control"  id="mobileNo" name="mobile_no" maxlength="10" type="text" placeholder="Mobile No." oninput="validateNumber(this);" value="<?= !empty($userDetails['mobileno'])?$userDetails['mobileno']:set_value('mobile_no')?>">
                                                     <span class="help-block"><?php echo form_error('mobile_no'); ?></span>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <input class="form-control"  id="email" name="email_id" type="email" placeholder="Email Address" value="<?= !empty($userDetails['email'])?$userDetails['email']:''?>">
+                                                    <input class="form-control"  id="email" name="email_id" type="email" placeholder="Email Address" value="<?= !empty($userDetails['email'])?$userDetails['email']:set_value('email_id')?>">
                                                     <span class="help-block"><?php echo form_error('email_id'); ?></span>
                                                 </div>
                                             </div>
@@ -565,15 +562,15 @@
                                         <ul class="list-inline">
                                             <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>
                                             <li style="padding-top: 1%;">
-                                                <input type="submit" value="Get Quotation" class="btn btn-success btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($this->session->userdata('uid'))?'disabled':''?> >
+                                                <input type="submit" value="Get Quotation" class="btn btn-success btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($userDetails)?'disabled':''?> >
 <!--                                                <button type="submit" name="quote" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Get Quotation</button>-->
                                             </li>
                                             <li style="padding-top: 1%;">
-                                                <input type="submit" value="Make Order" class="btn btn-danger btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($this->session->userdata('uid'))?'disabled':''?>>
+                                                <input type="submit" value="Make Order" class="btn btn-danger btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($userDetails)?'disabled':''?>>
 <!--                                                <button type="submit" name="order" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Make Order</button>-->
                                             </li>
                                         </ul>
-                                        <?php if(empty($this->session->userdata('uid'))) { ?>
+                                        <?php if(empty($userDetails)) { ?>
                                             <p style="color:red">Please login to Get Quotation or Make Order</p>
                                         <?php }?>
                                     </div>
@@ -992,16 +989,6 @@
                 obj5.email = $('#email').val()
 
         sessionStorage.setItem('step5', JSON.stringify(obj5));
-
-<?php if ($this->session->userdata('uid') == "") { ?>
-            $('#login-modal').modal({
-                show: 'true'
-            });
-
-            flag = false;
-<?php } ?>
-
-
         if (flag) {
             sessionStorage.clear();
             var $active = $('.wizard .nav-tabs li.active');

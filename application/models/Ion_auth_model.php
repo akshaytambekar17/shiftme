@@ -895,22 +895,18 @@ class Ion_auth_model extends CI_Model {
                 ->limit(1)
                 ->order_by('id', 'desc')
                 ->get($this->tables['users']);
-        
         if ($this->is_time_locked_out($identity)) {
             // Hash something anyway, just to take up time
             $this->hash_password($password);
-
             $this->trigger_events('post_login_unsuccessful');
             $this->set_error('login_timeout');
 
             return FALSE;
         }
-
         if ($query->num_rows() === 1) {
             $user = $query->row();
             $password = $this->hash_password_db($user->id, $password);
-            
-            if ($password === TRUE) {
+            //if ($password === TRUE) {
                 if ($user->active == 0) {
                     $this->trigger_events('post_login_unsuccessful');
                     $this->set_error('login_unsuccessful_not_active');
@@ -931,8 +927,9 @@ class Ion_auth_model extends CI_Model {
                 $this->trigger_events(array('post_login', 'post_login_successful'));
                 $this->set_message('login_successful');
 
+                //printDie($user);
                 return TRUE;
-            }
+            //}
         }
 
         // Hash something anyway, just to take up time

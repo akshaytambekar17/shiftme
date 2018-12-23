@@ -1,4 +1,4 @@
-
+<script src="<?= base_url()?>assets/themenew/js/vendor/jquery-1.12.4.min.js"></script>
 <!--<div class="mg-page-title parallax" style=" background-image: url(<?= USERASSETS ?>images/1-banner-Transports.jpg);">
     <div class="container">
         <div class="row ">
@@ -47,7 +47,7 @@
                     }
                 ?>
                 <?php if($href == false){ ?>
-                    <p class="help-block center">Please complete your profile details before proceeding further.</p>
+                    <p class="help-block has-error center">Please complete your profile details before proceeding further.</p>
                     <br>
                 <?php } ?>
                 <div class="col-xs-12 col-lg-3 col-md-3 col-sm-12">
@@ -70,13 +70,13 @@
                         <div class="tab-pane active" id="profile">
 
                             <?php if($user_details['role'] == 1){ ?>
-                                <form action="<?= site_url() ?>User_controller/update_pro" method="POST" enctype="multipart/form-data">
+                                <form action="<?= site_url() ?>update-profile" method="POST" enctype="multipart/form-data">
                                     <div class="form-group row">
                                         <div class="col-lg-3 col-md-3">
                                             <label>Email :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <input type="email" class="form-control" name="email" placeholder="E-mail" id="email" value="<?= $result[0]['email'] ?>">
+                                            <input type="email" class="form-control" name="email" placeholder="E-mail" id="email" value="<?= !empty($user_details['email'])?$user_details['email']:set_value('email') ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -84,7 +84,7 @@
                                             <label>Mobile No. :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <input type="text" class="form-control" name="mobileno" placeholder="Mobile No." id="mobileno" value="<?= $result[0]['mobileno'] ?>">
+                                            <input type="text" class="form-control" name="mobileno" placeholder="Mobile No." id="mobileno" value="<?= !empty($user_details['mobileno'])?$user_details['mobileno']:set_value('mobileno') ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -92,7 +92,7 @@
                                             <label>Street :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <input type="text" class="form-control" name="street" placeholder="Street" id="street" value="<?= $result[0]['street'] ?>">
+                                            <input type="text" class="form-control" name="street" placeholder="Street" id="street" value="<?= !empty($user_details['street'])?$user_details['street']:set_value('street') ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -100,7 +100,7 @@
                                             <label>Landmark :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <input type="text" class="form-control" name="landmark" placeholder="Landmark" id="landmark" value="<?= $result[0]['landmark'] ?>">
+                                            <input type="text" class="form-control" name="landmark" placeholder="Landmark" id="landmark" value="<?= !empty($user_details['landmark'])?$user_details['landmark']:set_value('landmark') ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -108,19 +108,12 @@
                                             <label>City :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <select class="form-control" name="city" id="city">
+                                            <input type="text" class="form-control" name="city" placeholder="City" id="city" value="<?= !empty($user_details['city'])?$user_details['city']:set_value('city') ?>">
+<!--                                            <select class="form-control" name="city" id="city">
                                                 <option value="" selected> Select City </option>
                                                 <option value="Pune" <?= $result[0]['city'] == 'Pune' ? 'selected' : '' ?>>Pune</option>
                                                 <option value="Mumbai" <?= $result[0]['city'] == 'Mumbai' ? 'selected' : '' ?>>Mumbai</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-lg-3 col-md-3">
-                                            <label>Pin Code :</label>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8">
-                                            <input type="text" name="pincode" class="form-control" placeholder="Pin Code" id="pincode" value="<?= $result[0]['pincode'] ?>">
+                                            </select>-->
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -128,10 +121,11 @@
                                             <label>State :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <select class="form-control" name="state" id="state">
-                                                <option value="" selected> Select State </option>
+                                            <input type="text" class="form-control" name="state" placeholder="State" id="state" value="<?= !empty($user_details['state'])?$user_details['state']:set_value('state') ?>">
+<!--                                            <select class="form-control" name="state" id="state">
+                                                <option selected disabled> Select State </option>
                                                 <option value="Maharastra" <?= $result[0]['state'] == 'Maharastra' ? 'selected' : '' ?>>Maharashtra</option>
-                                            </select>
+                                            </select>-->
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -139,10 +133,19 @@
                                             <label>Country :</label>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <select class="form-control" name="country" id="country">
+                                            <input type="text" class="form-control" name="country" placeholder="Country" id="country" value="<?= !empty($user_details['country'])?$user_details['country']:'India' ?>" readonly>
+<!--                                            <select class="form-control" name="country" id="country">
                                                 <option value="" selected> Select Country </option>
                                                 <option value="India" <?= $result[0]['country'] == 'India' ? 'selected' : '' ?> >India</option>
-                                            </select>
+                                            </select>-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label>Pin Code :</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <input type="text" name="pincode" class="form-control" placeholder="Pin Code" id="pincode" value="<?= !empty($user_details['pincode'])?$user_details['pincode']:set_value('pincode') ?>">
                                         </div>
                                     </div>
                                     <!--                                <div class="row">
@@ -155,7 +158,7 @@
                                                                     </div>-->
 
                                     <div class="form-group row" style="text-align: center">
-                                        <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid()">
+                                        <input type="submit" value="UPDATE" class="btn btn-success" onclick="return validProfile()">
                                     </div>
 
                                 </form>
@@ -167,7 +170,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8">
                                             <input type="text" class="form-control" name="address" placeholder="Address" id="address" value="<?= !empty($vendor_details['address'])?$vendor_details['address']:set_value('address') ?>" required>
-                                            <span class="help-block"><?php echo form_error('address'); ?></span>
+                                            <span class="help-block has-error"><?php echo form_error('address'); ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -176,7 +179,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8">
                                             <input type="text" class="form-control" name="address_proof" placeholder="Address Proof" id="address_proof" value="<?= !empty($vendor_details['address_proof'])?$vendor_details['address_proof']:set_value('address_proof') ?>" required>
-                                            <span class="help-block"><?php echo form_error('address_proof'); ?></span>
+                                            <span class="help-block has-error"><?php echo form_error('address_proof'); ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -201,7 +204,7 @@
                                                 <?php }?>
                                                 
                                             </select>
-                                            <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
+                                            <span class="help-block has-error"><?php echo form_error('vehicle_id'); ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -210,7 +213,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8">
                                             <input type="text" class="form-control" name="registration_no" placeholder="Registration Number" id="registration_no" value="<?= !empty($vendor_details['registration_no'])?$vendor_details['registration_no']:set_value('registration_no') ?>" required>
-                                            <span class="help-block"><?php echo form_error('registration_no'); ?></span>
+                                            <span class="help-block has-error"><?php echo form_error('registration_no'); ?></span>
                                         </div>
                                     </div>
                                     <h5>Driver Details</h5>
@@ -220,7 +223,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8">
                                             <input type="text" class="form-control" name="driver_name" placeholder="Driver Name" id="driver_name" value="<?= !empty($vendor_details['driver_name'])?$vendor_details['driver_name']:set_value('driver_name') ?>" required>
-                                            <span class="help-block"><?php echo form_error('driver_name'); ?></span>
+                                            <span class="help-block has-error"><?php echo form_error('driver_name'); ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -229,7 +232,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8">
                                             <input type="text" class="form-control" name="driver_license_no" placeholder="Driver License No" id="driver_license_no" value="<?= !empty($vendor_details['driver_license_no'])?$vendor_details['driver_license_no']:set_value('driver_license_no') ?>" required>
-                                            <span class="help-block"><?php echo form_error('driver_license_no'); ?></span>
+                                            <span class="help-block has-error"><?php echo form_error('driver_license_no'); ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -238,7 +241,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8">
                                             <input type="text" class="form-control" name="driver_contact" placeholder="Driver Contact" id="driver_contact" value="<?= !empty($vendor_details['driver_contact'])?$vendor_details['driver_contact']:set_value('driver_contact') ?>" required>
-                                            <span class="help-block"><?php echo form_error('driver_contact'); ?></span>
+                                            <span class="help-block has-error"><?php echo form_error('driver_contact'); ?></span>
                                         </div>
                                         
                                     </div>
@@ -248,7 +251,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8">
                                             <input type="text" class="form-control" name="driver_adhar_no" placeholder="Driver Aadhar Number" id="driver_adhar_no" value="<?= !empty($vendor_details['driver_adhar_no'])?$vendor_details['driver_adhar_no']:set_value('driver_adhar_no') ?>" required>
-                                            <span class="help-block"><?php echo form_error('driver_adhar_no'); ?></span>
+                                            <span class="help-block has-error"><?php echo form_error('driver_adhar_no'); ?></span>
                                         </div>
                                     </div>
                                     
@@ -274,7 +277,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="table-responsive">
-                                        <table id="example" class="table table-striped table-bordered  myorders-table" style="width: 100% !important" cellspacing="0">
+                                        <table id="example" class="table table-striped table-bordered  myorders-table datatable-list" style="width: 100% !important" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th class="hidden">Id</th>
@@ -338,7 +341,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="table-responsive">
-                                        <table  class="table table-striped table-bordered dt-responsive example myquotation-table" style="width: 100% !important" cellspacing="0">
+                                        <table  class="table table-striped table-bordered dt-responsive example myquotation-table datatable-list" style="width: 100% !important" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th class="hidden">Id</th>
@@ -397,7 +400,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="table-responsive">
-                                        <table  class="table table-striped table-bordered dt-responsive example myenquires-table" style="width: 100% !important" cellspacing="0">
+                                        <table  class="table table-striped table-bordered dt-responsive example myenquires-table datatable-list" style="width: 100% !important" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th class="hidden">Id</th>
@@ -477,12 +480,12 @@
                                 <div class="form-group">
                                     <label>Starting Location</label>
                                     <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?= !empty($details['starting_location']) ? $details['starting_location'] :set_value('starting_location'); ?>">
-                                    <span class="help-block"><?php echo form_error('starting_location'); ?></span>
+                                    <span class="help-block has-error"><?php echo form_error('starting_location'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>End Location</label>
                                     <input type="text" class="form-control" name="end_location" id="to_loc" value="<?= !empty($details['end_location']) ? $details['end_location'] :set_value('end_location'); ?>">
-                                    <span class="help-block"><?php echo form_error('starting_location'); ?></span>
+                                    <span class="help-block has-error"><?php echo form_error('starting_location'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Select Vehicle</label>
@@ -493,7 +496,7 @@
                                         <?php }?>
                                     </select>
                                 </div>
-                                <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
+                                <span class="help-block has-error"><?php echo form_error('vehicle_id'); ?></span>
                                 <div class="row" style="text-align: center">
                                     <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid_chagepass()">
                                 </div>
@@ -625,21 +628,21 @@
     </div>  
 </div>
 <script>
-    /**
-     * Comment
-     */
-    $(document).ready(function () {
+    $(document).ready(function() {
         $(".alert").delay(5000).slideUp(200, function() {
             $(this).alert('close');
         });
+        
     });
     function confirmBtn(ths){
         var quotation_id=$("#id_modal").val();
+        $("#confirm_btn").attr('disabled',true);
         $.ajax({
             type: "POST",
             url: "<?php echo base_url(); ?>" + "makeOrder",
             data: { 'quotation_id' : quotation_id },
             success: function(result){
+                $("#confirm_btn").attr('disabled',false);
                 $('#orderConfirmationModal').modal('hide');
                 if(result){
                     $('html, body').animate({ scrollTop: 0 }, 'slow');
@@ -752,7 +755,7 @@
         return false;
 
     }
-    function valid() {
+    function validProfile() {
         var flag = true;
         if ($('#email').val() == "") {
             $('#email').css('border-color', '#ef4040');
@@ -801,6 +804,7 @@
         //end
     }
 </script>
+
 <style>
 
     .tabs-left, .tabs-right {

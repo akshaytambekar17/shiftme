@@ -33,6 +33,8 @@ class QuotationController extends MY_Controller {
     }
     public function index(){
         $this->data['quotation_list'] = $this->Quotation->getQuotations();
+        $update_details = array('is_read' => 1);
+        $this->Quotation->update($update_details);
         $this->data['template'] = "Quotation/list";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Quotation"));
         $this->admin_layout($this->data);
@@ -148,7 +150,6 @@ class QuotationController extends MY_Controller {
             $this->form_validation->set_rules('vehicle_amount', 'Vechicle Amount', 'trim|required');
             $this->form_validation->set_rules('discount', 'Discount', 'trim|required');
             $this->form_validation->set_rules('total_amount', 'Total Amount', 'trim|required');
-            
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == TRUE){
                 $details = $post;
@@ -160,7 +161,6 @@ class QuotationController extends MY_Controller {
                 unset($details['discount']);
                 unset($details['total_amount']);
                 $details['shifting_date'] = date("Y-m-d", strtotime($details['shifting_date']));
-                $details['is_send_user'] = 1;
                 $details['updated_at'] = date('Y-m-d H:i:s');
                 $result = $this->Quotation->update($details);
                 $this->QuotationHasProduct->deleteByQuotationId($post['id']);
@@ -184,12 +184,29 @@ class QuotationController extends MY_Controller {
                 $pricing['quotation_id'] = $post['id'];
                 $this->QuotationHasPricing->deleteByQuotationId($post['id']);
                 $result_pricing = $this->QuotationHasPricing->insert($pricing);
-                
                 if ($result) {
-                    $this->session->set_flashdata('Message', 'Quotation Updated Succesfully');
+                    if(!empty($post['is_send_user']) && $post['is_send_user'] ==1 ){
+                        $quotation_data = $this->Quotation->getQuotationByIdWithPrice($get['id']);  
+                        $quotation_details['quotation_details'] = $quotation_data;
+                        $to = $details['email_id'];
+                        $subject = "New Quotation for that you enquiry. Quotation number ".$quotation_data['quotation_no'];
+                        $message = $this->load->view('admin/Email/enquiry_quotation',$quotation_details,TRUE);
+                        $result = $this->sendEmail($to, $subject, $message);
+                        if($result['success']){
+                            $this->session->set_flashdata('Message', 'Quotation updated succesfully and send email to user');
+                        }else{
+                            $this->session->set_flashdata('Error', 'Quotation updated succesfully but mail cannot send something went wrong');
+                        }
+                    }else{
+                        $this->session->set_flashdata('Message', 'Quotation Updated Succesfully');
+                    }
                     return redirect('quotation', 'refresh');
                 } else {
-                    $this->data['quotation_data'] = $this->Quotation->getQuotationByIdWithPrice($post['id']);            
+                    $quotation_data = $this->Quotation->getQuotationByIdWithPrice($get['id']);  
+                    if(empty($quotation_data)){
+                        $quotation_data = $this->Quotation->getQuotationById($get['id']);  
+                    }
+                    $this->data['quotation_data'] = $quotation_data;  
                     $this->data['quotation_product_data'] = $this->QuotationHasProduct->getQuotationsHasProductByQuotationId($post['id']);   
                     $this->data['product_list'] = $this->ProductList->getProductsList();
                     $this->data['user_list'] = $this->User_model->getUsers();
@@ -199,7 +216,11 @@ class QuotationController extends MY_Controller {
                     $this->admin_layout($this->data);
                 }
             }else{
-                $this->data['quotation_data'] = $this->Quotation->getQuotationByIdWithPrice($get['id']);            
+                $quotation_data = $this->Quotation->getQuotationByIdWithPrice($get['id']);  
+                if(empty($quotation_data)){
+                    $quotation_data = $this->Quotation->getQuotationById($get['id']);  
+                }
+                $this->data['quotation_data'] = $quotation_data;  
                 $this->data['quotation_product_data'] = $this->QuotationHasProduct->getQuotationsHasProductByQuotationId($get['id']);   
                 $this->data['product_list'] = $this->ProductList->getProductsList();
                 $this->data['user_list'] = $this->User_model->getUsers();
@@ -209,7 +230,11 @@ class QuotationController extends MY_Controller {
                 $this->admin_layout($this->data);
             }
         }else{
-            $this->data['quotation_data'] = $this->Quotation->getQuotationByIdWithPrice($get['id']);  
+            $quotation_data = $this->Quotation->getQuotationByIdWithPrice($get['id']);  
+            if(empty($quotation_data)){
+                $quotation_data = $this->Quotation->getQuotationById($get['id']);  
+            }
+            $this->data['quotation_data'] = $quotation_data;  
             $this->data['quotation_product_data'] = $this->QuotationHasProduct->getQuotationsHasProductByQuotationId($get['id']);   
             $this->data['product_list'] = $this->ProductList->getProductsList();
             $this->data['user_list'] = $this->User_model->getUsers();

@@ -38,12 +38,8 @@ function includesAll($data){
 }
 function userSession(){
     $ci = & get_instance();
-    $details = $ci->session->all_userdata();
-    if(empty($details['userData'])){
-        $ci->load->model('User_model', 'User');
-        $details = $ci->User->getUsersById(232);
-        $details['uid'] = $details['user_id'];
-     }
+    $details = $ci->session->userdata('userData');
+    
     if(!empty($details)){
         return $details;
     }else{

@@ -17,7 +17,9 @@ class MY_Controller extends CI_Controller {
         define('SITENAME', "TRANSPORT");
         define('LOADERIMG', IMGURL . "ajax-loading.gif");
         $this->load->model('Site_model', 'site_model');
-
+        $this->load->model('admin/EnquiryModel','Enquiry');
+        $this->load->model('admin/VendorModel','Vendor');
+        $this->load->model('admin/VendorOrderAssignModel','VendorOrderAssign');
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation'));
         $this->load->helper(array('url', 'language'));
@@ -211,7 +213,7 @@ class MY_Controller extends CI_Controller {
         $config['protocol'] = 'smtp';
         $config['smtp_host'] = 'ssl://smtp.gmail.com';
         $config['smtp_user'] = 'akshaytambekar17@gmail.com';
-        $config['smtp_pass'] = '1793_@ksh@y';
+        $config['smtp_pass'] = '1793_@kshu';
         $config['smtp_port'] = 465;
         $config['charset']   = 'utf-8';
         $config['newline']   = "\r\n";
@@ -229,7 +231,7 @@ class MY_Controller extends CI_Controller {
         }else{
             $result['success'] = false;
             $result['message'] = "Something went wrong please try again";
-            //printDie($this->email->print_debugger());
+            printDie($this->email->print_debugger());
         }
         return $result;
     }

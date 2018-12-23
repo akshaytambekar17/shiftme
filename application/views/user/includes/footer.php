@@ -136,6 +136,18 @@
         <!--FOOER AREA END-->
 
         </footer>
+        <div class="modal fade" id="admodal">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="" style="background-color:#47b927;">
+	            	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                  <span aria-hidden="true" color="#fff">&times;</span>
+	                </button>
+                        <img src="<?= base_url()?>assets/upload/shiftme-banner.jpg">   
+	            </div>
+	        </div>
+	    </div>
+	</div>
         <div class="modal fade login" id="loginModal">
             <div class="modal-dialog login animated">
                 <div class="modal-content">
@@ -170,9 +182,9 @@
                                             <label><input type="radio" name="role" value="1" checked>User</label>
                                             <label style="margin-left: 60px"><input type="radio" name="role" value="2">Vendor</label>
                                         </div>
-                                        <input id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                        <input id="email_login" class="form-control" type="text" placeholder="Email" name="email">
                                         <span class="has-error error-email"></span>
-                                        <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                        <input id="password_login" class="form-control" type="password" placeholder="Password" name="password">
                                         <span class="has-error error-password"></span>
                                         <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
                                     </form>
@@ -193,7 +205,7 @@
                                         <span class="has-error error-lname"></span>
                                         <input id="mobileno" class="form-control" type="text" placeholder="Mobile Number" name="mobileno" maxlength="10">
                                         <span class="has-error error-mobileno"></span>
-                                        <input id="email_id" class="form-control" type="text" placeholder="Email" name="email">
+                                        <input id="email_id_registration" class="form-control" type="text" placeholder="Email" name="email">
                                         <span class="has-error error-email-id"></span>
                                         <input id="password_reg" class="form-control" type="password" placeholder="Password" name="password">
                                         <span class="has-error error-password-reg"></span>
@@ -222,6 +234,9 @@
         <!--====== SCRIPTS JS ======-->
         <script src="<?= base_url()?>assets/themenew/js/vendor/jquery-1.12.4.min.js"></script>
         <script src="<?= base_url()?>assets/themenew/js/vendor/bootstrap.min.js"></script>
+        <script src="<?= USERASSETS ?>js/jquery.dataTables.min.js"></script>
+        <script src="<?= USERASSETS ?>js/dataTables.bootstrap.min.js"></script>
+        <script src="<?= USERASSETS ?>js/dataTables.responsive.min.js"></script>
         <!--====== PLUGINS JS ======-->
         <script src="<?= base_url()?>assets/themenew/js/vendor/jquery.easing.1.3.js"></script>
         <script src="<?= base_url()?>assets/themenew/js/vendor/jquery-migrate-1.2.1.min.js"></script>
@@ -234,16 +249,77 @@
         <script src="<?= base_url()?>assets/themenew/js/jquery.sticky.js"></script>
         <!--===== ACTIVE JS=====-->
         <script src="<?= base_url()?>assets/themenew/js/main.js"></script>
+
+<!--        <script src="<?php echo ADMINLTE?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="<?php echo ADMINLTE?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+    
+        <script src="<?php echo ADMINLTE?>bower_components/select2/dist/js/select2.full.min.js"></script>
+        <script src="<?php echo ADMINLTE?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        
         <script>
+            var autocomplete2 = new google.maps.places.Autocomplete($("#pickupPoint")[0], {});
+            autocomplete2.setComponentRestrictions(
+                {'country': ['in']}
+            );
+            google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+                var place = autocomplete2.getPlace();
+                console.log(place.address_components);
+            });
+            
+            var autocomplete3 = new google.maps.places.Autocomplete($("#dropPoint")[0], {});
+            autocomplete3.setComponentRestrictions(
+                {'country': ['in']}
+            );
+            google.maps.event.addListener(autocomplete3, 'place_changed', function() {
+                var place = autocomplete3.getPlace();
+                console.log(place.address_components);
+            });
+//            var autocomplete2 = new google.maps.places.Autocomplete($("#pickupPoint1")[0], {});
+//
+//            google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+//                var place = autocomplete2.getPlace();
+//                console.log(place.address_components);
+//            });
+            
+//            var autocomplete3 = new google.maps.places.Autocomplete($("#dropPoint1")[0], {});
+//
+//            google.maps.event.addListener(autocomplete3, 'place_changed', function() {
+//                var place = autocomplete3.getPlace();
+//                console.log(place.address_components);
+//            });
+//            
+            var autocomplete4 = new google.maps.places.Autocomplete($("#from_loc")[0], {});
+            autocomplete4.setComponentRestrictions(
+                {'country': ['in']}
+            );
+            google.maps.event.addListener(autocomplete4, 'place_changed', function() {
+                var place = autocomplete4.getPlace();
+                console.log(place.address_components);
+            });
+            var autocomplete5 = new google.maps.places.Autocomplete($("#to_loc")[0], {});
+            autocomplete5.setComponentRestrictions(
+                {'country': ['in']}
+            );google.maps.event.addListener(autocomplete5, 'place_changed', function() {
+                var place = autocomplete5.getPlace();
+                console.log(place.address_components);
+            });
+
             $(document).ready(function() {
+                if (sessionStorage.getItem('firstVisit') != "1"){
+                    sessionStorage.setItem('firstVisit', '1');
+                    $('#admodal').modal('show');
+                }
+                $('.datatable-list').dataTable({
+                    "aaSorting": [[0, "desc"]],
+                });
+                $('.select2').select2();
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    startDate: new Date()
+                });
+                $('#div-vehicles').hide();
                 $("#login").on('click',function(){
-                    $(".h4-title").text('Login');
-                    $(".login-box-content").show();
-                    $(".login-footer").show();
-                    $(".registerBox").hide();
-                    $(".register-footer").hide();
-                    clearLoginField();
-                    $("#loginModal").modal('show');
+                    loginClick();
                 });        
                 $("#showRegisterForm").on('click',function(){
                     $(".login-box-content").hide();
@@ -274,6 +350,15 @@
                     $('#remember').css('border-color', 'rgb(206,212,215)');
                 });
             });
+            function loginClick(){
+                $(".h4-title").text('Login');
+                $(".login-box-content").show();
+                $(".login-footer").show();
+                $(".registerBox").hide();
+                $(".register-footer").hide();
+                clearLoginField();
+                $("#loginModal").modal('show');
+            }
             function validatePassword(e) {
                 //updated by neeta
                 var textInput = e.value;
@@ -283,8 +368,8 @@
                 //end
             }
             function loginAjax(){
-                var email = $("#email").val();
-                var password = $("#password").val();
+                var email = $("#email_login").val();
+                var password = $("#password_login").val();
                 var role = $('input[name=role]:checked').val();
                 var validate = validateLoginField();
                 if(validate){
@@ -294,6 +379,7 @@
                         url: "<?php echo base_url(); ?>" + "login",
                         data: { 'email' : email, 'password' : password , 'role': role},
                         success: function(result){
+                            console.log(result);
                             if(result){
                                 $(".has-text").removeClass('has-error');
                                 $(".has-text").addClass('has-success');
@@ -306,7 +392,6 @@
                                 $(".has-text").removeClass('has-success');
                                 $(".has-text").text("You have enter wrong Email id or Password.");
                             }
-
                         }
                     });
                 }
@@ -345,7 +430,7 @@
                 var fname = $("#fname").val();
                 var lname = $("#lname").val();
                 var mobileno = $("#mobileno").val();
-                var email_id = $("#email_id").val();
+                var email_id = $("#email_id_registration").val();
                 var password_reg = $("#password_reg").val();
                 var password_confirmation = $("#password_confirmation").val();
                 flag = true;
@@ -413,8 +498,8 @@
                 return flag;
             }
             function validateLoginField(){
-                var email_id = $("#email").val();
-                var password = $("#password").val();
+                var email_id = $("#email_login").val();
+                var password = $("#password_login").val();
                 flag = true;
                 if(email_id == ''){
                     $('.error-email').text("Email id cannot be blank");
@@ -444,13 +529,13 @@
                 $("#fname").val("");
                 $("#lname").val("");
                 $("#mobileno").val("");
-                $("#email_id").val("");
+                $("#email_id_registration").val("");
                 $("#password_reg").val("");
                 $("#password_confirmation").val("");
             }
             function clearLoginField(){
-                $("#email").val("");
-                $("#password").val("");
+                $("#email_login").val("");
+                $("#password_login").val("");
             }
             function validateEmail(email) {
                 var email_format = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;

@@ -16,9 +16,10 @@ class Admin_controller extends MY_Controller {
 //put your code here
     function __construct() {
         parent::__construct();
+        //printDie($this->session->userdata());
         $this->load->model('admin/Admin_model');
         $this->load->model('admin/ProductListModel');
-        $this->load->model('admin/QuotationModel');
+        $this->load->model('admin/QuotationModel','Quotation');
         $this->load->model('admin/OrderModel');
         $this->load->library('form_validation');
         $this->load->helper('message');
@@ -36,6 +37,9 @@ class Admin_controller extends MY_Controller {
         $this->data['product_list'] = $this->ProductListModel->getProductsList();
         $this->data['order_list'] = $this->OrderModel->getOrders();
         $this->data['order_completed_list'] = $this->OrderModel->getOrderCompleted();
+        $this->data['enquires_list'] = $this->Enquiry->getEnquires();
+        $this->data['quotation_list'] = $this->Quotation->getQuotations();
+        $this->data['vendor_list'] = $this->Vendor->getVendors();
         $this->data['template'] = "dashboard";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Dashboard"));
         $this->load->view('includes/adminltehead');

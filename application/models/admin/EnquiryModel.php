@@ -27,6 +27,16 @@ class EnquiryModel extends MY_Model {
         $data= $query->result_array();
         return $data;
     }
+    public function getEnquiresByNotRead() {
+        $this->db->select('te.id as enquiry_id,tq.*');
+        $this->db->from('trans_enquiry te');
+        $this->db->join('trans_quotation tq','tq.id = te.quotation_id');
+        $this->db->where('te.is_read',0);
+        $this->db->order_by('te.id','DESC');
+        $query=$this->db->get();
+        $data= $query->result_array();
+        return $data;
+    }
     public function getEnquiryByUserId($user_id) {
         $this->db->select('te.id as enquiry_id,tq.*');
         $this->db->from('trans_enquiry te');
@@ -42,6 +52,17 @@ class EnquiryModel extends MY_Model {
         $this->db->insert('trans_enquiry', $data);
         $this->db->trans_complete();
         return true;
+    }
+    public function update($data){
+        if(!empty($data['id'])){
+            $this->db->where('id',$data['id']);
+        }
+        $this->db->update('trans_enquiry',$data);
+        if($this->db->affected_rows()){
+            return true;
+        }else{
+            return false;
+        }
     }
     public function delete($id) {
         $this->db->where('id',$id);

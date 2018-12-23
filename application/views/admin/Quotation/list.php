@@ -40,8 +40,8 @@
                                     <th>Starting Location</th>
                                     <th>Delivery Location</th>
                                     <th>Vehicle</th>
-                                    <th>Created at</th>
-                                    <th>Actions</th>
+<!--                                    <th>Created at</th>-->
+                                    <th style="width: 245px !important; ">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,11 +65,14 @@
                                                     }
                                                 ?>
                                             </td>
-                                            <td class="center"><?= $value['created_at']; ?></td>
+<!--                                            <td class="center"><?php $value['created_at']; ?></td>-->
                                             <td>
-                                                <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)">Delete</a><br><br>
-                                                <a href="<?= base_url()?>quotation/update?id=<?= $value['id']?>" class="btn btn-info update-quotation" data-id="<?= $value['id'] ?>" name="update_quotation" >Update</a><br><br>
-                                                <a href="<?= base_url()?>quotation/view?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['id'] ?>" name="view_quotation" >View Quotation</a><br>
+                                                <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                <a href="<?= base_url()?>quotation/update?id=<?= $value['id']?>" class="btn btn-primary update-quotation" data-id="<?= $value['id'] ?>" name="update_quotation" title="Update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                <a href="<?= base_url()?>quotation/view?id=<?= $value['id']?>" class="btn btn-warning delete-user" data-id="<?= $value['id'] ?>" name="view_quotation" title="View Quotation"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                <?php if($value['is_send_user'] == 0) { ?>
+                                                    <br><br><a href="<?= base_url()?>quotation/update?id=<?= $value['id']?>" class="btn btn-info update-quotation" data-id="<?= $value['id'] ?>" name="update_quotation" title="Update">Send User</a>
+                                                <?php } ?>    
                                             </td>
                                         </tr>
                                         <?php

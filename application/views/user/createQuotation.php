@@ -1,3 +1,4 @@
+<script src="<?= base_url()?>assets/themenew/js/vendor/jquery-1.12.4.min.js"></script>
 <!--<div class="mg-page-title parallax" style=" background-image: url(<?=USERASSETS?>images/office-relocation-compressed-1500x630.jpg);">
     <div class="container">
         <div class="row ">
@@ -38,28 +39,31 @@
                     </div>
                 </div>
             <?php }?>
+            <?php if(empty($userDetails)) { ?>
+                <p style="color:red;text-align: center">Please login to Send Quotation</p>
+            <?php }?>
             <div class="col-md-12">
                 <form action="<?= site_url()?>quote" method="POST" class="clearfix contactform">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Fullname</label>
-                                <input type="text" name="fullname" id="fullname" class="form-control" value="<?php echo set_value('fullname'); ?>"oninput="validateAlpha(this);"  placeholder="Fullname"/>
-                                <span class="help-block"><?php echo form_error('fullname'); ?></span>
+                                <input type="text" name="fullname" id="fullname" class="form-control" value="<?php echo !empty($userDetails['fullname'])?$userDetails['fullname']:set_value('fullname'); ?>"oninput="validateAlpha(this);"  placeholder="Fullname"/>
+                                <span class="help-block has-error"><?php echo form_error('fullname'); ?></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" name="email_id" id="email_id" class="form-control" value="<?php echo set_value('email_id'); ?>" placeholder="Email" />
-                                <span class="help-block"><?php echo form_error('email_id'); ?></span>
+                                <input type="email" name="email_id" id="email_id" class="form-control" value="<?php echo !empty($userDetails['email'])?$userDetails['email']:set_value('email_id'); ?>" placeholder="Email" />
+                                <span class="help-block has-error"><?php echo form_error('email_id'); ?></span>
                             </div>
                         </div>
                         <div class="col-md-4">  
                             <div class="form-group">
                                 <label>Mobile Number</label>
-                                <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="<?php echo set_value('mobile_no'); ?>" placeholder="Mobile Number" />
-                                <span class="help-block"><?php echo form_error('mobile_no'); ?></span>
+                                <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="<?php echo !empty($userDetails['mobileno'])?$userDetails['mobileno']:set_value('mobile_no'); ?>" placeholder="Mobile Number" />
+                                <span class="help-block has-error"><?php echo form_error('mobile_no'); ?></span>
                             </div>
                         </div>
                     </div>
@@ -68,17 +72,17 @@
                             <label for="subject">From</label>
                             <div class="input-group ">
                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?php echo set_value('starting_location'); ?>" >
+                                <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?php echo !empty($pick_point)?$pick_point:set_value('starting_location'); ?>" >
                             </div>
-                            <span class="help-block"><?php echo form_error('starting_location'); ?></span>
+                            <span class="help-block has-error"><?php echo form_error('starting_location'); ?></span>
                         </div>
                         <div class=" col-md-6">
                             <label for="subject">To</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                <input type="text" class="form-control" name="delivery_location" id="to_loc"  value="<?php echo set_value('delivery_location'); ?>">
+                                <input type="text" class="form-control" name="delivery_location" id="to_loc"  value="<?php echo !empty($drop_point)?$drop_point:set_value('delivery_location'); ?>">
                             </div>
-                            <span class="help-block"><?php echo form_error('delivery_location'); ?></span>
+                            <span class="help-block has-error"><?php echo form_error('delivery_location'); ?></span>
                         </div>
                     </div>
                     <br>
@@ -87,21 +91,36 @@
                             <label for="subject">Shifting Date</label>
                             <div class="input-group date mg-check-in ">
                                 <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                <input type="text" class="form-control" id="shifting_date" name="shifting_date"  value="<?php echo set_value('shifting_date'); ?>" required >
+                                <input type="text" class="form-control datepicker" id="shifting_date" name="shifting_date"  value="<?php echo set_value('shifting_date'); ?>" required >
                             </div>
-                            <span class="help-block"><?php echo form_error('shifting_date'); ?></span>
+                            <span class="help-block has-error"><?php echo form_error('shifting_date'); ?></span>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label>Select Time Slots</label>
+                                <select id="time_slots_id"  name="time_slots_id" class="fontawesome-select form-control">
+                                    <option disabled="disabled" selected="selected">Select Time Slots</option>
+                                    <?php foreach ($timeslots_list as $time) { ?>
+                                        <option value="<?= $time['id']; ?>"> <?php echo $time['time']; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <p>Book at least 90 min prior.</p>
+                            <span class="help-block has-error"><?php echo form_error('time_slots_id'); ?></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label>Vehicle Service</label>
-                                <select name='vehicle_id'  class="form-control">
+                                <select name='vehicle_id'  class="form-control select2">
                                     <option disabled="disabled" selected="selected">Select Vehicle</option>
                                     <?php foreach ($vehicle_services_list as $value) { ?>
                                         <option value="<?= $value['id']?>" <?= set_select('vehicle_id',$value['id']); ?> ><?= $value['vehicle_name']?></option> 
                                     <?php }?>
                                 </select>
                             </div>
-                            <span class="help-block"><?php echo form_error('vehicle_id'); ?></span>
+                            <span class="help-block has-error"><?php echo form_error('vehicle_id'); ?></span>
                         </div>
                     </div>
                     <br>
@@ -132,9 +151,9 @@
                         <?php } }?>
                         <br>
                     </div>
-                    <span class="help-block"><?php echo form_error('ProductListName[]'); ?></span>
+                    <span class="help-block has-error"><?php echo form_error('ProductListName[]'); ?></span>
                     
-                    <div class="col-md-12">
+<!--                    <div class="col-md-12">
                         <div class="row mt50">
                             <div class="col-md-7 que">
                                 <p>Do you need a professional packers?  </p>
@@ -166,12 +185,12 @@
                                 <label><input type="radio" name="vehicle_shifting" id="radio8" value="0" checked="">No</label>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <br>
                     <div class="row">
                         <div class="col-md-12" style="text-align: center">
                             <br>
-                            <input type="submit" class="btn btn-success" value="Send" >
+                            <input type="submit" class="btn btn-success" value="Send" name="send" <?= empty($userDetails)?'disabled':''?>>
                         </div>
                     </div>
                 </form>

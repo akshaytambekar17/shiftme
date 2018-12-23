@@ -38,7 +38,11 @@ class QuotationModel extends MY_Model {
         $this->db->where('is_send_user',1);
         return $this->db->get('trans_quotation')->result_array();
     }
-    
+    public function getQuotationsByNotRead() {
+        $this->db->where('is_read',0);
+        $this->db->order_by('id','DESC');
+        return $this->db->get('trans_quotation')->result_array();
+    }
     public function add($data){
         $this->db->insert('trans_quotation', $data);
         $last_id = $this->db->insert_id();
@@ -51,7 +55,9 @@ class QuotationModel extends MY_Model {
         return $last_id;
     }
     public function update($updateData){
-        $this->db->where('id',$updateData['id']);
+        if(!empty($updateData['id'])){
+            $this->db->where('id',$updateData['id']);
+        }
         $this->db->update('trans_quotation',$updateData);
         if($this->db->affected_rows()){
             return true;

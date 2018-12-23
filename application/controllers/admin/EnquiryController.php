@@ -30,6 +30,8 @@ class EnquiryController extends MY_Controller {
     }
     public function index(){
         $this->data['enquiry_list'] = $this->Enquiry->getEnquires();
+        $update_details = array('is_read' => 1);
+        $this->Enquiry->update($update_details);
         $this->data['template'] = "Enquires/list";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Enquries"));
         $this->admin_layout($this->data);

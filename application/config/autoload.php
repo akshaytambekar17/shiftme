@@ -91,7 +91,7 @@ $autoload['drivers'] = array();
   |	$autoload['helper'] = array('url', 'file');
  */
 
-$autoload['helper'] = array('url', 'common', 'text', 'email', 'assets', 'string', 'file');
+$autoload['helper'] = array('url', 'common', 'text', 'email', 'assets', 'string', 'file','shiftme');
 /*
   | -------------------------------------------------------------------
   |  Auto-load Config files

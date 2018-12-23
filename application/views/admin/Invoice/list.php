@@ -54,8 +54,8 @@
                                             <td><?= $value['order_no']; ?></td>
                                             <td><?= $value['total_amount']; ?></td>
                                             <td>
-                                                <a href="<?= site_url('invoice/send-invoice?id='.$value['invoice_id'])?>" class="btn btn-success view-invoice" data-id="<?= $value['invoice_id'] ?>" name="view-invoice">Send</a>
-                                                <a href="javascript:void(0)" class="btn btn-danger delete-invoice" data-id="<?= $value['invoice_id'] ?>" data-invoiceno="<?= $value['invoice_no']?>" name="delete-invoice" onclick="invoiceDelete(this)">Delete</a><br>
+                                                <a href="<?= site_url('invoice/send-invoice?id='.$value['invoice_id'])?>" class="btn btn-success view-invoice" data-id="<?= $value['invoice_id'] ?>" name="view-invoice" title="Send"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>
+                                                <a href="javascript:void(0)" class="btn btn-danger delete-invoice" data-id="<?= $value['invoice_id'] ?>" data-invoiceno="<?= $value['invoice_no']?>" name="delete-invoice" onclick="invoiceDelete(this)" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a><br>
                                             </td>
                                         </tr>
                                         <?php

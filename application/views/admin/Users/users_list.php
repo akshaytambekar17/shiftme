@@ -40,7 +40,7 @@
                                             </td>
                                             <td class="center"><?= $value['create_date']; ?></td>
                                             <td>
-                                                <a href="javascript:void(0)" class="btn btn-danger delete-user" data-id="<?= $value['user_id'] ?>" name="delete-user" onclick="userDelete(this)">Delete</a><br>
+                                                <a href="javascript:void(0)" class="btn btn-danger delete-user" data-id="<?= $value['user_id'] ?>" name="delete-user" onclick="userDelete(this)" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a><br>
                                             </td>
                                         </tr>
                                         <?php

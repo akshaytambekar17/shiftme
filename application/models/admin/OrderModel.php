@@ -71,7 +71,9 @@ class OrderModel extends MY_Model {
         return $last_id;
     }
     public function update($data){
-        $this->db->where('id',$data['id']);
+        if(!empty($data['id'])){
+            $this->db->where('id',$data['id']);
+        }
         $this->db->update('trans_order',$data);
         if($this->db->affected_rows()){
             return true;

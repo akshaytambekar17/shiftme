@@ -29,7 +29,10 @@
     <link href="<?= ADMINASSETS ?>css/padding.css" rel="stylesheet">
     
     <link href="<?= ADMINASSETS ?>jstree/themes/default/style.min.css" rel="stylesheet">
-
+    
+    <link rel="stylesheet" href="<?php echo ADMINLTE?>bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    
+    <link rel="stylesheet" href="<?php echo ADMINLTE?>dist/css/AdminLTE.min.css">
     <link href="<?= ANGULARURL ?>app.css" rel="stylesheet" type="text/css">
 <!--    <link href="<?= ANGULARURL ?>bower_components/angularjs-datepicker/src/css/angular-datepicker.css" rel="stylesheet" type="text/css" />-->
     

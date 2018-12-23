@@ -62,8 +62,8 @@
                                             </td>
                                             <td><?= $value['total_amount']; ?></td>
                                             <td>
-                                                <a href="<?= site_url('order/update?id='.$value['order_id'])?>" class="btn btn-primary view-order" data-id="<?= $value['order_id'] ?>" name="view-order">Update</a><br><br>
-                                                <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['order_id'] ?>" data-orderno="<?= $value['order_no']?>" name="delete-order" onclick="orderDelete(this)">Delete</a><br>
+                                                <a href="<?= site_url('order/update?id='.$value['order_id'])?>" class="btn btn-primary view-order" data-id="<?= $value['order_id'] ?>" name="view-order"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['order_id'] ?>" data-orderno="<?= $value['order_no']?>" name="delete-order" onclick="orderDelete(this)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                         <?php
@@ -130,7 +130,7 @@
             });
         });
     });
-    function userDelete(ths){
+    function orderDelete(ths){
         var id = $(ths).data('id');
         var order_no = $(ths).data('orderno');
         $("#id_modal").val(id);

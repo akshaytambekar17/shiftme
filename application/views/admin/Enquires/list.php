@@ -32,7 +32,7 @@
                                             <td><?= $value['email_id']; ?></td>
                                             <td>
 <!--                                                <a href="javascript:void(0)" class="btn btn-primary view-invoice" data-id="<?= $value['enquiry_id'] ?>" name="view-enquiry">View</a>-->
-                                                <a href="javascript:void(0)" class="btn btn-danger delete-invoice" data-id="<?= $value['enquiry_id'] ?>" name="delete-enquiry" onclick="enquiryDelete(this)">Delete</a><br>
+                                                <a href="javascript:void(0)" class="btn btn-danger delete-invoice" data-id="<?= $value['enquiry_id'] ?>" name="delete-enquiry" onclick="enquiryDelete(this)"><i class="fa fa-trash-o" aria-hidden="true"></i></a><br>
                                             </td>
                                         </tr>
                                         <?php

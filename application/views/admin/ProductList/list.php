@@ -51,8 +51,8 @@
                                             <td><?= $value['price']; ?></td>
                                             <td class="center"><?= $value['created_at']; ?></td>
                                             <td>
-                                                <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_productlist" onclick="productlistDelete(this)">Delete</a>
-                                                <a href="<?= base_url()?>product-list/edit?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['id'] ?>" name="edit_quotation" >Edit</a><br>
+                                                <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_productlist" onclick="productlistDelete(this)" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                <a href="<?= base_url()?>product-list/edit?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['id'] ?>" name="edit_quotation" title="Update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                         <?php
