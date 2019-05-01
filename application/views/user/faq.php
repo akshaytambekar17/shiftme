@@ -7,7 +7,7 @@ $faq = $faq[0];
 ?>
 <!--<div class="mg-page-title parallax">
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 10%;">
             <div class="col-md-12">
                 <h2>FAQ</h2>
             </div>

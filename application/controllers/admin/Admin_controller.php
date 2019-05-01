@@ -40,6 +40,9 @@ class Admin_controller extends MY_Controller {
         $this->data['enquires_list'] = $this->Enquiry->getEnquires();
         $this->data['quotation_list'] = $this->Quotation->getQuotations();
         $this->data['vendor_list'] = $this->Vendor->getVendors();
+        $this->data['quick_enquiry_list'] = $this->QuickEnquiry->getQuickEnquires();
+        $this->data['contact_list'] = $this->ContactUs->getContacts();
+        $this->data['track_order_list'] = $this->TrackingOrder->getTrackingOrders();
         $this->data['template'] = "dashboard";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Dashboard"));
         $this->load->view('includes/adminltehead');

@@ -14,9 +14,33 @@ function getEnquiresByNotRead(){
     $list = $ci->Enquiry->getEnquiresByNotRead();
     return $list;
 }
+function getQuickEnquiresByNotView(){
+    $ci=& get_instance();
+    $ci->load->model('admin/QuickEnquiryModel','QuickEnquiry');
+    $list = $ci->QuickEnquiry->getQuickEnquiresByNotView();
+    return $list;
+}
 function getQuotationsByNotRead(){
     $ci=& get_instance();
     $ci->load->model('admin/QuotationModel','Quotation');
     $list = $ci->Quotation->getQuotationsByNotRead();
+    return $list;
+}
+function getOrdersByNotRead(){
+    $ci=& get_instance();
+    $ci->load->model('admin/OrderModel','Order');
+    $list = $ci->Order->getOrdersByNotRead();
+    return $list;
+}
+function getContactsByNotRead(){
+    $ci=& get_instance();
+    $ci->load->model('admin/ContactUsModel','ContactUs');
+    $list = $ci->ContactUs->getContactsByNotRead();
+    return $list;
+}
+function getOrdersByUserId($user_id){
+    $ci=& get_instance();
+    $ci->load->model('admin/OrderModel','Order');
+    $list = $ci->Order->getOrdersByUserId($user_id);
     return $list;
 }

@@ -3,7 +3,7 @@
  </style>
 <!--<div class="mg-page-title parallax" style=" background-image: url(<?=USERASSETS?>images/1-banner-Transports.jpg);">
     <div class="container">
-        <div class="row ">
+        <div class="row " style="margin-top: 10%;">
             <div class="col-md-12">
                 <h2>About Us</h2>
                                         <p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>
@@ -14,7 +14,7 @@
 
 <div class="mg-about-features section-md-50">
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 10%;">
             <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
                 <div class="area-title text-center wow fadeIn">
                     <h2><?= $result[0]['title']?></h2>

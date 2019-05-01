@@ -7,7 +7,7 @@ $terms = $result[0];
 ?>
 <!--<div class="mg-page-title parallax">
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 10%;">
             <div class="col-md-12">
                 <h2>Terms and Conditions</h2>
             </div>
@@ -17,7 +17,7 @@ $terms = $result[0];
  <!--Testimonials-->
 <div class="mg-page section-md-50">
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 10%;">
             <div class="col-md-12 service-contain" style="padding: 0 15px">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">

@@ -648,20 +648,50 @@ class Setting_controller extends MY_Controller {
 
     public function testimonials_save() {
         $this->form_validation->set_rules('text', 'Description', 'required');
-
+        if(empty($_FILES['image']['name'])){
+            $this->form_validation->set_rules('image', 'Image', 'trim|required');
+        }
         if ($this->form_validation->run() == FALSE) {
-            $this->labourServices_add();
+            $this->data['template'] = "Testimonial/add_testimonials";
+            $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Testimonial Add"));
+            $this->admin_layout($this->data);
         } else {
-            $_POST['status'] = "Active";
-
-
-            $result = $this->Setting_model->saveTestimonial($_POST);
-            if ($result == true) {
-                $this->session->set_flashdata('message', array('title' => 'Success.', 'content' => 'Testimonial Added Successfully.', 'type' => 's'));
-                redirect(site_url() . 'admin/testimonials');
+            $post = $this->input->post();
+            if( !empty( $_FILES['image']['name'] ) ){ 
+                $config['upload_path']          = './assets/images/';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['max_size']             = 3048;
+                
+                $this->load->library('upload', $config);
+                if( $this->upload->do_upload('image') ){
+                    $uploadData = $this->upload->data();
+                    $imageName = $uploadData['file_name'];
+                    $error = '';
+                }else{
+                    $error = $this->upload->display_errors();
+                    $imageName = '';
+                }
+            }else{
+                $error = '';
+                $imageName = '';
+            }
+            if( empty( $error ) ){
+                $post['status'] = "Active";
+                $post['image'] = $imageName;
+                $post['updated_at'] = date('Y-m-d H:i:s');
+                $result = $this->Setting_model->saveTestimonial( $post );
+                if ($result == true) {
+                    $this->session->set_flashdata('message', array('title' => 'Success.', 'content' => 'Testimonial Added Successfully.', 'type' => 's'));
+                    redirect(site_url() . 'admin/testimonials');
+                } else {
+                    $this->session->set_flashdata('message', array('title' => 'Error.', 'content' => 'Testimonial Adding Failed.', 'type' => 'e'));
+                    redirect(site_url() . 'admin/testimonials');
+                }
             } else {
-                $this->session->set_flashdata('message', array('title' => 'Error.', 'content' => 'Testimonial Adding Failed.', 'type' => 'e'));
-                redirect(site_url() . 'admin/testimonials');
+                $this->session->set_flashdata('message', array('title' => 'Error.', 'content' => $error, 'type' => 'e'));
+                $this->data['template'] = "Testimonial/add_testimonials";
+                $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Testimonial Add"));
+                $this->admin_layout($this->data);
             }
         }
     }
@@ -677,20 +707,52 @@ class Setting_controller extends MY_Controller {
     public function testimonials_update($id) {
 
         $this->form_validation->set_rules('text', 'text', 'required');
-
+        
         if ($this->form_validation->run() == FALSE) {
             $this->testimonials_edit($id);
         } else {
 
             unset($_POST['id']);
-
-            $result = $this->Setting_model->updateTestimonials($_POST, $id);
-            if ($result == true) {
-                $this->session->set_flashdata('message', array('title' => 'Success.', 'content' => 'Testimonial Service Updated Successfully.', 'type' => 's'));
-                redirect(site_url() . 'admin/testimonials');
-            } else {
-                $this->session->set_flashdata('message', array('title' => 'Error.', 'content' => 'Testimonial Service Updating Failed.', 'type' => 'e'));
-                redirect(site_url() . 'admin/testimonials');
+            $post = $this->input->post();
+            
+            if( !empty( $_FILES['image']['name'] ) ){ 
+                $config['upload_path']          = './assets/images/';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['max_size']             = 3048;
+                
+                $this->load->library('upload', $config);
+                if( $this->upload->do_upload('image') ){
+                    $uploadData = $this->upload->data();
+                    $imageName = $uploadData['file_name'];
+                    $error = '';
+                }else{
+                    $error = $this->upload->display_errors();
+                    $imageName = '';
+                }
+            }else{
+                $error = '';
+                $imageName = !empty( $post['image_hidden'] ) ? $post['image_hidden'] : '' ;
+            }   
+            
+            if( empty( $error ) ){
+                $post['image'] = $imageName;
+                $post['updated_at'] = date('Y-m-d H:i:s');
+                unset($post['image_hidden']);
+                $result = $this->Setting_model->updateTestimonials($post, $id);
+                if ($result == true) {
+                    $this->session->set_flashdata('message', array('title' => 'Success.', 'content' => 'Testimonial Service Updated Successfully.', 'type' => 's'));
+                    redirect(site_url() . 'admin/testimonials');
+                } else {
+                    $this->session->set_flashdata('message', array('title' => 'Error.', 'content' => 'Testimonial Service Updating Failed.', 'type' => 'e'));
+                    redirect(site_url() . 'admin/testimonials');
+                }
+            }else{
+                $this->session->set_flashdata('message', array('title' => 'Error.', 'content' => $error, 'type' => 'e'));
+                $this->data['test'] = $this->Setting_model->gettestimonialsById($id);
+                $this->data['id'] = $id;
+                $this->data['template'] = "Testimonial/edit_testimonials";
+                $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Testimonial Edit"));
+                $this->admin_layout($this->data);
             }
         }
     }

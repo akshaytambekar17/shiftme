@@ -16,10 +16,21 @@ class MY_Controller extends CI_Controller {
         define('IMGURL', base_url() . 'assets/img/');
         define('SITENAME', "TRANSPORT");
         define('LOADERIMG', IMGURL . "ajax-loading.gif");
+        //define('ADMINEMAILID','shiftme.in@gmail.com');
+        define('ADMINEMAILID','shiftme7@gmail.com');
+        define('SMTPUSER','shiftme7@gmail.com');
+        define('SMTPPASSWORD','seo@12345');
         $this->load->model('Site_model', 'site_model');
         $this->load->model('admin/EnquiryModel','Enquiry');
+        $this->load->model('admin/TrackingOrderModel','TrackingOrder');
+        $this->load->model('admin/ContactUsModel','ContactUs');
+        $this->load->model('admin/QuickEnquiryModel','QuickEnquiry');
         $this->load->model('admin/VendorModel','Vendor');
         $this->load->model('admin/VendorOrderAssignModel','VendorOrderAssign');
+        $this->load->model('admin/VendorOrderLocationModel','VendorOrderLocation');
+        $this->load->model('admin/FooterDetailsModel','FooterDetails');
+        $this->load->model('admin/FooterCmsContentModel','FooterCmsContent');
+        $this->load->model('admin/AdvertisementModel','Advertisement');
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation'));
         $this->load->helper(array('url', 'language'));
@@ -42,13 +53,19 @@ class MY_Controller extends CI_Controller {
 //        die();
         $temp['data'] = $data;
         $temp['footer'] = $this->site_model->getFooterContent();
+        $temp['footerContent'] = $this->FooterDetails->getFooterDetails();
+        $temp['footerCmsContentList'] = $this->FooterCmsContent->getFooterCmsContents();
+        $temp['advertisementDetails'] = $this->Advertisement->getLatestActiveAdvertisement();
         $this->config->set_item('less', $this->less);
         $this->load->view('user/layout/index', $temp);
     }
     public function frontendLayout($data) {
+        $data['footerContent'] = $this->FooterDetails->getFooterDetails();
+        $data['footerCmsContentList'] = $this->FooterCmsContent->getFooterCmsContents();
+        $data['advertisementDetails'] = $this->Advertisement->getLatestActiveAdvertisement();
         includesAll($data);
     }
-
+    
     public function user_layout($data) {
         $temp['footer'] = $this->site_model->getFooterContent();
         if ($this->session->userdata('uid') != "") {
@@ -212,15 +229,15 @@ class MY_Controller extends CI_Controller {
         $config = array();
         $config['protocol'] = 'smtp';
         $config['smtp_host'] = 'ssl://smtp.gmail.com';
-        $config['smtp_user'] = 'akshaytambekar17@gmail.com';
-        $config['smtp_pass'] = '1793_@kshu';
+        $config['smtp_user'] = SMTPUSER;
+        $config['smtp_pass'] = SMTPPASSWORD;
         $config['smtp_port'] = 465;
         $config['charset']   = 'utf-8';
         $config['newline']   = "\r\n";
         $config['mailtype'] = 'html';
         $config['wordwrap'] = TRUE;
         $this->email->initialize($config);
-        $this->email->from('akshaytambekar17@gmail.com', 'Shift Me');
+        $this->email->from(ADMINEMAILID, 'Shift Me');
         $this->email->to($to);
         $this->email->subject($subject);
         $this->email->message($message);
@@ -229,9 +246,9 @@ class MY_Controller extends CI_Controller {
             $result['success'] = true;
             $result['message'] = "Email has been sent Successfully";
         }else{
+            //printDie(($this->email->print_debugger()));
             $result['success'] = false;
             $result['message'] = "Something went wrong please try again";
-            printDie($this->email->print_debugger());
         }
         return $result;
     }

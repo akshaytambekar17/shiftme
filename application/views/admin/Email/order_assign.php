@@ -22,7 +22,7 @@
                                     echo !empty($vehicles['vehicle_name'])?$vehicles['vehicle_name']:'';
                                 ?>
                         </p>
-                        <p><b>Total Amount :</b><?php echo $order_details['total_amount']; ?></p>
+                        <p><b>Total Amount :</b><?php echo $order_details['total_amount']; ?></p> 
                     </td>
                 </tr>
             </tbody>

@@ -50,7 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   | Examples:	my-controller/index	-> my_controller/index
   |		my-controller/my-method	-> my_controller/my_method
  */
-$route['default_controller'] = "User_controller";
+
+/**********/
+$route['default_controller'] = 'User_controller/home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['admin'] = "Auth";
@@ -75,6 +77,10 @@ $route['enquiry'] = "admin/EnquiryController/index";
 $route['enquiry/delete'] = "admin/EnquiryController/delete";
 $route['enquiry/view'] = "admin/EnquiryController/view";
 
+$route['quick-enquiry'] = "admin/QuickEnquiryController/index";
+$route['quick-enquiry/delete'] = "admin/QuickEnquiryController/delete";
+
+
 $route['quotation'] = "admin/QuotationController/index";
 $route['quotation/delete'] = "admin/QuotationController/delete";
 $route['quotation/add'] = "admin/QuotationController/add";
@@ -89,6 +95,7 @@ $route['admin/vendor/update'] = "admin/VendorController/update";
 $route['admin/vendor/assign-order'] = "admin/VendorController/AssignOrder";
 $route['admin/vendor/assign-order-list'] = "admin/VendorController/AssignOrderList";
 $route['admin/vendor/assign-order-delete'] = "admin/VendorController/AssignOrderDelete";
+$route['admin/vendor/edit-location'] = "admin/VendorController/editLocation";
 
 $route['product-list'] = "admin/ProductListController/index";
 $route['product-list/delete'] = "admin/ProductListController/delete";
@@ -100,6 +107,8 @@ $route['admin/send_sms'] = "admin/Admin_controller/send_sms";
 
 $route['admin/cms-page'] = "admin/Admin_controller/CMSPage";
 
+$route['admin/contact'] = "admin/ContactUsController";
+
 $route['slider'] = "admin/SliderController/index";
 $route['slider/add'] = "admin/SliderController/add";
 $route['slider/update'] = "admin/SliderController/update";
@@ -110,6 +119,25 @@ $route['cms-page/add'] = "admin/CMSPageController/add";
 $route['cms-page/update'] = "admin/CMSPageController/update";
 $route['cms-page/delete'] = "admin/CMSPageController/delete";
 
+$route['track-order'] = "admin/TrackingOrderController/index";
+$route['track-order/add'] = "admin/TrackingOrderController/add";
+$route['track-order/update'] = "admin/TrackingOrderController/update";
+$route['track-order/delete'] = "admin/TrackingOrderController/delete";
+
+$route['admin/footer-details'] = "admin/FooterDetailsController/index";
+$route['admin/footer-details/add'] = "admin/FooterDetailsController/add";
+$route['admin/footer-details/update'] = "admin/FooterDetailsController/update";
+$route['admin/footer-details/delete'] = "admin/FooterDetailsController/delete";
+
+$route['admin/footer-cms-content'] = "admin/FooterCmsContentController/index";
+$route['admin/footer-cms-content/add'] = "admin/FooterCmsContentController/add";
+$route['admin/footer-cms-content/update'] = "admin/FooterCmsContentController/update";
+$route['admin/footer-cms-content/delete'] = "admin/FooterCmsContentController/delete";
+
+$route['admin/advertisement'] = "admin/AdvertisementController/index";
+$route['admin/advertisement/add'] = "admin/AdvertisementController/add";
+$route['admin/advertisement/update'] = "admin/AdvertisementController/update";
+$route['admin/advertisement/delete'] = "admin/AdvertisementController/delete";
 
 /**************End Admin Routes**************/
 
@@ -118,13 +146,22 @@ $route['quote'] = "QuotationController/create";
 $route['quote/view'] = "QuotationController/view";
 
 $route['vendor'] = "User_controller/vendor";
+$route['vendor/locations'] = "User_controller/vendorOrderLocation";
+$route['vendor/view-locations'] = "User_controller/viewVendorOrderLocation";
+
 $route['home'] = "User_controller/home";
 $route['login'] = "User_controller/login";
 $route['registration'] = "User_controller/registration";
+$route['forgot-password'] = "User_controller/forgotPassword";
 $route['vehicles'] = "Services_controller/vehicles";
 $route['services'] = "Services_controller/services";
 
+$route['get-track-order'] = "User_controller/getTrackOrder";
 $route['makeOrder'] = "OrderController/make";
+
+$route['cms/(:any)'] = "Services_controller/cms/$1";
+
+$route['update-full-name'] = 'User_controller/updateFullName';
 /**************End User Routes**************/
 
 
@@ -191,8 +228,8 @@ $route['faq'] = "Services_controller/faq";
 $route['policy'] = "Services_controller/privacy_policy";
 $route['quick-quote'] = "User_controller/quick_qoute";
 $route['cost'] = "Services_controller/cost";
-
 $route['contactus'] = "User_controller/contactus";
+
 //vehicle services
 $route['admin/vehicleServices'] = "admin/Setting_controller/vehicleServices";
 $route['admin/vehicleServices-add'] = "admin/Setting_controller/vehicleServices_add";
@@ -258,3 +295,7 @@ $route['admin/policy-update/(:any)'] = "admin/Setting_controller/Privacy_Policy_
 $route['admin/terms'] = "admin/Admin_controller/trems";
 $route['admin/trems-edit/(:any)'] = "admin/Admin_controller/trems_edit/$1";
 $route['admin/terms_update/(:any)'] = "admin/Admin_controller/terms_update/$1";
+
+
+
+//echo "<pre>"; print_r($route); die;

@@ -18,6 +18,9 @@ class User_controller extends MY_Controller {
         $this->load->model('admin/ProductListModel','ProductList');
         $this->load->model('admin/TimeSlotsModel','TimeSlots');
         $this->load->helper('message');
+        if( 'quick-quote' != $this->uri->segment(1) ) {
+            $this->session->set_userdata('is_quick_enquiry', false);
+        }
     }
 
 //Home Page
@@ -32,7 +35,9 @@ class User_controller extends MY_Controller {
         $this->layout($data);
     }
     public function home() {
-        $data['test'] = $this->user->getTestimonials();
+        
+        $data['testimonialList'] = $this->user->getTestimonials();
+        $data['clientList'] = $this->user->getClients();
         $data['slider'] = $this->user->getslider();
         $data['title'] = "Home";
         $data['metadata'] = "Home";
@@ -40,6 +45,7 @@ class User_controller extends MY_Controller {
         $data['slider'] = true;
         $data['slider_details'] = false;
         $data['vehicle_list'] = $this->user->vehicle_list();
+            
         $this->frontendLayout($data);
     }
     public function sendotp() {
@@ -180,8 +186,12 @@ class User_controller extends MY_Controller {
         $user_details = $this->user->getUsersById($user_id);
         if($user_details['role'] == 2){
             $data['vendor_details'] = $this->Vendor->getVendorByUserId($user_id);
+            $assign_order_list = $this->VendorOrderAssign->getOrderAssignByUserId($user_id);
+            $data['assign_order_list'] = $assign_order_list;
+            $data['vendor_order_location_list'] = $this->VendorOrderLocation->getLocationByUserId($user_id);
         }else{
             $data['vendor_details'] = '';
+            $data['assign_order_list'] = '';
         }
         $data['user_details'] = $user_details;
         $data['result'] = $this->user->user_details();
@@ -254,182 +264,6 @@ class User_controller extends MY_Controller {
         $this->layout($data);
     }
 
-//    public function quick_qoute() {
-//        
-//        if($this->input->post()){
-//            $post = $this->input->post();
-//            if(!empty($post['quote'])){
-//                $this->form_validation->set_rules('fullname', 'Full Name', 'trim|required');
-//                $this->form_validation->set_rules('mobile_no', 'Mobile Number', 'trim|required|numeric|regex_match[/^[0-9]{10}$/]');
-//                $this->form_validation->set_rules('email_id', 'Email', 'trim|required|valid_email');
-//                $this->form_validation->set_rules('starting_address', 'Address', 'trim|required');
-//                $this->form_validation->set_rules('starting_location', 'Starting Location', 'trim|required');
-//                $this->form_validation->set_rules('starting_landmark','Landmark', 'required');
-//                $this->form_validation->set_rules('starting_pincode', 'Pincode', 'trim|required|numeric|regex_match[/^[0-9]{6}$/]');
-//                $this->form_validation->set_rules('delivery_address', 'Address', 'trim|required');
-//                $this->form_validation->set_rules('delivery_location', 'Delivery Location', 'trim|required');
-//                $this->form_validation->set_rules('delivery_landmark','Landmark', 'required');
-//                $this->form_validation->set_rules('delivery_pincode', 'Pincode', 'trim|required|numeric|regex_match[/^[0-9]{6}$/]');
-//                $this->form_validation->set_rules('vehicle_id', 'Vechicle', 'trim|required');
-//                $this->form_validation->set_rules('shifting_date', 'Shifting Date', 'trim|required');
-//                $this->form_validation->set_rules('time_slots_id', 'Time Slot', 'trim|required');
-//                $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-//                if($this->form_validation->run() == TRUE){
-//                    $details = $post;
-//                    unset($details['ProductListName']);
-//                    unset($details['ProductListQuantity']);
-//                    unset($details['total_amount']);
-//                    unset($details['quote']);
-//                    $details['shifting_date'] = date("Y-m-d", strtotime($details['shifting_date']));
-//                    $details['user_id'] = $this->session->userdata('uid');
-//                    $details['is_send_user'] = 1;
-//                    $details['created_at'] = date('Y-m-d H:i:s');
-//                    $details['updated_at'] = date('Y-m-d H:i:s');
-//                    $quotationLastId = $this->Quotation->add($details);
-//                    $productListName = array_filter($post['ProductListName']);
-//                    $productListQuantity = array_filter($post['ProductListQuantity']);
-//                    foreach($productListName as $key_name => $val_name){
-//                        foreach(array_values($productListQuantity) as $key_qty => $val_qty){
-//                            if($key_name == $key_qty){
-//                                $data_product = array('quotation_id' => $quotationLastId,
-//                                                      'product_id' => $val_name,
-//                                                      'quantity' => !empty($val_qty)?$val_qty:0,
-//                                                      'created_at' => date('Y-m-d H:i:s')
-//                                                );
-//                                $this->QuotationHasProduct->insert($data_product);
-//                            }
-//                        }
-//                    }
-//                    $pricing['total_amount'] = $post['total_amount'];
-//                    $pricing['quotation_id'] = $quotationLastId;
-//                    $result_pricing = $this->QuotationHasPricing->insert($pricing);
-//                    
-//                    if($post['quote'] == 'Make Order'){
-//                        $order_data = array('quotation_id' => $quotationLastId,
-//                                            'user_id' => $this->session->userdata('uid'),
-//                                            'status' => 1,
-//                                            'total_amount' => $post['total_amount'],
-//                                            'vehicle_id' => $post['vehicle_id'],
-//                                            'created_at' => date('Y-m-d H:i:s'),
-//                                            'updated_at' => date('Y-m-d H:i:s'),
-//                                        );
-//                        $result = $this->Order->add($order_data);
-//                        $quotation_update = array('is_order' => 1,
-//                                                'id' => $quotationLastId
-//                                            );
-//                        $this->Quotation->update($quotation_update);
-//                    }else{
-//                        $enquiry_data = array('quotation_id' => $quotationLastId,
-//                                              'user_id' => $this->session->userdata('uid'),
-//                                              'created_at' => date('Y-m-d H:i:s'),
-//                                              'updated_at' => date('Y-m-d H:i:s'),
-//                                        );
-//                        $this->Enquiry->insert($enquiry_data);
-//                    }
-//                    if ($quotationLastId) {
-//                        $this->session->set_flashdata('Message', 'Your Quotation data has been send succesfully.Our support team will contact soon.');
-//                        //return redirect('quick-quote', 'refresh');
-//                        return redirect('myaccount', 'refresh');
-//                    } else {
-//                        $this->session->set_flashdata('Error', 'Failed to send quotation details');
-//                        if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
-//                            $pin = array(
-//                                    'pickupPoint' => $_POST['pickupPoint'],
-//                                    'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
-//                                    'dropPoint' => $_POST['dropPoint'],
-//                                    'dropzip' => $this->getZipcode($_POST['dropPoint']),
-//                                );
-//                        }
-//                        $data['metadata'] = "Qoute";
-//                        $data['template'] = "qoute";
-//                        $data['name'] = "Qoute";
-//                        $data['vehicle'] = $this->user->vehicle_list();
-//                        $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
-//                        $data['product_list'] = $this->ProductList->getProductsList();
-//                        $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
-//                        $data['details'] = $pin;
-//                        if (!empty($this->session->userdata('uid'))) {
-//                            $data['userDetails'] = $this->session->userdata();
-//                        }else{
-//                            $data['userDetails'] = '';
-//                        }
-//                        $this->layout($data);
-//                    }
-//                }else{
-//                    if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
-//                        $pin = array(
-//                            'pickupPoint' => $_POST['pickupPoint'],
-//                            'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
-//                            'dropPoint' => $_POST['dropPoint'],
-//                            'dropzip' => $this->getZipcode($_POST['dropPoint']),
-//                        );
-//                    }
-//                    $data['metadata'] = "Qoute";
-//                    $data['template'] = "qoute";
-//                    $data['name'] = "Qoute";
-//                    $data['vehicle'] = $this->user->vehicle_list();
-//                    $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
-//                    $data['product_list'] = $this->ProductList->getProductsList();
-//                    $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
-//                    $data['details'] = $pin;
-//                    if (!empty($this->session->userdata('uid'))) {
-//                        $data['userDetails'] = $this->session->userdata();
-//                    }else{
-//                        $data['userDetails'] = '';
-//                    }
-//                    $this->layout($data);
-//                }
-//            }else{
-//                if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
-//                    $pin = array(
-//                        'pickupPoint' => $_POST['pickupPoint'],
-//                        'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
-//                        'dropPoint' => $_POST['dropPoint'],
-//                        'dropzip' => $this->getZipcode($_POST['dropPoint']),
-//                    );
-//                }
-//                $data['metadata'] = "Qoute";
-//                $data['template'] = "qoute";
-//                $data['name'] = "Qoute";
-//                $data['vehicle'] = $this->user->vehicle_list();
-//                $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
-//                $data['product_list'] = $this->ProductList->getProductsList();
-//                $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
-//                $data['details'] = $pin;
-//                if (!empty($this->session->userdata('uid'))) {
-//                    $data['userDetails'] = $this->session->userdata();
-//                }else{
-//                    $data['userDetails'] = '';
-//                }
-//                $this->layout($data);
-//            }
-//        }  else {
-//            
-//            if ($_POST['pickupPoint'] != "" && $_POST['dropPoint'] != "") {
-//
-//                $pin = array(
-//                    'pickupPoint' => $_POST['pickupPoint'],
-//                    'pickupzip' => $this->getZipcode($_POST['pickupPoint']),
-//                    'dropPoint' => $_POST['dropPoint'],
-//                    'dropzip' => $this->getZipcode($_POST['dropPoint']),
-//                );
-//            }
-//            $data['metadata'] = "Qoute";
-//            $data['template'] = "qoute";
-//            $data['name'] = "Qoute";
-//            $data['vehicle'] = $this->user->vehicle_list();
-//            $data['selvehical'] = $this->user->get_vehicleby_id($_POST['vehicle']);
-//            $data['product_list'] = $this->ProductList->getProductsList();
-//            $data['timeslots_list'] = $this->TimeSlots->getTimeSlots();
-//            $data['details'] = $pin;
-//            if (!empty($this->session->userdata('uid'))) {
-//                $data['userDetails'] = $this->session->userdata();
-//            }else{
-//                $data['userDetails'] = '';
-//            }
-//            $this->layout($data);
-//        }
-//    }
     public function quick_qoute() {
         $userSession = userSession();
         if($this->input->post()){
@@ -574,6 +408,28 @@ class User_controller extends MY_Controller {
                         'dropzip' => $this->getZipcode($_POST['dropPoint']),
                     );
                 }
+                if(!empty($post['fullname']) && !empty($post['mobile_no'])){
+                    $data['fullname'] = $post['fullname'];
+                    $data['mobile_no'] = $post['mobile_no'];
+                    if( !$this->session->userdata('is_quick_enquiry') ){
+                        $quick_enquiry_data = $post;
+                        unset($quick_enquiry_data['select_options']);
+                        unset($quick_enquiry_data['pickupPoint']);
+                        unset($quick_enquiry_data['dropPoint']);
+                        $quick_enquiry_data['pickup_point'] = $post['pickupPoint'];
+                        $quick_enquiry_data['drop_point'] = $post['dropPoint'];
+                        $this->QuickEnquiry->insert($quick_enquiry_data);
+                        $template_data['quick_enquiry_details'] = $quick_enquiry_data;
+                        $to = ADMINEMAILID;
+                        $subject = $quick_enquiry_data['fullname']." has make quick enquiry";
+                        $message = $this->load->view('admin/Email/quick_enquiry',$template_data,TRUE);
+                        $mail_result = $this->sendEmail($to, $subject, $message);
+                        $this->session->set_userdata('is_quick_enquiry', true);
+                    }
+                }else{
+                    $data['fullname'] = '';
+                    $data['mobile_no'] = '';
+                }
                 $data['metadata'] = "Quick Quote";
                 $data['title'] = "Quick Quote";
                 $data['view'] = "qoute";
@@ -605,6 +461,13 @@ class User_controller extends MY_Controller {
                     'dropzip' => $this->getZipcode($_POST['dropPoint']),
                 );
             }
+            if(!empty($post['fullname']) && !empty($post['mobile_no'])){
+                    $data['fullname'] = $post['fullname'];
+                    $data['mobile_no'] = $post['mobile_no'];
+                }else{
+                    $data['fullname'] = '';
+                    $data['mobile_no'] = '';
+                }
             $data['metadata'] = "Quick Quote";
             $data['title'] = "Quick Quote";
             $data['view'] = "qoute";
@@ -629,13 +492,110 @@ class User_controller extends MY_Controller {
         }
     }
     
-//    public function contactus() {
-//        $data['metadata'] = "Contactus";
-//        $data['template'] = "contactus";
-//        $data['name'] = "Contactus";
-//        $this->layout($data);
-//    }
+    public function vendorOrderLocation(){
+        $get = $this->input->get();
+        $userSession = userSession();
+        $order_details = $this->Order->getOrderByIdWithQuotation($get['order_id']);
+        $data['order_details'] = $order_details;
+        $data['metadata'] = "Location Details";
+        $data['title'] = "Location Details";
+        $data['view'] = "vendor_location";
+        $data['name'] = "Location Details";
+        
+        if($this->input->post()){
+            $post = $this->input->post();
+            $this->form_validation->set_rules('pickup_point_km', 'Pickup Point', 'trim|required|numeric|regex_match[/^[0-9]/]');
+            $this->form_validation->set_rules('drop_point_km', 'Drop Point', 'trim|required|numeric|regex_match[/^[0-9]/]');
+            if(empty($_FILES['pickup_point_image']['name'])){
+                $this->form_validation->set_rules('pickup_point_image', 'Upload Pickup Point Image', 'trim|required');
+            }
+            if(empty($_FILES['drop_point_image']['name'])){
+                $this->form_validation->set_rules('drop_point_image', 'Upload Drop Point Image', 'trim|required');
+            }
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($this->form_validation->run() == TRUE){
+                
+                if(!empty($_FILES['pickup_point_image']['name'])){
+                    $config['upload_path']          = './assets/upload/location/';
+                    $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                    $config['max_size']             = 2048;
+                    $this->load->library('upload', $config);
+                    if($this->upload->do_upload('pickup_point_image')){
+                        $uploadData = $this->upload->data();
+                        $pickup_point_image = $uploadData['file_name'];
+                        $error = '';
+                    }else{
+                        $error = $this->upload->display_errors();
+                        $pickup_point_image = '';
+                    }
+                }else{
+                    $pickup_point_image = '';
+                    $error = '';
+                }
+                if(!empty($_FILES['drop_point_image']['name'])){
+                    $config['upload_path']          = './assets/upload/location/';
+                    $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                    $config['max_size']             = 2048;
+                    $this->load->library('upload', $config);
+                    if($this->upload->do_upload('drop_point_image')){
+                        $uploadData = $this->upload->data();
+                        $drop_point_image = $uploadData['file_name'];
+                        $error = '';
+                    }else{
+                        $error = $this->upload->display_errors();
+                        $drop_point_image = '';
+                    }
+                }else{
+                    $drop_point_image = '';
+                    $error = '';
+                }
+                
+                if(empty($error)){
+                    $location_details = $post;
+                    unset($location_details['order_no']);
+                    $location_details['pickup_point_image'] = $pickup_point_image;
+                    $location_details['drop_point_image'] = $drop_point_image;
+                    $location_details['user_id'] = $userSession['uid'];
+                    $result = $this->VendorOrderLocation->add($location_details);
+                    if($result){
+                        $this->session->set_flashdata('Message', 'Location Details has added for order number '.$post['order_no']);
+                        return redirect('myaccount', 'refresh');
+                    }else{
+                        $this->session->set_flashdata('Error', 'Failed to send Contact details');
+                        $this->frontendLayout($data);
+                    }    
+                }else{
+                    $this->session->set_flashdata('Error', $error);
+                    $this->frontendLayout($data);
+                }
+            }else{
+                $this->frontendLayout($data);
+            }
+        }else{
+            $this->frontendLayout($data);
+        }        
+    }
+    public function viewVendorOrderLocation(){
+        $get = $this->input->get();
+        $userSession = userSession();
+        $order_details = $this->Order->getOrderByIdWithQuotation($get['order_id']);
+        $location_details = $this->VendorOrderLocation->getLocationByUserIdOrderId($userSession['uid'],$get['order_id']);
+        $data['order_details'] = $order_details;
+        $data['location_details'] = $location_details;
+        $data['metadata'] = "Location Details";
+        $data['title'] = "Order ".$order_details['order_no']." Details";
+        $data['name'] = "Order ".$order_details['order_no']." Details";
+        $data['view'] = "view_vendor_location";
+        $this->frontendLayout($data);
+                
+    }
     public function contactus() {
+        $userSession = userSession();
+        if (!empty($userSession)) {
+            $data['userDetails'] = $userSession;
+        }else{
+            $data['userDetails'] = '';
+        }
         $data['metadata'] = "Contact us";
         $data['title'] = "Contact us";
         $data['view'] = "contactus";
@@ -644,10 +604,46 @@ class User_controller extends MY_Controller {
         $data['slider_details'] = true;
         $data['slider_heading'] = 'Contact us';
         $data['slider_description'] = '';
-        $this->frontendLayout($data);
-        
+        if($this->input->post()){
+            $post = $this->input->post();
+            $this->form_validation->set_rules('full_name', 'Full Name', 'trim|required');
+            $this->form_validation->set_rules('contact', 'Contact No.', 'trim|required|numeric|regex_match[/^[0-9]{10}$/]');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+            $this->form_validation->set_rules('subject', 'Subject', 'trim|required');
+            $this->form_validation->set_rules('message', 'Message', 'trim|required');
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($this->form_validation->run() == TRUE){
+                $contact_details = $post;
+                $result = $this->ContactUs->insert($contact_details);
+                if($result){
+                    $template_data['contact_us_details'] = $contact_details;
+                    $to = ADMINEMAILID;
+                    $subject = $contact_details['full_name']." has make contact us enquiry";
+                    $message = $this->load->view('admin/Email/contact_us',$template_data,TRUE);
+                    $mail_result = $this->sendEmail($to, $subject, $message);
+                    $this->session->set_flashdata('Message', 'Your details has been send succesfully. Our support team will contact soon.');
+                    return redirect('contactus', 'refresh');
+                }else{
+                    $this->session->set_flashdata('Error', 'Failed to send Contact details');
+                    $this->frontendLayout($data);
+                }    
+            }else{
+                $this->frontendLayout($data);
+            }
+        }else{
+            $this->frontendLayout($data);
+        }
     }
-
+    public function getTrackOrder(){
+        $post = $this->input->post();
+        $track_order_details = $this->TrackingOrder->getTrackingOrderByOrderId($post['order_id']);
+        if(!empty($track_order_details)){
+            $message = $track_order_details['shipping_status'];
+        }else{
+            $message = "No Tracking details found";
+        }
+        echo $message;
+    }
     public function update_pro() {
         $rs = $this->user->update_profile();
         if ($rs) {
@@ -906,6 +902,64 @@ class User_controller extends MY_Controller {
         $id = $_POST['id'];
         $data = $this->user->get_Enquiry_id($id);
         echo json_encode($data[0]);
+    }
+    
+    public function updateFullName(){
+        $userList = $this->user->getUsers();
+        
+        foreach( $userList as $value ){
+            
+            $emailArray = explode('@',$value['email']);
+            $updateUserData = array( 'fullname' => $emailArray[0],
+                                     'user_id' => $value['user_id']
+                                );
+            prints($updateUserData);
+            $this->user->update($updateUserData);
+            
+        }
+    }
+    
+    public function forgotPassword() {
+        $post = $this->input->post();
+        
+        if(!empty($post['email'])){
+            $details = $post;
+            $userDetails = $this->user->getUsersByEmail($details['email']);
+            
+            if( true == $userDetails ) {
+                $newPassword = mt_rand(100001,1000001);
+                $details['newPassword'] = $newPassword;
+                
+                $mailData['userDetails'] = $userDetails;
+                $mailData['newPassword'] = $newPassword;
+                $to = $userDetails['email'];
+                $subject = "New Reset password";
+                $message = $this->load->view('admin/Email/forgot_password',$mailData,TRUE);
+                $resultMail = $this->sendEmail($to, $subject, $message);
+                
+                if( true == $resultMail['success'] ){
+                    $resultData = $this->user->sendForgotPassword($details);
+                    if( $resultData['success'] ){
+                        $result['success'] = true;
+                        $result['message'] = 'Password has been updated and sent to your email id';
+                    }else{
+                        $result['success'] = false;
+                        $result['message'] = 'Mail has been sent but, '.$resultData['message'];
+                    }
+                }else{
+                    $result['success'] = false;
+                    $result['message'] = 'Cannot sent the mail and password has not been updated. Please try again later';
+                }
+            }else {
+                $result['success'] = false;
+                $result['message'] = 'This email id does not exist. Please enter the register email id';
+            }
+        }else{
+            $result['success'] = false;
+            $result['message'] = 'Please enter the Email Id';
+        }
+        
+        echo json_encode($result);
     }
 
 }

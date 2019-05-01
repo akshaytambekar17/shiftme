@@ -55,11 +55,10 @@
                                         <b>Quotation Number :</b> <?= $quotation['quotation_no']?> <br>
                                     </div>
                                 </div>
-                                <br><br>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h4>Starting Address</h4>
-                                        <br>
                                         <b>Location :</b> <?= $quotation['starting_location']?> <br>
                                         <b>Address :</b> <?= $quotation['starting_address']?> <br>
                                         <b>Landmark :</b> <?= $quotation['starting_landmark']?> <br>
@@ -67,14 +66,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <h4>Delivery Address</h4>
-                                        <br>
                                         <b>Location :</b> <?= $quotation['delivery_location']?> <br>
                                         <b>Address :</b> <?= $quotation['delivery_address']?> <br>
                                         <b>Landmark :</b> <?= $quotation['delivery_landmark']?> <br>
                                         <b>Pincode :</b> <?= $quotation['delivery_pincode']?> <br>
                                     </div>
                                 </div>
-                                <br><br>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <?php 
@@ -86,7 +84,7 @@
                                         <b>Shifting Date :</b> <?= date('Y-m-d',strtotime($quotation['shifting_date']))?> <br>
                                     </div>
                                 </div>
-                                <br><br>
+                                <br>
                                 <label>Check Product List</label>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -115,21 +113,12 @@
 
                                     </div>
                                 </div>
-                                <br><br>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <b>Total Amount :</b> <?= $quotation['total_amount']; ?> <br>
                                     </div>
                                 </div>
-                                <br><br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <b>Do you need a professional packers?           :</b> <?= $quotation['packer'] == 1 ? 'Yes':'No' ?> <br>
-                                        <b>Do you need a storage facilities?             :</b> <?= $quotation['storage'] == 1 ? 'Yes':'No' ?> <br>
-                                        <b>Do you need a shifting of your vehicle also?  :</b> <?= $quotation['vehicle_shifting'] == 1 ? 'Yes':'No' ?> <br>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
 

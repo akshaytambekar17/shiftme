@@ -8,25 +8,27 @@
         <!--content-->
         <div class="content-top">
             <div class="col-md-12">
+                <?php if($message = $this ->session->flashdata('Message')){?>
+                    <div class="col-md-12 ">
+                        <div class="alert alert-dismissible alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <?=$message ?>
+                        </div>
+                    </div>
+                <?php }?> 
+                <?php if($message = $this ->session->flashdata('Error')){?>
+                    <div class="col-md-12 ">
+                        <div class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <?=$message ?>
+                        </div>
+                    </div>
+                <?php }?>
                 <div class="content-top-1">
-                    <?php if($message = $this ->session->flashdata('Message')){?>
-                        <div class="col-md-12 ">
-                            <div class="alert alert-dismissible alert-success">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <?=$message ?>
-                            </div>
+                    <div class="col-md-12 ">
+                        <div class="pull-right">
+                            <a href="<?= base_url()?>quotation/add" class="btn btn-success" style="margin-bottom: -80px;margin-left: 11px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Quotation</a>
                         </div>
-                    <?php }?> 
-                    <?php if($message = $this ->session->flashdata('Error')){?>
-                        <div class="col-md-12 ">
-                            <div class="alert alert-dismissible alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <?=$message ?>
-                            </div>
-                        </div>
-                    <?php }?>
-                    <div class="pull-right">
-                        <a href="<?= base_url()?>quotation/add" class="btn btn-success" style="margin-bottom: -80px;margin-left: 11px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Quotation</a>
                     </div>
                     <div class="table-responsive m-top90">
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="quotation_list">
@@ -40,7 +42,7 @@
                                     <th>Starting Location</th>
                                     <th>Delivery Location</th>
                                     <th>Vehicle</th>
-<!--                                    <th>Created at</th>-->
+                                    <th>Created at</th>
                                     <th style="width: 245px !important; ">Actions</th>
                                 </tr>
                             </thead>
@@ -65,7 +67,7 @@
                                                     }
                                                 ?>
                                             </td>
-<!--                                            <td class="center"><?php $value['created_at']; ?></td>-->
+                                            <td><?= $value['created_at']; ?></td>
                                             <td>
                                                 <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                 <a href="<?= base_url()?>quotation/update?id=<?= $value['id']?>" class="btn btn-primary update-quotation" data-id="<?= $value['id'] ?>" name="update_quotation" title="Update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

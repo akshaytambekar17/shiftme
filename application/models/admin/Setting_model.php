@@ -137,6 +137,7 @@ class Setting_model extends MY_Model {
         return $this->getResult($this->db->get_where('testimonials', array('id' => $id)));
     }
     public function updateTestimonials($data, $id) {
+        
         if ($this->db->update('testimonials', $data, array('id' => $id))) {
             return TRUE;
         } else {

@@ -26,6 +26,15 @@
                                         
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group col-md-11">
+                                            <label>Image</label>
+                                            <input type="file" name="image" id="image">
+                                            <span class="help-block"><?php echo form_error('image'); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
                                 
                             </div>
                             <div class="modal-footer">

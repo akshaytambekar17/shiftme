@@ -34,11 +34,12 @@
                             <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
                                 <div class="single-footer-widget footer-about">
                                     <h3>Contact Us</h3>
-                                    <p>Shiftme Bavdhan, Pune - 411021.</p>
+<!--                                    <p>Shiftme Bavdhan, Pune - 411021.</p>-->
+                                    <p><?= $footerContent['company_address']?></p>
                                     <ul>
-                                        <li><i class="fa fa-phone"></i> <a href="callto:+91 96896-22000">+91 96896-22000</a></li>
-                                        <li><i class="fa fa-map-marker"></i> <a href="mailto: info@shiftme.in"> info@shiftme.in</a></li>
-                                        <li><i class="fa fa-phone"></i> Pune,Maharashtra,India.</li>
+                                        <li><i class="fa fa-phone"></i> <a href="callto:+91 <?= $footerContent['company_phone_number']?>">+91 <?= $footerContent['company_phone_number']?></a></li>
+                                        <li><i class="fa fa-map-marker"></i> <a href="mailto: <?= $footerContent['company_email_id']?>"> <?= $footerContent['company_email_id']?></a></li>
+<!--                                        <li><i class="fa fa-phone"></i> Pune,Maharashtra,India.</li>-->
                                     </ul>
                                 </div>
                             </div>
@@ -70,6 +71,19 @@
                                                 </div>
                                             </a>
                                         </li>
+                                        <?php if(!empty($footerCmsContentList)){ 
+                                            
+                                                foreach($footerCmsContentList as $value){
+                                        ?>
+                                                    <li>
+                                                        <a href="<?= base_url()?>cms/<?= $value['cms_slug']?>" class="tweet-meta">
+                                                            <div class="twitter-icon"><i class="fa fa-phone"></i></div>
+                                                            <div class="tweet-detail">
+                                                                <p><?= $value['name']?></p>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                        <?php } } ?>
                                     </ul>
                                 </div>
                             </div>
@@ -78,8 +92,8 @@
                                     <h3>SITE</h3>
                                     <ul>
                                         <li><a href="<?= base_url()?>">Home</a></li>
-                                        <li><a href="<?= base_url()?>aboutus">about us</a></li>
-                                        <li><a href="<?= base_url()?>service">Shifting And Packing</a></li>
+                                        <li><a href="<?= base_url()?>aboutus">About Us</a></li>
+                                        <li><a href="<?= base_url()?>services">Shifting And Packing</a></li>
 <!--                                        <li><a href="#">Labour</a></li>-->
                                         <li><a href="<?= base_url()?>vehicles">Price</a></li>
                                         <li><a href="<?= base_url()?>contactus">Contact Us</a></li>
@@ -88,15 +102,8 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
                                 <div class="single-footer-widget instafeed-widget">
-                                    <h3>Customer Service</h3>
-                                    <ul>
-                                        <li><a href="#"><img src="<?= base_url()?>assets/themenew/img/instafeed/1.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="<?= base_url()?>assets/themenew/img/instafeed/2.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="<?= base_url()?>assets/themenew/img/instafeed/3.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="<?= base_url()?>assets/themenew/img/instafeed/4.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="<?= base_url()?>assets/themenew/img/instafeed/5.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="<?= base_url()?>assets/themenew/img/instafeed/6.jpg" alt=""></a></li>
-                                    </ul>
+                                    <h3>Location</h3>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30266.56777680504!2d73.77840258418182!3d18.514392044716036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bef6ae449e7f%3A0xfda40b3fa351f1d7!2sShiftme.in!5e0!3m2!1sen!2sin!4v1545806845440" width="600" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
                                 </div>
                             </div>
                         </div>
@@ -121,11 +128,16 @@
                             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                 <div class="footer-social-bookmark text-right wow fadeIn">
                                     <ul class="social-bookmark">
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+<!--                                        <li><a href="https://www.facebook.com/shiftme/?pnref=story.unseen-section" target="_blank"><i class="fa fa-facebook"></i></a></li>
+	                                <li><a href="https://www.instagram.com/shiftme.in/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a></li>
+	                                <li><a href="https://twitter.com/ShiftMe007" target="_blank"><i class="fa fa-twitter"></i></a></li>
+	                                <li><a href="https://www.linkedin.com/company/shiftme-in/about/?viewAsMember=true" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+	                                <li><a href="https://www.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a></li>-->
+                                        <li><a href="<?= $footerContent['company_facebook_link']?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+	                                <li><a href="<?= $footerContent['company_instagram_link']?>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+	                                <li><a href="<?= $footerContent['company_twitter_link']?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+	                                <li><a href="<?= $footerContent['company_linkedin_link']?>" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+	                                <li><a href="<?= $footerContent['company_google_plus_link']?>" target="_blank"><i class="fa fa-google-plus"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -143,8 +155,43 @@
 	            	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                  <span aria-hidden="true" color="#fff">&times;</span>
 	                </button>
-                        <img src="<?= base_url()?>assets/upload/shiftme-banner.jpg">   
+                        <?php if( !empty( $advertisementDetails ) ){ ?>
+                            <img src="<?= base_url()?>assets/advertisement-image/<?= $advertisementDetails['advertisement_image']?>">   
+                        <?php } else { ?>
+                            <img src="<?= base_url()?>assets/upload/shiftme-banner.jpg">   
+                        <?php } ?>
 	            </div>
+	        </div>
+	    </div>
+	</div>
+        <div class="modal fade login" id=forgotPasswordModal>
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close h4-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title center">Forgot Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="error js-has-text-forgot-password center"></div>
+                        <div class="box login-box-content">
+                            <div class="form">
+                                <input id="js-email-forgot-password" class="form-control" type="text" placeholder="Email" name="email">
+                                <span class="has-error js-error-email-forgot-password"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form">
+                            <input class="btn btn-default btn-login js-btn-forgot-password" type="button" value="Send" onclick="forgotPasswordAjax()">
+                        </div>
+                        <br>
+                        <div class="center">
+                            <span>Already have an account?</span>
+                            <a href="javascript:void(0)" class="a-link" onclick="loginClick()">Login</a>
+                        </div>
+                    </div>
+                    
+                    
 	        </div>
 	    </div>
 	</div>
@@ -219,9 +266,9 @@
                     </div>
                     <div class="modal-footer">
                         <div class="forgot login-footer">
-                            <span>Looking to
-                                <a href="javascript:void(0)" class="a-link" id="showRegisterForm">create an account</a>
-                                ?</span>
+                            <span>Looking to <a href="javascript:void(0)" class="a-link" id="showRegisterForm">create an account</a>?</span>
+                            <br>
+                            <span>Have you <a href="javascript:void(0)" class="a-link" id="showForgotPasswordForm">Forgot Password?</a></span>
                         </div>
                         <div class="forgot register-footer" style="display:none">
                             <span>Already have an account?</span>
@@ -231,6 +278,60 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="track-order-modal">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close h4-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title h4-title center">Track Order</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php
+                            $userDetails = userSession();
+                            if(!empty($userDetails)){
+                                $order_list = getOrdersByUserId($userDetails['uid']);
+                                
+                        ?>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group col-md-11">
+                                            <label>Select Order Number</label>
+                                            <select name='order_id' class="form-control" id="track-order-id" >
+                                                <option disabled="disabled" selected="selected">Select Order Number</option>
+                                                <?php 
+                                                    if(!empty($order_list)){
+                                                        foreach($order_list as $value) { 
+                                                ?>
+                                                    <option value="<?= $value['order_id']?>" <?= set_select('order_id',$value['order_no']);?> ><?= $value['order_no']?></option> 
+                                                    <?php } } ?>    
+                                            </select>
+                                            <span class="help-block has-error error-order-id"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group col-md-11">
+                                            <label>Tracking Status</label>
+                                            <p class="tracking-status"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                        <?php }else{ ?>
+                        <p class="has-error center">Please <a href="javascript:void(0)" onclick="trackLogin()">login</a> to get tracking details</p>
+                        <?php } ?>
+                    </div>
+                    <?php if(!empty($userDetails)){ ?>
+                        <div class="modal-footer">
+                            <div class="center">
+                                <button type="button" class="btn btn-primary" id="search-track">Track</button>
+                            </div>
+                        </div>
+                    <?php } ?>
+	        </div>
+	    </div>
+	</div>
         <!--====== SCRIPTS JS ======-->
         <script src="<?= base_url()?>assets/themenew/js/vendor/jquery-1.12.4.min.js"></script>
         <script src="<?= base_url()?>assets/themenew/js/vendor/bootstrap.min.js"></script>
@@ -255,7 +356,7 @@
     
         <script src="<?php echo ADMINLTE?>bower_components/select2/dist/js/select2.full.min.js"></script>
         <script src="<?php echo ADMINLTE?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-        
+          
         <script>
             var autocomplete2 = new google.maps.places.Autocomplete($("#pickupPoint")[0], {});
             autocomplete2.setComponentRestrictions(
@@ -305,6 +406,9 @@
             });
 
             $(document).ready(function() {
+                $(".alert").delay(5000).slideUp(200, function() {
+                    $(this).alert('close');
+                });
                 if (sessionStorage.getItem('firstVisit') != "1"){
                     sessionStorage.setItem('firstVisit', '1');
                     $('#admodal').modal('show');
@@ -318,6 +422,27 @@
                     startDate: new Date()
                 });
                 $('#div-vehicles').hide();
+                $("#track-order-button").on('click',function(){
+                    $("#track-order-modal").modal('show');
+                });        
+                $("#search-track").on('click',function(){
+                    var order_id = $("#track-order-id").val();
+                    if(order_id == '' || order_id == null){
+                        $(".error-order-id").text('Please select order number');
+                    }else{
+                        $("#search-track").prop("disabled",true);
+                        $(".error-order-id").text('');
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url(); ?>" + "get-track-order",
+                            data: { 'order_id' : order_id},
+                            success: function(result){
+                                $("#search-track").prop("disabled",false);
+                                $(".tracking-status").text(result);
+                            }
+                        });
+                    }
+                });        
                 $("#login").on('click',function(){
                     loginClick();
                 });        
@@ -349,8 +474,20 @@
                     $('#passerror').text('');
                     $('#remember').css('border-color', 'rgb(206,212,215)');
                 });
+                $("#showForgotPasswordForm").on('click',function(){
+                    $("#loginModal").modal('hide');
+                    $(".js-has-text-forgot-password").removeClass('has-error');
+                    $(".js-has-text-forgot-password").removeClass('has-success');
+                    $(".js-has-text-forgot-password").text('');
+                    $("#forgotPasswordModal").modal('show');
+                });
             });
+            
             function loginClick(){
+                $("#forgotPasswordModal").modal('hide');
+                $(".has-text").removeClass('has-error');
+                $(".has-text").removeClass('has-success');
+                $(".has-text").text('');
                 $(".h4-title").text('Login');
                 $(".login-box-content").show();
                 $(".login-footer").show();
@@ -359,6 +496,7 @@
                 clearLoginField();
                 $("#loginModal").modal('show');
             }
+            
             function validatePassword(e) {
                 //updated by neeta
                 var textInput = e.value;
@@ -367,6 +505,7 @@
 
                 //end
             }
+            
             function loginAjax(){
                 var email = $("#email_login").val();
                 var password = $("#password_login").val();
@@ -396,6 +535,7 @@
                     });
                 }
             }
+            
             function registrationAjax(){
                 var validate = validateRegistrationField();
                 if(validate == true){
@@ -425,6 +565,39 @@
                         }
                     });
                 }
+            }
+            
+            function forgotPasswordAjax(){
+                var email = $("#js-email-forgot-password").val();
+                var validate = validateForgotPasswordField();
+                if( validate ){
+                    $('.js-btn-forgot-password').prop('disabled', true);
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + "forgot-password",
+                        data: { 'email' : email},
+                        dataType: 'json',
+                        success: function( result ){
+                            $('.js-btn-forgot-password').prop('disabled', false);
+                            if( result['success'] ){
+                                loginClick();
+                                $(".has-text").removeClass('has-error');
+                                $(".has-text").addClass('has-success');
+                                $(".has-text").text(result['message']);
+                                
+                            }else{
+                                $(".js-has-text-forgot-password").addClass('has-error');
+                                $(".js-has-text-forgot-password").removeClass('has-success');
+                                $(".js-has-text-forgot-password").text(result['message']);
+                            }
+                        }
+                    });
+                }
+            }
+            
+            function trackLogin(){
+                $("#track-order-modal").modal('hide');
+                loginClick();
             }
             function validateRegistrationField(){
                 var fname = $("#fname").val();
@@ -497,6 +670,25 @@
                 }
                 return flag;
             }
+            
+            function validateForgotPasswordField(){
+                var emailId = $("#js-email-forgot-password").val();
+                
+                flag = true;
+                if(emailId == ''){
+                    $('.js-error-email-forgot-password').text("Email Id cannot be blank");
+                    flag = false;
+                }else{
+                    if(validateEmail(emailId)){
+                        $('.js-error-email-forgot-password').text("");
+                    }else{
+                        $('.js-error-email-forgot-password').text("Email id not in proper format");
+                        flag = false;
+                    }
+                }
+                return flag;
+            }
+            
             function validateLoginField(){
                 var email_id = $("#email_login").val();
                 var password = $("#password_login").val();
@@ -525,6 +717,7 @@
                 }
                 return flag;
             }
+            
             function clearRegistrationField(){
                 $("#fname").val("");
                 $("#lname").val("");
@@ -554,6 +747,43 @@
                 }
                 
             }
+            function validatePincode(pincode) {
+                var number_format = /^\d{6}$/;
+                if(number_format.test(pincode)){
+                    return true;
+                }else{
+                    return false;
+                }
+                
+            }
         </script>
     </body>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/58774f246b90161d870f4e77/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+        <!--Start of Tawk.to Script-->
+       <!-- <script type="text/javascript">
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+
+            (function() {
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/585bce83ddb8373fd2b1f55c/default';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        </script>-->
+        <!--End of Tawk.to Script-->
 </html>

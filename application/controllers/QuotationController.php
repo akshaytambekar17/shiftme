@@ -48,9 +48,27 @@ class QuotationController extends MY_Controller {
         }
         if($this->input->post()){
             if(empty($userSession['uid'])){
-                $this->session->set_flashdata('Error', 'Please Login to  send your quote');
+                $this->session->set_flashdata('Error', 'Please Login to receive your quote');
                 $data = $this->commonQuotationField();
+                $post = $this->input->post();
                 $data['userDetails'] = $user_details;
+                $data['pick_point'] = $post['pickupPoint'];
+                $data['drop_point'] = $post['dropPoint'];
+                if( !$this->session->userdata('is_quick_enquiry') ){
+                    $quick_enquiry_data = $post;
+                    unset($quick_enquiry_data['select_options']);
+                    unset($quick_enquiry_data['pickupPoint']);
+                    unset($quick_enquiry_data['dropPoint']);
+                    $quick_enquiry_data['pickup_point'] = $post['pickupPoint'];
+                    $quick_enquiry_data['drop_point'] = $post['dropPoint'];
+                    $this->QuickEnquiry->insert($quick_enquiry_data);
+                    $template_data['quick_enquiry_details'] = $quick_enquiry_data;
+                    $to = ADMINEMAILID;
+                    $subject = $quick_enquiry_data['fullname']." has make quick enquiry";
+                    $message = $this->load->view('admin/Email/quick_enquiry',$template_data,TRUE);
+                    $mail_result = $this->sendEmail($to, $subject, $message);
+                    $this->session->set_userdata('is_quick_enquiry', true);
+                }
                 $this->frontendLayout($data);
             }else{
                 $post = $this->input->post();
@@ -113,6 +131,21 @@ class QuotationController extends MY_Controller {
                     $data['userDetails'] = $user_details;
                     $data['pick_point'] = $post['pickupPoint'];
                     $data['drop_point'] = $post['dropPoint'];
+                    if( !$this->session->userdata('is_quick_enquiry') ){
+                        $quick_enquiry_data = $post;
+                        unset($quick_enquiry_data['select_options']);
+                        unset($quick_enquiry_data['pickupPoint']);
+                        unset($quick_enquiry_data['dropPoint']);
+                        $quick_enquiry_data['pickup_point'] = $post['pickupPoint'];
+                        $quick_enquiry_data['drop_point'] = $post['dropPoint'];
+                        $this->QuickEnquiry->insert($quick_enquiry_data);
+                        $template_data['quick_enquiry_details'] = $quick_enquiry_data;
+                        $to = ADMINEMAILID;
+                        $subject = $quick_enquiry_data['fullname']." has make quick enquiry";
+                        $message = $this->load->view('admin/Email/quick_enquiry',$template_data,TRUE);
+                        $mail_result = $this->sendEmail($to, $subject, $message);
+                        $this->session->set_userdata('is_quick_enquiry', true);
+                    }
                     $this->frontendLayout($data);
                 }
             }
@@ -144,8 +177,11 @@ class QuotationController extends MY_Controller {
         $data['quotation_product_data'] = $this->QuotationHasProductModel->getQuotationsHasProductByQuotationId($get['id']);   
         $data['product_list'] = $this->ProductListModel->getProductsList();
         $data['name'] = "View Quotation";
-        $data['template'] = "viewQuotation";
-        $this->layout($data);
+        $data['metadata'] = "View Quotation";
+        $data['title'] = "View Quotation";
+        $data['view'] = "viewQuotation";
+        
+        $this->frontendLayout($data);
     }
    public function delete(){
         $post = $this->input->post();

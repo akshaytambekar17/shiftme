@@ -21,7 +21,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+<!--                                <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group col-md-11">
                                             <label>Weight</label>
@@ -29,8 +29,8 @@
                                             <span class="help-block"><?php echo form_error('weight'); ?></span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
+                                </div>-->
+<!--                                <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group col-md-11">
                                             <label>Price</label>
@@ -38,7 +38,7 @@
                                             <span class="help-block"><?php echo form_error('price'); ?></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                             <?php if(!empty($product_list_data['id'])){ ?>
                                 <input type="hidden" name="id" value="<?= $product_list_data['id']?>" >

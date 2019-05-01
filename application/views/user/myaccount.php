@@ -10,7 +10,7 @@
     </div>
 </div>-->
 
-<div class="mg-about-features section-md-50">
+<div class="mg-about-features section-md-50 mt-10-per">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
@@ -58,8 +58,9 @@
                             <li><a href="<?= $href==true?'#myquotation':'javascript:void(0)'?>" data-toggle="tab">My Quotation</a></li>
                             <li><a href="<?= $href==true?'#myenquires':'javascript:void(0)'?>" data-toggle="tab">My Enquires</a></li>
                         <?php }else{ ?>
-                            <li><a href="<?= $href==true?'#shifting_information':'javascript:void(0)'?>" data-toggle="tab">Shifting Information</a></li>
-                            <li><a href="<?= $href==true?'#myorders_vendor':'javascript:void(0)'?>" data-toggle="tab">My Order</a></li>
+<!--                            <li><a href="<?php // $href==true?'#shifting_information':'javascript:void(0)'?>" data-toggle="tab">Shifting Information</a></li>-->
+                            <li><a href="<?= $href==true?'#vendor_order_assign':'javascript:void(0)'?>" data-toggle="tab">My Order</a></li>
+                            <li><a href="<?= $href==true?'#vendor_order_location':'javascript:void(0)'?>" data-toggle="tab">My Order Location Details</a></li>
                         <?php } ?>
                         <li><a href="#settings" data-toggle="tab">Change Password</a></li>
                     </ul>
@@ -272,177 +273,181 @@
                             <?php }?>
                             
                         </div>
-                        <div class="tab-pane" id="myorders">
-                           
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="table-responsive">
-                                        <table id="example" class="table table-striped table-bordered  myorders-table datatable-list" style="width: 100% !important" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th class="hidden">Id</th>
-                                                    <th>Order Number</th>
-                                                    <th>Quotation Number</th>
-                                                    <th>Pickup Point</th>
-                                                    <th>Drop Point</th>
-                                                    <th>Vehicle</th>
-                                                    <th>Shifting Date</th>
-                                                    <th>Status</th>
-                                                    <th>Total Amount</th>
-<!--                                                    <th>Action</th>-->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php 
-                                                    if (!empty($orders_list)) {
-                                                        foreach($orders_list as $value) { 
-                                                ?>
-                                                    <tr class="gradeX" id="order-<?= $value['order_id'] ?>">
-                                                        <td class="hidden"><?= $value['order_id']; ?></td>
-                                                        <td><?= $value['order_no']; ?></td>
-                                                        <td><?= $value['quotation_no']; ?></td>
-                                                        <td><?= $value['starting_location']; ?></td>
-                                                        <td><?= $value['delivery_location']; ?></td>
-                                                        <td><?php
-                                                                $vehicle = $this->user->getVehicleById($value['vehicle_id']);
-                                                                echo $vehicle['vehicle_name'];
-                                                            ?>
-                                                        </td>
-                                                        <td><?= $value['shifting_date']; ?></td>
-                                                        <td><?php
-                                                                if($value['order_status']==1){
-                                                                    echo "Pending";
-                                                                }else if($value['order_status']==2){
-                                                                    echo "Completed";
-                                                                }else{
-                                                                    echo "Cancelled";
-                                                                }
-                                                            ?>
-                                                        </td>
-                                                        <td><?= $value['total_amount']; ?></td>
-<!--                                                        <td>
-                                                            <a href="javascript:void(0)" class="btn btn-primary view-order" data-id="<?= $value['order_id'] ?>" name="view-order">View</a><br>
-                                                            <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['order_id'] ?>" data-orderno="<?= $value['order_no']?>" name="delete-order" onclick="orderDelete(this)">Delete</a><br>
-                                                        </td>-->
+                        <?php if($user_details['role'] == 1){ ?>
+                            <div class="tab-pane" id="myorders">
+                               <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="table-responsive">
+                                            <table id="example" class="table table-striped table-bordered  myorders-table datatable-list" style="width: 100% !important" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="hidden">Id</th>
+                                                        <th>Order Number</th>
+                                                        <th>Quotation Number</th>
+                                                        <th>Pickup Point</th>
+                                                        <th>Drop Point</th>
+                                                        <th>Vehicle</th>
+                                                        <th>Shifting Date</th>
+                                                        <th>Status</th>
+                                                        <th>Total Amount</th>
+    <!--                                                    <th>Action</th>-->
                                                     </tr>
-                                                <?php 
-                                                        } 
-                                                    }else{ 
-                                                ?>
-                                                    <td colspan="8" class="center">No Data available</td>    
-                                                <?php }?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="myquotation">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="table-responsive">
-                                        <table  class="table table-striped table-bordered dt-responsive example myquotation-table datatable-list" style="width: 100% !important" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th class="hidden">Id</th>
-                                                    <th>Quotation Number</th>
-                                                    <th>Full name</th>
-                                                    <th>Email id</th>
-                                                    <th>Phone Number</th>
-                                                    <th>Starting Address</th>
-                                                    <th>Delivery Address</th>
-                                                    <th>Vehicle</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                    if (!empty($quotation_list)) {
-                                                        foreach ($quotation_list as $key => $value) {
-                                                ?>
-                                                            <tr class="gradeX" id="quotation-<?= $value['id'] ?>">
-                                                                <td class="hidden"><?= $value['id']; ?></td>
-                                                                <td><?= $value['quotation_no']; ?></td>
-                                                                <td><?= $value['fullname']; ?></td>
-                                                                <td><?= $value['email_id']; ?></td>
-                                                                <td><?= $value['mobile_no']; ?></td>
-                                                                <td><?= $value['starting_address']; ?></td>
-                                                                <td><?= $value['delivery_address']; ?></td>
-                                                                <td>
-                                                                    <?php 
-                                                                        $vehicle = $this->Admin_model->getVehicleServicesById($value['vehicle_id']);
-                                                                        if(!empty($vehicle)){
-                                                                            echo $vehicle['vehicle_name'];
-                                                                        }
-                                                                    ?>
-                                                                </td>
-                                                                <td>
-<!--                                                                    <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)">Delete</a><br><br>-->
-                                                                    <?php if($value['is_order'] != 1){?>
-                                                                        <a href="javascript:void(0)" class="btn btn-success make-order" data-quotation_id="<?= $value['id'] ?>" data-quotation_no="<?= $value['quotation_no'] ?>" name="make_order" onclick="makeOrder(this)">Make Order</a><br><br>
-                                                                    <?php } ?>    
-                                                                    <a href="<?= base_url()?>quote/view?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['user_id'] ?>" name="view_quotation" >View Quotation</a><br>
-                                                                </td>
-                                                            </tr>
-                                                <?php
-                                                        }
-                                                    }else{
-                                                ?>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                        if (!empty($orders_list)) {
+                                                            foreach($orders_list as $value) { 
+                                                    ?>
+                                                        <tr class="gradeX" id="order-<?= $value['order_id'] ?>">
+                                                            <td class="hidden"><?= $value['order_id']; ?></td>
+                                                            <td><?= $value['order_no']; ?></td>
+                                                            <td><?= $value['quotation_no']; ?></td>
+                                                            <td><?= $value['starting_location']; ?></td>
+                                                            <td><?= $value['delivery_location']; ?></td>
+                                                            <td><?php
+                                                                    $vehicle = $this->user->getVehicleById($value['vehicle_id']);
+                                                                    echo $vehicle['vehicle_name'];
+                                                                ?>
+                                                            </td>
+                                                            <td><?= $value['shifting_date']; ?></td>
+                                                            <td><?php
+                                                                    if($value['order_status']==1){
+                                                                        echo "Pending";
+                                                                    }else if($value['order_status']==2){
+                                                                        echo "Completed";
+                                                                    }else{
+                                                                        echo "Cancelled";
+                                                                    }
+                                                                ?>
+                                                            </td>
+                                                            <td><?= $value['total_amount']; ?></td>
+    <!--                                                        <td>
+                                                                <a href="javascript:void(0)" class="btn btn-primary view-order" data-id="<?= $value['order_id'] ?>" name="view-order">View</a><br>
+                                                                <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['order_id'] ?>" data-orderno="<?= $value['order_no']?>" name="delete-order" onclick="orderDelete(this)">Delete</a><br>
+                                                            </td>-->
+                                                        </tr>
+                                                    <?php 
+                                                            } 
+                                                        }else{ 
+                                                    ?>
                                                         <td colspan="8" class="center">No Data available</td>    
-                                                <?php }?>
-                                            </tbody>
-                                        </table>
+                                                    <?php }?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab-pane" id="myenquires">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="table-responsive">
-                                        <table  class="table table-striped table-bordered dt-responsive example myenquires-table datatable-list" style="width: 100% !important" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th class="hidden">Id</th>
-                                                    <th>Pickup Point</th>
-                                                    <th>Drop Point</th>
-                                                    <th>Vehicle</th>
-                                                    <th>Shifting Date</th>
-<!--                                                    <th>Action</th>-->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php 
-                                                    if (!empty($enquiry_list)) {
-                                                        foreach($enquiry_list as $value) { 
-                                                ?>
-                                                    <tr class="gradeX" id="order-<?= $value['enquiry_id'] ?>">
-                                                        <td class="hidden"><?= $value['enquiry_id']; ?></td>
-                                                        <td><?= $value['starting_location']; ?></td>
-                                                        <td><?= $value['delivery_location']; ?></td>
-                                                        <td><?php
-                                                                $vehicle = $this->user->getVehicleById($value['vehicle_id']);
-                                                                echo $vehicle['vehicle_name'];
-                                                            ?>
-                                                        </td>
-                                                        <td><?= $value['shifting_date']; ?></td>
-<!--                                                        <td>
-                                                            <a href="javascript:void(0)" class="btn btn-primary view-order" data-id="<?= $value['enquiry_id'] ?>" name="view-order">View</a>
-                                                            <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['enquiry_id'] ?>" name="delete-enquiry" onclick="enquiryDelete(this)">Delete</a><br>
-                                                        </td>-->
+                            <div class="tab-pane" id="myquotation">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="table-responsive">
+                                            <table  class="table table-striped table-bordered dt-responsive example myquotation-table datatable-list" style="width: 100% !important" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="hidden">Id</th>
+                                                        <th>Quotation Number</th>
+                                                        <th>Full name</th>
+                                                        <th>Email id</th>
+                                                        <th>Phone Number</th>
+                                                        <th>Starting Address</th>
+                                                        <th>Delivery Address</th>
+                                                        <th>Vehicle</th>
+                                                        <th>Total Amount</th>
+                                                        <th>Actions</th>
                                                     </tr>
-                                                <?php
-                                                        }
-                                                    }else{
-                                                ?>
-                                                        <td colspan="7" class="center">No Data available</td>    
-                                                <?php }?>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                        if (!empty($quotation_list)) {
+                                                            foreach ($quotation_list as $key => $value) {
+                                                                $quotation_amount = $this->QuotationHasPricing->getQuotationsHasPricingByQuotationId($value['id']);
+                                                    ?>
+                                                                <tr class="gradeX" id="quotation-<?= $value['id'] ?>">
+                                                                    <td class="hidden"><?= $value['id']; ?></td>
+                                                                    <td><?= $value['quotation_no']; ?></td>
+                                                                    <td><?= $value['fullname']; ?></td>
+                                                                    <td><?= $value['email_id']; ?></td>
+                                                                    <td><?= $value['mobile_no']; ?></td>
+                                                                    <td><?= $value['starting_address']; ?></td>
+                                                                    <td><?= $value['delivery_address']; ?></td>
+                                                                    <td>
+                                                                        <?php 
+                                                                            $vehicle = $this->Admin_model->getVehicleServicesById($value['vehicle_id']);
+                                                                            if(!empty($vehicle)){
+                                                                                echo $vehicle['vehicle_name'];
+                                                                            }
+                                                                        ?>
+                                                                    </td>
+                                                                    <td><?= $quotation_amount['total_amount']; ?></td>
+                                                                    <td>
+    <!--                                                                    <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_quotation" onclick="quotationDelete(this)">Delete</a><br><br>-->
+                                                                        <?php if($value['is_order'] != 1){?>
+                                                                            <a href="javascript:void(0)" class="btn btn-success make-order" data-quotation_id="<?= $value['id'] ?>" data-quotation_no="<?= $value['quotation_no'] ?>" name="make_order" onclick="makeOrder(this)">Make Order</a><br><br>
+                                                                        <?php } ?>    
+                                                                        <a href="<?= base_url()?>quote/view?id=<?= $value['id']?>" class="btn btn-primary delete-user" data-id="<?= $value['user_id'] ?>" name="view_quotation" >View Quotation</a><br>
+                                                                    </td>
+                                                                </tr>
+                                                    <?php
+                                                            }
+                                                        }else{
+                                                    ?>
+                                                            <td colspan="8" class="center">No Data available</td>    
+                                                    <?php }?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="tab-pane" id="myenquires">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="table-responsive">
+                                            <table  class="table table-striped table-bordered dt-responsive example myenquires-table datatable-list" style="width: 100% !important" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="hidden">Id</th>
+                                                        <th>Pickup Point</th>
+                                                        <th>Drop Point</th>
+                                                        <th>Vehicle</th>
+                                                        <th>Shifting Date</th>
+    <!--                                                    <th>Action</th>-->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                        if (!empty($enquiry_list)) {
+                                                            foreach($enquiry_list as $value) { 
+                                                    ?>
+                                                        <tr class="gradeX" id="order-<?= $value['enquiry_id'] ?>">
+                                                            <td class="hidden"><?= $value['enquiry_id']; ?></td>
+                                                            <td><?= $value['starting_location']; ?></td>
+                                                            <td><?= $value['delivery_location']; ?></td>
+                                                            <td><?php
+                                                                    $vehicle = $this->user->getVehicleById($value['vehicle_id']);
+                                                                    echo $vehicle['vehicle_name'];
+                                                                ?>
+                                                            </td>
+                                                            <td><?= $value['shifting_date']; ?></td>
+    <!--                                                        <td>
+                                                                <a href="javascript:void(0)" class="btn btn-primary view-order" data-id="<?= $value['enquiry_id'] ?>" name="view-order">View</a>
+                                                                <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['enquiry_id'] ?>" name="delete-enquiry" onclick="enquiryDelete(this)">Delete</a><br>
+                                                            </td>-->
+                                                        </tr>
+                                                    <?php
+                                                            }
+                                                        }else{
+                                                    ?>
+                                                            <td colspan="7" class="center">No Data available</td>    
+                                                    <?php }?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }?>
                         <div class="tab-pane" id="settings">
                             <form action="<?= site_url() ?>User_controller/changePassword" method="POST" id="change_pass">
                                 <div class="form-group row">
@@ -475,33 +480,157 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="tab-pane" id="shifting_information">
-                            <form action="<?= site_url() ?>vendor-shifting" method="POST" id="vendor-shifting">
-                                <div class="form-group">
-                                    <label>Starting Location</label>
-                                    <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?= !empty($details['starting_location']) ? $details['starting_location'] :set_value('starting_location'); ?>">
-                                    <span class="help-block has-error"><?php echo form_error('starting_location'); ?></span>
+                        <?php if($user_details['role'] == 2){ ?>
+                            <div class="tab-pane" id="shifting_information">
+                                <form action="<?= site_url() ?>vendor-shifting" method="POST" id="vendor-shifting">
+                                    <div class="form-group">
+                                        <label>Starting Location</label>
+                                        <input type="text" class="form-control" name="starting_location" id="from_loc" value="<?= !empty($details['starting_location']) ? $details['starting_location'] :set_value('starting_location'); ?>">
+                                        <span class="help-block has-error"><?php echo form_error('starting_location'); ?></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>End Location</label>
+                                        <input type="text" class="form-control" name="end_location" id="to_loc" value="<?= !empty($details['end_location']) ? $details['end_location'] :set_value('end_location'); ?>">
+                                        <span class="help-block has-error"><?php echo form_error('starting_location'); ?></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Select Vehicle</label>
+                                        <select name='vehicle_id'  class="form-control">
+                                            <option disabled="disabled" selected="selected">Select Vehicle</option>
+                                            <?php foreach ($vehicle_services_list as $value) { ?>
+                                                <option value="<?= $value['id']?>" <?= set_select('vehicle_id',$value['id']); ?> ><?= $value['vehicle_name']?></option> 
+                                            <?php }?>
+                                        </select>
+                                    </div>
+                                    <span class="help-block has-error"><?php echo form_error('vehicle_id'); ?></span>
+                                    <div class="row" style="text-align: center">
+                                        <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid_chagepass()">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="vendor_order_assign">
+                               <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="table-responsive">
+                                            <table id="example" class="table table-striped table-bordered  myorders-table datatable-list" style="width: 100% !important" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="hidden">Id</th>
+                                                        <th>Order Number</th>
+                                                        <th>Quotation Number</th>
+                                                        <th>Fullname</th>
+                                                        <th>Mobile Number</th>
+                                                        <th>Pickup Point</th>
+                                                        <th>Drop Point</th>
+                                                        <th>Vehicle</th>
+                                                        <th>Shifting Date</th>
+                                                        <th>Timing</th>
+    <!--                                                    <th>Total Amount</th>-->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                        if (!empty($assign_order_list)) {
+                                                            foreach($assign_order_list as $value) {
+                                                                $order_details = $this->Order->getOrderByIdWithQuotation($value['order_id']);
+                                                    ?>
+                                                        <tr class="gradeX" id="order-<?= $value['id'] ?>">
+                                                            <td class="hidden"><?= $value['id']; ?></td>
+                                                            <td><?= $order_details['order_no']; ?></td>
+                                                            <td><?= $order_details['quotation_no']; ?></td>
+                                                            <td><?= $order_details['fullname']; ?></td>
+                                                            <td><?= $order_details['mobile_no']; ?></td>
+                                                            <td><?= $order_details['starting_location']; ?></td>
+                                                            <td><?= $order_details['delivery_location']; ?></td>
+                                                            <td><?php
+                                                                    $vehicle = $this->user->getVehicleById($order_details['vehicle_id']);
+                                                                    echo $vehicle['vehicle_name'];
+                                                                ?>
+                                                            </td>
+                                                            <td><?= $order_details['shifting_date']; ?></td>
+                                                            <td><?php
+                                                                    $timing_details = $this->TimeSlots->getTimeSlotByid($order_details['time_slots_id']); 
+                                                                    echo $timing_details['time'];
+                                                                ?>
+                                                            </td>
+<!--                                                            <td><?php // $value['total_amount']; ?></td>-->
+                                                        </tr>
+                                                    <?php 
+                                                            } 
+                                                        }else{ 
+                                                    ?>
+                                                        <td colspan="8" class="center">No Data available</td>    
+                                                    <?php }?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>End Location</label>
-                                    <input type="text" class="form-control" name="end_location" id="to_loc" value="<?= !empty($details['end_location']) ? $details['end_location'] :set_value('end_location'); ?>">
-                                    <span class="help-block has-error"><?php echo form_error('starting_location'); ?></span>
+                            </div>
+                            <div class="tab-pane" id="vendor_order_location">
+                               <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="table-responsive">
+                                            <table id="example" class="table table-striped table-bordered  myorders-table datatable-list" style="width: 100% !important" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="hidden">Id</th>
+                                                        <th>Order Number</th>
+                                                        <th>Quotation Number</th>
+                                                        <th>Pickup Point</th>
+                                                        <th>Drop Point</th>
+                                                        <th>Vehicle</th>
+                                                        <th>Shifting Date</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                        if (!empty($assign_order_list)) {
+                                                            foreach($assign_order_list as $value) {
+                                                                $order_details = $this->Order->getOrderByIdWithQuotation($value['order_id']);
+                                                    ?>
+                                                        <tr class="gradeX" id="order-<?= $value['id'] ?>">
+                                                            <td class="hidden"><?= $value['id']; ?></td>
+                                                            <td><?= $order_details['order_no']; ?></td>
+                                                            <td><?= $order_details['quotation_no']; ?></td>
+                                                            <td><?= $order_details['starting_location']; ?></td>
+                                                            <td><?= $order_details['delivery_location']; ?></td>
+                                                            <td><?php
+                                                                    $vehicle = $this->user->getVehicleById($order_details['vehicle_id']);
+                                                                    echo $vehicle['vehicle_name'];
+                                                                ?>
+                                                            </td>
+                                                            <td><?= $order_details['shifting_date']; ?></td>
+                                                            <td>
+                                                                <?php 
+                                                                    $flag = 0;
+                                                                    foreach($vendor_order_location_list as $val_location){
+                                                                        if($val_location['order_id'] == $value['order_id']){
+                                                                            $flag = 1;
+                                                                        }
+                                                                    }
+                                                                    if($flag == 0){
+                                                                ?>
+                                                                        <a href="<?= base_url()?>vendor/locations?order_id=<?= $value['order_id'] ?>" class="btn btn-success view-order" data-order_id="<?= $value['order_id'] ?>" name="location-details">Add Details</a><br>
+                                                                <?php }else{ ?>    
+                                                                        <a href="<?= base_url()?>vendor/view-locations?order_id=<?= $value['order_id'] ?>" class="btn btn-primary view-order" data-order_id="<?= $value['order_id'] ?>" name="view-location-details">View Details</a><br>
+                                                                <?php } ?>    
+                                                            </td>
+                                                        </tr>
+                                                    <?php 
+                                                            } 
+                                                        }else{ 
+                                                    ?>
+                                                        <td colspan="8" class="center">No Data available</td>    
+                                                    <?php }?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Select Vehicle</label>
-                                    <select name='vehicle_id'  class="form-control">
-                                        <option disabled="disabled" selected="selected">Select Vehicle</option>
-                                        <?php foreach ($vehicle_services_list as $value) { ?>
-                                            <option value="<?= $value['id']?>" <?= set_select('vehicle_id',$value['id']); ?> ><?= $value['vehicle_name']?></option> 
-                                        <?php }?>
-                                    </select>
-                                </div>
-                                <span class="help-block has-error"><?php echo form_error('vehicle_id'); ?></span>
-                                <div class="row" style="text-align: center">
-                                    <input type="submit" value="UPDATE" class="btn btn-success" onclick="return valid_chagepass()">
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        <?php }?>
                     </div>
                 </div>
                 <div class="clearfix"></div>

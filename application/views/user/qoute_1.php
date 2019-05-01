@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<section class="section-70 section-md-50 section-bottom-110">
+<section class="section-70 section-md-50 section-bottom-110" style="margin-top: 10%;">
     <div class="container text-left">
         <h2 class="mg-sec-left-title div-bottom-5 text-center" style="font-weight: 600;color: #71747b;">REQUEST A QUICK QUOTE</h2>
         <p class="text-center"><strong>ShiftMe</strong> expert will shortly contact you to assess your needs and provide you with a customized and competitive quote. </p>

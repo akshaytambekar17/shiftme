@@ -16,6 +16,7 @@
                 <div class="content-top-1 ">
                     <div class="table-responsive">
                         <form action="<?= site_url() ?>admin/testimonials-update/<?= $id ?>" method="POST" enctype="multipart/form-data">
+                            
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="form-group col-md-6">
@@ -24,6 +25,20 @@
                                             <textarea id="text" name="text" class="mceEditor" cols="85" rows="10" value="<?= setValue(set_value('text'), $test->text);?>"><?php echo $test->text; ?></textarea>
                                         
                                             <span class="help-block"><?php echo form_error('text'); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group col-md-11">
+                                            <label>Image</label>
+                                            <input type="file" name="image" id="image">
+                                            <?php if( !empty( $test->image ) ){ ?>
+                                                <br>
+                                                <img src="<?= site_url()?>assets/images/<?= $test->image ?>" width="120px" height="120px">
+                                                <input type="hidden" value="<?= $test->image?>" name="image_hidden">
+                                            <?php } ?>
+                                            <span class="help-block"><?php echo form_error('image'); ?></span>
                                         </div>
                                     </div>
                                 </div>

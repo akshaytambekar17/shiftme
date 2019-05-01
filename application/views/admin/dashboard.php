@@ -123,6 +123,48 @@
                     <a href="<?= site_url('admin/vendor') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
+            <div class="col-lg-3 col-xs-6">
+                <br>
+            <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3><?= !empty($quick_enquiry_list)?count($quick_enquiry_list):0 ?></h3>
+                        <p>Quick Enquires</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-question-circle"></i>
+                    </div>
+                    <a href="<?= site_url('quick-enquiry') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <br>
+            <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h3><?= !empty($contact_list)?count($contact_list):0 ?></h3>
+                        <p>Contact Us</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-address-book"></i>
+                    </div>
+                    <a href="<?= site_url('admin/contact') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <br>
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3><?= !empty($track_order_list)?count($track_order_list):0 ?></h3>
+                        <p>Tracking Order</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-truck" aria-hidden="true"></i>
+                    </div>
+                    <a href="<?= site_url('track-order') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="clearfix"></div>

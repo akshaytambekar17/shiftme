@@ -39,6 +39,7 @@ class CMSPageController extends MY_Controller {
         if($this->input->post()){
             $post = $this->input->post();
             $this->form_validation->set_rules('title', 'Title', 'trim|required');
+            $this->form_validation->set_rules('slug', 'Slug', 'trim|required');
             $this->form_validation->set_rules('description', 'Description', 'trim|required');
             $this->form_validation->set_rules('status', 'Select Status', 'trim|required');
             if(empty($_FILES['main_image']['name'])){

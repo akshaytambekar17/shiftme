@@ -35,7 +35,7 @@
                                     <th class="hidden">Id</th>
                                     <th>Product Name</th>
 <!--                                    <th>Weight</th>-->
-                                    <th>Price</th>
+<!--                                    <th>Price</th>-->
                                     <th>Created at</th>
                                     <th>Actions</th>
                                 </tr>
@@ -48,7 +48,7 @@
                                         <tr class="gradeX" id="productlist-<?= $value['id'] ?>">
                                             <td class="hidden"><?= $value['id']; ?></td>
                                             <td><?= $value['name']; ?></td>
-                                            <td><?= $value['price']; ?></td>
+<!--                                            <td><?= $value['price']; ?></td>-->
                                             <td class="center"><?= $value['created_at']; ?></td>
                                             <td>
                                                 <a href="javascript:void(0)" class="btn btn-danger view-quotation" data-id="<?= $value['id'] ?>" name="delete_productlist" onclick="productlistDelete(this)" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

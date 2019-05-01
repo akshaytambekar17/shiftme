@@ -49,9 +49,15 @@
                                             <td><?= $order_details['quotation_no']; ?></td>
                                             <td>
                                                 <a href="javascript:void(0)" class="btn btn-danger delete-order" data-id="<?= $value['id'] ?>" data-orderno="<?= $order_details['order_no']?>" name="delete-order" onclick="orderAssignDelete(this)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                <?php
+                                                    $location_details = $this->VendorOrderLocation->getLocationByUserIdOrderId($value['user_id'],$value['order_id']);
+                                                    if(!empty($location_details)){
+                                                ?>
+                                                    <a href="<?= base_url()?>admin/vendor/edit-location?order_id=<?= $value['order_id'] ?>&user_id=<?= $value['user_id'] ?>" class="btn btn-success view-order" data-order_id="<?= $value['order_id'] ?>" name="location-details" title="Edit Location Details"><i class="fa fa-map-marker" aria-hidden="true"></i></a><br>
+                                                <?php } ?>
                                             </td>
                                         </tr>
-                                        <?php
+                            <?php
                                     }
                                 }
                             ?>

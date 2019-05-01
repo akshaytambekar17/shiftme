@@ -19,10 +19,21 @@ class OrderModel extends MY_Model {
     }
     
     public function getOrders() {
+        $this->db->select('to.id as order_id,to.*,tu.*,tq.*,to.status as order_status,to.created_at as order_created_at ');
+        $this->db->from('trans_order to');
+        $this->db->join('trans_user_login tu','tu.user_id = to.user_id');
+        $this->db->join('trans_quotation tq','tq.id = to.quotation_id');
+        $this->db->order_by('to.id','DESC');
+        $query=$this->db->get();
+        $data= $query->result_array();
+        return $data;
+    }
+    public function getOrdersByNotRead() {
         $this->db->select('to.id as order_id,to.*,tu.*,tq.*,to.status as order_status');
         $this->db->from('trans_order to');
         $this->db->join('trans_user_login tu','tu.user_id = to.user_id');
         $this->db->join('trans_quotation tq','tq.id = to.quotation_id');
+        $this->db->where('to.is_read',0);
         $this->db->order_by('to.id','DESC');
         $query=$this->db->get();
         $data= $query->result_array();

@@ -28,6 +28,8 @@ class OrderController extends MY_Controller {
     }
     public function index(){
         $this->data['orders_list'] = $this->OrderModel->getOrders();
+        $update_details = array('is_read' => 1);
+        $this->OrderModel->update($update_details);
         $this->data['template'] = "Order/list";
         $this->data['bc'] = array(array('link' => site_url('admin'), 'page' => "Home"), array('link' => '#', 'page' => "Orders"));
         $this->admin_layout($this->data);

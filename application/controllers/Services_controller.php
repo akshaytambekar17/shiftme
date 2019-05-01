@@ -8,6 +8,7 @@ class Services_controller extends MY_Controller {
         parent::__construct();
         $this->load->model('Services_model', 'services');
         $this->load->model('User_model', 'user');
+        $this->load->model('admin/CMSPageModel', 'CMSPage');
 //        $this->load->model('Event_model', 'event');
     }
     public function index() {
@@ -155,6 +156,24 @@ class Services_controller extends MY_Controller {
         $data['slider_heading'] = 'Privacy Policy';
         $data['slider_description'] = '';
         $data['policy'] = $this->services->get_privacy_policy();
+        $this->frontendLayout($data);
+    }
+    
+    public function cms() {
+        $segment = $this->uri->segment(2);
+        $cmsDetails = $this->CMSPage->getCMSPageBySlug($segment);
+        if(!empty($cmsDetails)){
+            $data['cmsDetails'] = $cmsDetails;
+        }else{
+            $data['cmsDetails'] = '';
+        }
+        $data['title'] = !empty($cmsDetails)?$cmsDetails['title']:'';
+        $data['view'] = "cms_page";
+        $data['name'] = !empty($cmsDetails)?$cmsDetails['title']:'';
+        $data['slider'] = true;
+        $data['slider_details'] = true;
+        $data['slider_heading'] = !empty($cmsDetails)?$cmsDetails['title']:'';
+        $data['slider_description'] = !empty($cmsDetails)?$cmsDetails['title']:'';
         $this->frontendLayout($data);
     }
     

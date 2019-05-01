@@ -2,7 +2,7 @@
 
 <!--<div class="mg-page-title parallax" style=" background-image: url(<?= USERASSETS ?>/images/office-relocation-compressed-1500x630.jpg);">
     <div class="container">
-        <div class="row ">
+        <div class="row " style="margin-top: 10%;">
             <div class="col-md-12">
                 <h2>request a free quote</h2>
                                         <p>Cogitavisse erant puerilis utrum efficiantur adhuc expeteretur.</p>
@@ -12,7 +12,11 @@
 </div>-->
 <style>
     /*Qoute section*/
-    #map-section{padding: 40px 0;background: rgba(128, 128, 128, 0.08)}
+    #map-section{
+        margin-top: 7%;
+        padding: 0px 0px 40px;
+        background: rgba(128, 128, 128, 0.08)
+    }
     .mymap{
         box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.4);
         background: #fff;
@@ -179,8 +183,22 @@
         border-color:red;
     }
 </style>
-<section id="map-section">
+<section id="map-section" class="section-md-50">
     <div class="container">
+        <div class="row mt-10-per">
+            <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
+                <div class="area-title text-center wow fadeIn">
+                    <h2>Quick Quote</h2>
+                </div>
+            </div>
+        </div>
+        <?php if(empty($userDetails)) { ?>
+                <p style="color:red; text-align: center;">Please login to receive quotation or make order</p>
+        <?php }else{
+                if($userDetails['role'] == 2){
+        ?>          
+                    <p style="color:red;text-align: center">Vendor cannot place quotations</p>
+        <?php }}?>
         <div class="row mymap">
             <?php if($message = $this ->session->flashdata('Message')){?>
                 <div class="col-md-12 ">
@@ -480,7 +498,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Shifting Date</label>
-                                                    <div class="input-group date mg-check-in  focus">
+                                                    <div class="input-group date mg-check-in focus">
                                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                                                         <input type="text" class="form-control datepicker" name="shifting_date"  id="bookingdate" placeholder="00/00/0000">
                                                     </div>
@@ -546,11 +564,11 @@
                                             <label>We need your mobile number to confirm the booking</label>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input type="text"  class="form-control" name="fullname" id="fullname" placeholder="Full Name" value="<?= !empty($userDetails['fullname'])?$userDetails['fullname']: set_value('fullname')?>">
+                                                    <input type="text"  class="form-control" name="fullname" id="fullname" placeholder="Full Name" value="<?= !empty($fullname)?$fullname:(!empty($userDetails['fullname'])?$userDetails['fullname']: set_value('fullname'))?>">
                                                     <span class="help-block"><?php echo form_error('fullname'); ?></span>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <input class="form-control"  id="mobileNo" name="mobile_no" maxlength="10" type="text" placeholder="Mobile No." oninput="validateNumber(this);" value="<?= !empty($userDetails['mobileno'])?$userDetails['mobileno']:set_value('mobile_no')?>">
+                                                    <input class="form-control"  id="mobileNo" name="mobile_no" maxlength="10" type="text" placeholder="Mobile No." oninput="validateNumber(this);" value="<?= !empty($mobile_no)?$mobile_no:(!empty($userDetails['mobileno'])?$userDetails['mobileno']:set_value('mobile_no'))?>">
                                                     <span class="help-block"><?php echo form_error('mobile_no'); ?></span>
                                                 </div>
                                                 <div class="col-md-12">
@@ -559,20 +577,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <ul class="list-inline">
-                                            <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>
-                                            <li style="padding-top: 1%;">
-                                                <input type="submit" value="Get Quotation" class="btn btn-success btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($userDetails)?'disabled':''?> >
-<!--                                                <button type="submit" name="quote" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Get Quotation</button>-->
-                                            </li>
-                                            <li style="padding-top: 1%;">
-                                                <input type="submit" value="Make Order" class="btn btn-danger btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($userDetails)?'disabled':''?>>
-<!--                                                <button type="submit" name="order" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Make Order</button>-->
-                                            </li>
-                                        </ul>
+                                            <ul class="list-inline">
+                                                <li><button type="button" class="btn btn-primary prev-step">Previous</button></li>
+                                                <?php if(!empty($userDetails) && $userDetails['role'] == 1){ ?>
+                                                    <li style="padding-top: 1%;">
+                                                        <input type="submit" value="Get Quotation" class="btn btn-success btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($userDetails)?'disabled':''?> >
+        <!--                                                <button type="submit" name="quote" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Get Quotation</button>-->
+                                                    </li>
+                                                    <li style="padding-top: 1%;">
+                                                        <input type="submit" value="Make Order" class="btn btn-danger btn-info-full next-step" onclick="return validStep5()" name="quote" <?= empty($userDetails)?'disabled':''?>>
+        <!--                                                <button type="submit" name="order" class="btn btn-primary btn-info-full next-step" onclick="return validStep5()" data-toggle="modal" data-target="#msg">Make Order</button>-->
+                                                    </li>
+                                                <?php }?>
+                                            </ul>
                                         <?php if(empty($userDetails)) { ?>
-                                            <p style="color:red">Please login to Get Quotation or Make Order</p>
-                                        <?php }?>
+                                            <p style="color:red">Please login to receive quotation or make order</p>
+                                        <?php }else{
+                                                if($userDetails['role'] == 2){
+                                        ?>
+                                                <p style="color:red;text-align: center">Vendor cannot place quotations</p>
+                                        <?php }}?>    
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -757,7 +781,7 @@
     function get_vehicle_details() {
         var id = $('#Vehiclesdetails').val();
         $.ajax({
-            url: site_url + "User_controller/get_vehicleby_id/" + id,
+            url: "<?php echo base_url(); ?>" + "User_controller/get_vehicleby_id/" + id,
             cache: false,
             contentType: false,
             processData: false,
@@ -818,34 +842,60 @@
         if ($('#starting_address').val() == "") {
             $('#starting_address').css('border-color', '#ef4040');
             flag = false;
+        }else{
+            $('#starting_address').css('border-color', '');
         }
         if ($('#txtSource').val() == "") {
             $('#txtSource').css('border-color', '#ef4040');
             flag = false;
+        }else{
+            $('#txtSource').css('border-color', '');
         }
         if ($('#starting_pincode').val() == "") {
             $('#starting_pincode').css('border-color', '#ef4040');
             flag = false;
+        }else{
+            if(!validatePincode($('#starting_pincode').val())){
+                $('#starting_pincode').css('border-color', '#ef4040');
+                flag = false;
+            }else{
+                $('#starting_pincode').css('border-color', '');
+            }
         }
         if ($('#starting_landmark').val() == "") {
             $('#starting_landmark').css('border-color', '#ef4040');
             flag = false;
+        }else{
+            $('#starting_landmark').css('border-color', '');
         }
         if ($('#delivery_address').val() == "") {
             $('#delivery_address').css('border-color', '#ef4040');
             flag = false;
+        }else{
+            $('#delivery_address').css('border-color', '');
         }
         if ($('#delivery_landmark').val() == "") {
             $('#delivery_landmark').css('border-color', '#ef4040');
             flag = false;
+        }else{
+            $('#delivery_landmark').css('border-color', '');
         }
         if ($('#delivery_pincode').val() == "") {
             $('#delivery_pincode').css('border-color', '#ef4040');
             flag = false;
+        }else{
+            if(!validatePincode($('#delivery_pincode').val())){
+                $('#delivery_pincode').css('border-color', '#ef4040');
+                flag = false;
+            }else{
+                $('#delivery_pincode').css('border-color', '');
+            }
         }
         if ($('#txtDestination').val() == "") {
             $('#txtDestination').css('border-color', '#ef4040');
             flag = false;
+        }else{
+            $('#txtDestination').css('border-color', '');
         }
         if (flag) {
             sessionStorage.clear();

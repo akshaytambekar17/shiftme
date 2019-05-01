@@ -12,7 +12,7 @@
 
 <section class="section-70 section-md-50 section-bottom-110">
     <div class="container text-left">
-        <div class="row">
+        <div class="row" style="margin-top: 10%;">
             <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
                 <div class="area-title text-center wow fadeIn">
                     <h2>REQUEST A QUICK QUOTE</h2>
@@ -40,8 +40,12 @@
                 </div>
             <?php }?>
             <?php if(empty($userDetails)) { ?>
-                <p style="color:red;text-align: center">Please login to Send Quotation</p>
-            <?php }?>
+                <p style="color:red;text-align: center">Please login to receive quotation</p>
+            <?php }else{
+                    if($userDetails['role'] == 2){
+            ?>
+                    <p style="color:red;text-align: center">Vendor cannot place quotations</p>
+            <?php }}?>
             <div class="col-md-12">
                 <form action="<?= site_url()?>quote" method="POST" class="clearfix contactform">
                     <div class="row">
@@ -187,12 +191,14 @@
                         </div>
                     </div>-->
                     <br>
-                    <div class="row">
-                        <div class="col-md-12" style="text-align: center">
-                            <br>
-                            <input type="submit" class="btn btn-success" value="Send" name="send" <?= empty($userDetails)?'disabled':''?>>
+                    <?php if(!empty($userDetails) && $userDetails['role'] == 1){ ?>
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: center">
+                                <br>
+                                <input type="submit" class="btn btn-success" value="Send" name="send" <?= empty($userDetails)?'disabled':''?>>
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
                 </form>
             </div>
         </div>

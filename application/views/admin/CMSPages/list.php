@@ -34,6 +34,7 @@
                                 <tr>
                                     <th class="hidden">Id</th>
                                     <th>Title</th>
+                                    <th>Slug</th>
                                     <th>Description</th>
                                     <th>Main Image</th>
                                     <th>Status</th>
@@ -48,6 +49,7 @@
                                         <tr class="gradeX" id="order-<?= $value['id'] ?>">
                                             <td class="hidden"><?= $value['id']; ?></td>
                                             <td><?= $value['title']; ?></td>
+                                            <td><?= $value['slug']; ?></td>
                                             <td><?= $value['description']; ?></td>
                                             <td>
                                                 <img src="<?= site_url()?>assets/cms-images/<?= $value['main_image']?>" width="50px" height="50px">

@@ -78,6 +78,11 @@
             left: 0%;
          }
     }
+    @media (min-width:1900px){
+         .slider-form{
+            left: 25%;
+         }
+    }
     .partner-solution-icon{
         overflow:hidden;
     }
@@ -100,22 +105,15 @@
         <?php 
 //            if(!empty($slider)){ 
 //        ?>
-<!--            <div class="welcome-slider-area">
+	           <div class="welcome-slider-area">
                 <div class="welcome-single-slide slider-bg-one">
                     <div class="container">
                         <div class="row flex-v-center">
                             <div class="col-md-10 col-md-offset-1">
-                                <div class="welcome-text text-center">
-                                    //<?php //if(empty($slider_details)){ ?>
-                                        <h1 style="background-color: rgba(0,0,0,0.3);padding:0px 5%;">CLICK KARO SHIFT KARO</h1>
-                                        <p style="background-color: rgba(0,0,0,0.3);">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                    //<?php //}else{ ?>    
-                                            <h1>//<?= $slider_heading?></h1>
-                                            <p>//<?= $slider_description?></p>   
-                                    //<?php //} ?>    
+                                <div class="welcome-text text-center">  
                                     <div class="home-button">
-                                        <a href="//<?= base_url()?>services">Our Service</a>
-                                        <a href="//<?= base_url()?>quote">Get A Quote</a>
+                                        <a href="<?= base_url()?>services">Our Service</a>
+                                        <a href="<?= base_url()?>quote">Get A Quote</a>
                                     </div>
                                 </div>
                             </div>
@@ -127,18 +125,16 @@
                         <div class="row flex-v-center">
                             <div class="col-md-10 col-md-offset-1">
                                 <div class="welcome-text text-center">
-                                    <h1 style="background-color: rgba(0,0,0,0.3);padding:0px 5%;">BEST SHIFTING SERVICE</h1>
-                                    <p style="background-color: rgba(0,0,0,0.3);">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                                     <div class="home-button">
-                                        <a href="//<?= base_url()?>services">Our Service</a>
-                                        <a href="//<?= base_url()?>quote">Get A Quote</a>
+                                        <a href="<?= base_url()?>services">Our Service</a>
+                                        <a href="<?= base_url()?>quote">Get A Quote</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>-->
+            </div>
         <?php //} ?>
         <!--END HOME SLIDER AREA-->
 <!--    </header>-->
@@ -146,27 +142,21 @@
     <div class="container slider-form">
         <div class="row">
             <form class="form-group" method="post" name="quick_quote" id="quick-quote">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="input-group ">
                         <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                         <input type="text" class="form-control" name="pickupPoint" id="pickupPoint" placeholder="Pickup Point">
                     </div>
                     <span class="has-error error-pick-point"></span>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                         <input type="text" class="form-control" name="dropPoint" id="dropPoint" placeholder="Drop Point">
                     </div>
                     <span class="has-error error-drop-point"></span>
                 </div>
-<!--                <div class="col-md-2">
-                    <input type="text" placeholder="Mobile No" class="form-control">
-                </div>
                 <div class="col-md-2">
-                    <input type="text" placeholder="Name" class="form-control">
-                </div>-->
-                <div class="col-md-3">
                     <div class="form-group">
                         <select class="form-control select2" name="select_options" id="select-requirement">
                             <option disabled selected>Select Requirement</option>
@@ -186,7 +176,15 @@
                         <span class="has-error error-vehicles"></span>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <input type="text" placeholder="Fullname" class="form-control" name="fullname" id="fullname">
+                    <span class="has-error error-fullname"></span>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="Mobile Number" class="form-control" name="mobile_no" id="mobile-no">
+                    <span class="has-error error-mobile-no"></span>
+                </div>
+                <div class="col-md-2">
                     <button class="submit-btn" id="submit" type="submit">Submit</button>
                 </div>
             </form>
@@ -197,14 +195,14 @@
     <!--ABOUT AREA-->
     <section class="about-area gray-bg section-padding">
         <div class="container">
-            <div class="row">
+<!--            <div class="row">
                 <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
                     <div class="area-title text-center wow fadeIn section-padding">
                         <h2>Welcome to Shiftme </h2>
                         <p>The best part of a successful Shift is flawless logistics during the Shifting process. The following steps are taken to ensure that you are satisfied with your Shifting </p>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
                     <div class="area-title text-center wow fadeIn">
@@ -217,7 +215,7 @@
                 <!--<div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                     <div class="service-content wow fadeIn">
                         <h2>we offer quick & powerful logistics solution</h2>
-                        <p>Now you don’t need to go anywhere, we are just a click/call away. We will be at your doorstep with our professionals to provide best services.</p>
+                        <p>Now you donâ€™t need to go anywhere, we are just a click/call away. We will be at your doorstep with our professionals to provide best services.</p>
                         <a href="<?= base_url()?>vehicles" class="read-more" style="width: 200px">Get More Vehicles</a>
                         
                     </div>
@@ -234,7 +232,7 @@
                                     </div>
                                 </div>
                                 <div class="modal fade" id="<?= $model_id ?>">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle"><?= $value['vehicle_name']?></h5>
@@ -245,14 +243,44 @@
                                             <div class="modal-body">
                                                 <div class="">
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12 text-center">
                                                             <img src="<?= $value['image']?>">
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <h4><?= $value['vehicle_name']?></h4>
-                                                            <p>Capacity :<?= $value['capacity']?> kg<br>Size(LxBxH) : <?= $value['dimension']?></p>
-                                                            <p>Charges:	Rs. <?= $value['transit_charge']?> Per km</p>
-                                                        </div>
+                                                        <div class="col-md-12">
+	                                                       	<div class="table table-responsive">
+				                                <table class="table table-bordered text-center">
+				                                    <thead>
+				                                        <tr>
+				                                            <th style="text-align: center !important;">Parameters</th>
+				                                            <th style="text-align: center !important;">Charges</th>
+				                                            <th style="text-align: center !important;">Parameters</th>
+				                                            <th style="text-align: center !important;">Charges</th>
+				                                        </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                        <tr>
+				                                            <th width="30%">Base Fare</th>
+				                                            <td width="20%">Rs. <?php echo $value['base_fare']; ?> </td>
+				                                            <td width="30%">Per Km Charge</td>
+				                                            <td width="20%">Rs. <?php echo $value['transit_charge']; ?> /Km</td>
+				                                        </tr>
+				                                        <tr>
+				                                            <th>Free Waiting Minutes</th>
+				                                            <td>Free For <?php echo $value['waiting_charge_per_minute']; ?> Mins</td>
+				                                            <td>Waiting Charge per minute</td>
+				                                            <td>Rs. <?php echo $value['free_waiting_minutes']; ?></td>
+				                                        </tr>
+				                                        <tr>
+				                                            <th>Capacity</th>
+				                                            <td><?php echo $value['capacity']; ?>KG</td>
+				                                            <td>Dimension</td>
+				                                            <td><?php echo $value['dimension']; ?></td>
+				                                        </tr>
+				                                    </tbody>
+				                                </table>
+				                                <div class="col-md-12" style="padding-top: 20px; padding-bottom: 0px;" align="center"><i>Note:</i> Toll and Taxes are extra.</div>
+				                            </div>
+			                            </div>
                                                     </div>
                                                 </div>
                                                 
@@ -407,7 +435,7 @@
                 <div class="row">
                     <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 col-sm-12 col-xs-12 text-center">
                         <div class="promo-bottom-content wow fadeIn">
-                            <a href="<?= base_url()?>quote" class="read-more">Get a quote</a>
+                            <a href="<?= base_url()?>contactus" class="read-more">Contact Us</a>
                         </div>
                     </div>
                 </div>
@@ -422,7 +450,7 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
                     <div class="area-title text-center wow fadeIn">
-                        <h2>what client’s say</h2>
+                        <h2>what client say</h2>
                     </div>
                 </div>
             </div>
@@ -430,21 +458,15 @@
                 <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
                     <div class="client-photo-list wow fadeIn">
                         <div class="client_photo">
-                            <div class="item">
-                                <img src="<?= base_url()?>assets/themenew/img/testmonial/1.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="<?= base_url()?>assets/themenew/img/testmonial/2.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="<?= base_url()?>assets/themenew/img/testmonial/3.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="<?= base_url()?>assets/themenew/img/testmonial/1.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="<?= base_url()?>assets/themenew/img/testmonial/2.jpg" alt="">
-                            </div>
+                            <?php foreach ($testimonialList as $value) { ?>
+                                    <div class="item">
+                                        <?php if( !empty( $value['image'] ) ) { ?>
+                                            <img src="<?= base_url()?>assets/images/<?= $value['image']?>" alt="">
+                                        <?php } else { ?>
+                                            <img src="<?= base_url()?>assets/themenew/img/testmonial/1.jpg" alt="">
+                                        <?php } ?>
+                                    </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -459,26 +481,29 @@
                 <div class="col-xs-12 col-md-10 col-md-offset-1 text-center">
                     <div class="client-details-content wow fadeIn">
                         <div class="client_details">
-                            <div class="item">
-                                <q>I have booked a tata ace for transferring some stuff of my home. Happy to say that the tempo was on time and behavior of tempo driver is also good.. I really liked the service and sure to book the same service next time . </q>
-                                <h3>Neha Shrivastav </h3>
-                                <p>Allstate Solutions Private Ltd</p>
-                            </div>
-                            <div class="item">
-                                <q>Easy to book. Vehicle was provided on time and the service was good. Simply Great! </q>
-                                <h3>Vikash Patil</h3>
-                                <p>State Bank Of India</p>
-                            </div>
-                            <div class="item">
-                                <q>Highly reccomended. Loved the service of ShiftMe.in. They are the real guru when it comes to shift your home. I called them once and they did everything wisely and very safely. </q>
-                                <h3>Nilesh Hemnani</h3>
-                                <p>Tech.Mahindra</p>
-                            </div>
-                            <div class="item">
-                                <q>Experience with ShiftMe.in was really great. Booked online and they provided me suitable vehicle and labour as well. The team is very professional and helpful. I must recommend Shiftme.in if you are moving your home. </q>
-                                <h3>Shashikant Paliwal </h3>
-                                <p>TCS</p>
-                            </div>
+                            <?php foreach ($testimonialList as $valueTestimonial) { ?>
+                                <div class="item">
+                                    <p><?= $valueTestimonial['text']?></p>
+<!--                                    <h3>Neha Shrivastav </h3>
+                                    <p>Allstate Solutions Private Ltd</p>-->
+                                </div>
+                            <?php } ?>
+                            
+<!--                                <div class="item">
+                                    <q>Easy to book. Vehicle was provided on time and the service was good. Simply Great! </q>
+                                    <h3>Vikash Patil</h3>
+                                    <p>State Bank Of India</p>
+                                </div>
+                                <div class="item">
+                                    <q>Highly reccomended. Loved the service of ShiftMe.in. They are the real guru when it comes to shift your home. I called them once and they did everything wisely and very safely. </q>
+                                    <h3>Nilesh Hemnani</h3>
+                                    <p>Tech.Mahindra</p>
+                                </div>
+                                <div class="item">
+                                    <q>Experience with ShiftMe.in was really great. Booked online and they provided me suitable vehicle and labour as well. The team is very professional and helpful. I must recommend Shiftme.in if you are moving your home. </q>
+                                    <h3>Shashikant Paliwal </h3>
+                                    <p>TCS</p>
+                                </div>-->
                           
                         </div>
                     </div>
@@ -500,6 +525,18 @@
                     </div>
                 </div>
                 <div class="row solution-icon-area">
+                    <?php foreach ($clientList as $valueClient) { ?>
+                        <div class="col-md-2 col-lg-2 col-sm-6 col-xs-12 no-padding c-align">
+                            <div class="partner-solution-icon">
+                                <img src="<?= base_url()?>upload/clients/<?= $valueClient['Logo']?>" alt="<?= $valueClient['name']?>">
+                            </div>
+                        </div>
+                    <?php } ?>
+<!--                    <div class="col-md-2 col-lg-2 col-sm-6 col-xs-12 no-padding c-align">
+                        <div class="partner-solution-icon">
+                            <img src="<?= base_url()?>assets/themenew/img/client/S_B.png" alt="">
+                        </div>
+                    </div>
                     <div class="col-md-2 col-lg-2 col-sm-6 col-xs-12 no-padding c-align">
                         <div class="partner-solution-icon">
                             <img src="<?= base_url()?>assets/themenew/img/client/SBI.jpg" alt="">
@@ -512,11 +549,6 @@
                     </div>
                     <div class="col-md-2 col-lg-2 col-sm-6 col-xs-12 no-padding c-align">
                         <div class="partner-solution-icon">
-                            <img src="<?= base_url()?>assets/themenew/img/client/SBI.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-lg-2 col-sm-6 col-xs-12 no-padding c-align">
-                        <div class="partner-solution-icon">
                             <img src="<?= base_url()?>assets/themenew/img/client/S_B.png" alt="">
                         </div>
                     </div>
@@ -524,12 +556,7 @@
                         <div class="partner-solution-icon">
                             <img src="<?= base_url()?>assets/themenew/img/client/S_B.png" alt="">
                         </div>
-                    </div>
-                    <div class="col-md-2 col-lg-2 col-sm-6 col-xs-12 no-padding c-align">
-                        <div class="partner-solution-icon">
-                            <img src="<?= base_url()?>assets/themenew/img/client/S_B.png" alt="">
-                        </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -591,6 +618,25 @@
                 flag = false;
             }else{
                 if(requirement == 'vehicles'){
+                    if($("#mobile-no").val() == ''){
+                        $('.error-mobile-no').text("Please Enter mobile number");
+                        flag = false;
+                    }else{
+                        var validMobile = validateMobileNumber($("#mobile-no").val());
+                        if(validMobile){
+                            $('.error-mobile-no').text("");
+                        }else{
+                            $('.error-mobile-no').text("Mobile number is invalid");
+                            flag = false;
+                        }
+                    }
+                    if($("#fullname").val() == ''){
+                        $('.error-fullname').text("Please Enter Fullname");
+                        flag = false;
+                    }else{
+                        $('.error-fullname').text("");
+                    }
+                    
                     if($("#select-vehicles").val() == '' || $("#select-vehicles").val() == null){
                         $('.error-requirement').text("");
                         $('.error-vehicles').text("Please Select Vehicles");
@@ -607,4 +653,4 @@
             return flag;
         }
     });
-</script>    
+</script>

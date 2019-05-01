@@ -25,6 +25,10 @@ class CMSPageModel extends MY_Model {
         $this->db->where('id',$id);
         return $this->db->get('trans_cms_page')->row_array();
     }
+    public function getCMSPageBySlug($slug) {
+        $this->db->where('slug',$slug);
+        return $this->db->get('trans_cms_page')->row_array();
+    }
     public function insert($data){
         $this->db->insert('trans_cms_page', $data);
         if($this->db->affected_rows()){

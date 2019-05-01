@@ -5,7 +5,7 @@ $obj = json_decode($service->objectives);
 ?>
 <!--<div class="mg-page-title parallax">
     <div class="container">
-        <div class="row ">
+        <div class="row" style="margin-top: 10%;">
             <div class="col-md-12">
                 <h2>Shifting Services</h2>
             </div>
@@ -38,7 +38,7 @@ $obj = json_decode($service->objectives);
         </div>
     </div>-->
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 10%;">
             <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
                 <div class="area-title text-center wow fadeIn">
                     <h2>SHIFTING SERVICES</h2>

@@ -42,6 +42,15 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group col-md-11">
+                                            <label>Slug</label>
+                                            <input type="text" name="slug" class="form-control" id="slug" value="<?= !empty($cms_details['slug'])?$cms_details['slug']:set_value('slug');?>">
+                                            <span class="help-block"><?php echo form_error('slug'); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group col-md-11">
                                             <label>Description</label>
                                             <textarea rows="4" name="description" id="description"><?php echo !empty($cms_details['description'])?$cms_details['description']:set_value('description'); ?></textarea>
                                             <span class="help-block"><?php echo form_error('description'); ?></span>

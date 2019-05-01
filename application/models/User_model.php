@@ -340,6 +340,12 @@ class User_model extends MY_Model {
         $this->db->where('user_id',$user_id);
         return $this->db->get('trans_user_login')->row_array();
     }
+    
+    public function getUsersByEmail($email) {
+        $this->db->where('email',$email);
+        return $this->db->get('trans_user_login')->row_array();
+    }
+    
     public function getVehicleById($id) {
         $this->db->where('id', $id);
         return $this->db->get('trans_vehicle_services')->row_array();
@@ -354,6 +360,7 @@ class User_model extends MY_Model {
         }
     }
     public function update($updateData){
+        
         $this->db->where('user_id',$updateData['user_id']);
         $this->db->update('trans_user_login',$updateData);
         if($this->db->affected_rows()){
@@ -361,6 +368,35 @@ class User_model extends MY_Model {
         }else{
             return false;
         }
+    }
+    
+    public function getClients() {
+        $this->db->order_by('id','DESC');
+        return $this->db->get('trans_clients')->result_array();
+    }
+    
+    public function sendForgotPassword($data){
+        $userDetails = $this->getUsersByEmail($data['email']);
+        
+        if( !empty($userDetails) ){
+            $updatedData = array('password' =>  $this->site->encryptPass($data['newPassword']),
+                                'user_id' => $userDetails['user_id']
+                        );
+            $resultData = $this->update($updatedData);
+            
+            if( $resultData ){
+                $result['success'] = true;
+                $result['data'] = $userDetails;
+            }else{
+                $result['success'] = false;
+                $result['message'] = 'Something went wrong, We cannot update the password. Please try again later';
+            }
+        }else{
+            $result['success'] = false;
+            $result['message'] = 'This email id does not exist. Please enter the register email id';
+        }
+        return $result;
+        
     }
     
 }

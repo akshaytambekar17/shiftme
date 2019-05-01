@@ -21,15 +21,19 @@ class TimeSlotsModel extends MY_Model {
     public function getTimeSlots() {
         return $this->db->get('trans_time_slots')->result_array();
     }
+    public function getTimeSlotById($id) {
+        $this->db->where('id',$id);
+        return $this->db->get('trans_time_slots')->row_array();
+    }
     public function insert($data){
         $this->db->trans_start();
-        $this->db->insert('trans_invoice', $data);
+        $this->db->insert('trans_time_slots', $data);
         $this->db->trans_complete();
         return true;
     }
     public function delete($id) {
         $this->db->where('id',$id);
-        $this->db->delete('trans_invoice'); 
+        $this->db->delete('trans_time_slots'); 
         if($this->db->affected_rows()){
             return true;
         }else{

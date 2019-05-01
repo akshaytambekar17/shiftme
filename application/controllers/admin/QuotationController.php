@@ -189,7 +189,7 @@ class QuotationController extends MY_Controller {
                         $quotation_data = $this->Quotation->getQuotationByIdWithPrice($get['id']);  
                         $quotation_details['quotation_details'] = $quotation_data;
                         $to = $details['email_id'];
-                        $subject = "New Quotation for that you enquiry. Quotation number ".$quotation_data['quotation_no'];
+                        $subject = "New Quotation for that you enquired. Quotation number ".$quotation_data['quotation_no'];
                         $message = $this->load->view('admin/Email/enquiry_quotation',$quotation_details,TRUE);
                         $result = $this->sendEmail($to, $subject, $message);
                         if($result['success']){

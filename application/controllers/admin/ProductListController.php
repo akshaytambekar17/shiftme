@@ -39,7 +39,7 @@ class ProductListController extends MY_Controller {
         
         if($this->input->post()){
             $this->form_validation->set_rules('name', 'Product Name', 'trim|required');
-            $this->form_validation->set_rules('price', 'Price', 'trim|required|numeric');
+//            $this->form_validation->set_rules('price', 'Price', 'trim|required|numeric');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == TRUE){
                 $details = $this->input->post();
@@ -71,7 +71,7 @@ class ProductListController extends MY_Controller {
         $get = $this->input->get();
         if($this->input->post()){
             $this->form_validation->set_rules('name', 'Product Name', 'trim|required');
-            $this->form_validation->set_rules('price', 'Price', 'trim|required|numeric');
+//            $this->form_validation->set_rules('price', 'Price', 'trim|required|numeric');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             $details = $this->input->post();
             if($this->form_validation->run() == TRUE){

@@ -28,7 +28,7 @@ class QuotationHasPricingModel extends MY_Model {
     }
     public function getQuotationsHasPricingByQuotationId($id) {
         $this->db->where('quotation_id',$id);
-        return $this->db->get('trans_quotation_pricing')->result_array();
+        return $this->db->get('trans_quotation_pricing')->row_array();
     }
     
     public function insert($data){

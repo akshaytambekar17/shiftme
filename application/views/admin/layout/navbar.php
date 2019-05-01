@@ -3,7 +3,7 @@ $user_id = $this->session->userdata('user_id');
 $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_user", array('id' => $user_id))->row();
 
 ?>
-<nav class="navbar-default navbar-static-top" role="navigation">
+<nav class="navbar-default navbar-static-top navbar-fixed-top" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-bar"></span>
@@ -85,9 +85,9 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                     </li>
                     <?php if ($this->ion_auth->is_admin()) { ?>
                     
-                        <li>
+<!--                        <li>
                             <a href="<?= site_url('admin/Menus') ?>" class=" hvr-bounce-to-right"><i class="fa fa-bars nav_icon"></i> <span class="nav-label">Menus</span> </a>
-                        </li>
+                        </li>-->
                     <?php } ?>
                     
                     <li>
@@ -103,11 +103,22 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                         </a>
                     </li>    
                     <li>
+                        <a href="<?= site_url('quick-enquiry') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-list nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Quick Enquires</span> 
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-yellow mt-10">
+                                    <?= !empty(getQuickEnquiresByNotView())?count(getQuickEnquiresByNotView()):0?>
+                                </small>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="<?= site_url('enquiry') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-list nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">Enquires</span> 
                             <span class="pull-right-container">
-                                <small class="label pull-right bg-yellow mt-10">
+                                <small class="label pull-right bg-green mt-10">
                                     <?= !empty(getEnquiresByNotRead())?count(getEnquiresByNotRead()):0?>
                                 </small>
                             </span>
@@ -127,6 +138,11 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                         <a href="<?= site_url('order') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-link nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">Orders</span> 
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-green mt-10">
+                                    <?= !empty(getOrdersByNotRead())?count(getOrdersByNotRead()):0?>
+                                </small>
+                            </span>
                         </a>
                     </li>
                     <li>
@@ -136,16 +152,86 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                         </a>
                     </li>
                     <li>
+                        <a href="<?= site_url('track-order') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-map-marker nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Track Order</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/vehicleServices') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-truck nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Vehicle Services</span> 
+                        </a>
+                    </li>
+                    <li>
                         <a href="<?= site_url('product-list') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-database nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">Product List</span> 
                         </a>
                     </li>
-                    
+                    <li>
+                        <a href="<?= site_url('admin/contact') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-list-alt nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Contact Us</span> 
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-primary mt-10">
+                                    <?= !empty(getContactsByNotRead())?count(getContactsByNotRead()):0?>
+                                </small>
+                            </span>
+                        </a>
+                    </li>
                     <li>
                         <a href="<?= site_url('admin/sms-sending') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-commenting-o nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">SMS Sending</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/testimonials') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-thumb-tack nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Testimonials</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/about-us') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-history nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">About Us</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/terms') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-check-square-o nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Terms and Conditions</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/policy') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-file-text nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Privacy Policy</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/clients') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-users nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Our Clients</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/faq') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-question-circle nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">FAQ</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/footer-details') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-foursquare nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Footer Content</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/footer-cms-content') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-foursquare nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Footer CMS Content</span> 
                         </a>
                     </li>
                     <li>
@@ -155,25 +241,41 @@ $userimg = (array) $this->db->select('f_name,l_name,image')->get_where("admin_us
                         </a>
                     </li>
                     <li>
+                        <a href="<?= site_url('admin/advertisement') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-television nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Offers Popup</span> 
+                        </a>
+                    </li>
+<!--                    <li>
+                        <a href="#" class="hvr-bounce-to-right"><i class="fa fa-thumb-tack nav_icon"></i> <span class="nav-label">Footer Section </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level"></ul>
+                    </li>-->
+                    <li>
                         <a href="<?= site_url('slider') ?>" class="hvr-bounce-to-right">
                             <i class="fa fa-picture-o nav_icon" aria-hidden="true"></i>
                             <span class="nav-label">Slider Images</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= site_url('admin/staff') ?>" class="hvr-bounce-to-right">
+                            <i class="fa fa-user nav_icon" aria-hidden="true"></i>
+                            <span class="nav-label">Our Staff </span> 
                         </a>
                     </li>
                     
                     <?php foreach ($menus as $m) { ?>
 <!--                        <li>
                             <?php if (empty($m->nodes)) { ?>
-                                <a href="////<?= site_url($m->url) ?>" class="hvr-bounce-to-right">
-                                    <i class="////<?= $m->icon ?> nav_icon "></i>
-                                    <span class="nav-label">////<?= $m->name ?></span> 
+                                <a href="<?= site_url($m->url) ?>" class="hvr-bounce-to-right">
+                                    <i class="<?= $m->icon ?> nav_icon "></i>
+                                    <span class="nav-label"><?= $m->name ?></span> 
                                 </a>
                             <?php } else { ?>
-                                <a href="#" class=" hvr-bounce-to-right"><i class="////<?= $m->icon ?> nav_icon"></i> <span class="nav-label"><?= $m->name ?></span><span class="fa arrow"></span></a>
+                                <a href="#" class=" hvr-bounce-to-right"><i class="<?= $m->icon ?> nav_icon"></i> <span class="nav-label"><?= $m->name ?></span><span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <?php foreach ($m->nodes as $n) { ?>
                                         <li>
-                                            <a href="////<?= site_url($n->url) ?>" class=" hvr-bounce-to-right"><i class="<?= $n->icon ?> nav_icon"></i> <span class="nav-label"><?= $n->name ?></span> </a>
+                                            <a href="<?= site_url($n->url) ?>" class=" hvr-bounce-to-right"><i class="<?= $n->icon ?> nav_icon"></i> <span class="nav-label"><?= $n->name ?></span> </a>
                                         </li>
                                     <?php } ?>
                                 </ul>

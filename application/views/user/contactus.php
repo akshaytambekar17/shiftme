@@ -13,31 +13,44 @@
 </div>-->
 
 <!--Testimonials-->
-<div class="mg-page section-md-50">
+<div class="mg-page section-md-50 mt-10-per">
     <div class="container">
+        <?php if ($this->session->flashdata('Message')) { ?>
+            <div class = "alert alert-success alert-dismissable">
+                <button type = "button" class = "close" data-dismiss = "alert" aria-hidden = "true">&times</button>
+                <?php echo $this->session->flashdata('Message'); ?>
+            </div>
+        <?php } ?>
+        <?php if ($this->session->flashdata('Error')) { ?>
+            <div class = "alert alert-danger alert-dismissable">
+                <button type = "button" class = "close" data-dismiss = "alert" aria-hidden = "true">&times;</button>
+                <?php echo $this->session->flashdata('Error'); ?>
+            </div>
+        <?php } ?>
         <div class="row">
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="area-title wow fadeIn">
-                            <h2>Send an E-mail</h2>
+                            <h3>Send an E-mail</h3>
                         </div>
                     </div>
                 </div>
 <!--                <h2 class="mg-sec-left-title" style="font-weight: 600;color: #71747b;">Send an E-mail</h2>-->
-                <form action="<?= site_url()?>User_controller/save_userEmail" method="POST" class="clearfix col-md-10 contactform">
+                <form action="<?= site_url()?>contactus" method="POST" class="clearfix col-md-10 contactform">
                     <div class="mg-contact-form-input requared">
                         <label for="full-name">Full Name</label>
-                        <input type="text" class="form-control" name="full_name" oninput="validateAlpha(this);" id="full_name" required>
+                        <input type="text" class="form-control" name="full_name" oninput="validateAlpha(this);" id="full_name" required value="<?= !empty($userDetails['fullname'])?$userDetails['fullname']: set_value('full_name')?>">
                     </div>
                     <div class="mg-contact-form-input requared">
                         <label for="contact">Contact No.</label>
-                        <input type="text" class="form-control" name="contact" oninput="validateNumber(this);" id="contact" minlength="10" maxlength="10" required>
-                        <span id="contactError" class=""></span>
+                        <input type="text" class="form-control" name="contact" oninput="validateNumber(this);" id="contact" minlength="10" maxlength="10" value="<?= !empty($userDetails['mobileno'])?$userDetails['mobileno']: set_value('contact')?>" required >
+                        <span id="contactError" class="has-error"></span>
                     </div>
                     <div class="mg-contact-form-input requared">
                         <label for="email">E-mail</label>
-                        <input type="email" class="form-control" name="email"  id="email" required>
+                        <input type="email" class="form-control" name="email"  id="email" value="<?= !empty($userDetails['email'])?$userDetails['email']: set_value('email')?>" required>
+                        <span id="emailError" class="has-error"></span>
                     </div>
 
                     <div class="mg-contact-form-input requared">
@@ -59,7 +72,7 @@
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="area-title wow fadeIn">
-                            <h2>Office Address</h2>
+                            <h3>Office Address</h3>
                         </div>
                     </div>
                 </div>
@@ -122,32 +135,47 @@
         if ($('#full_name').val() == "") {
             $('#full_name').css('border-color', '#ef4040');
             flag = false;
+        }else{
+            $('#full_name').css('border-color', '');
+        }
+        if ($('#contact').val()== "") {
+            $('#contact').css('border-color', '#ef4040');
+            flag = false;
+        }else{
+            if (validateMobileNumber($('#contact').val())) {
+                $('#contact').css('border-color', '');
+                $('#contactError').text('');
+            }else{
+                $('#contact').css('border-color', '#ef4040');
+                $('#contactError').text('Contact No. Must Be 10 Digits');
+                flag = false;
+            }
         }
         if ($('#email').val()== "") {
             $('#email').css('border-color', '#ef4040');
-            
             flag = false;
+        }else{
+            if(validateEmail($('#email').val())){
+                $('#email').css('border-color', '');
+                $('#emailError').text('');
+            }else{
+                $('#email').css('border-color', '#ef4040');
+                $('#emailError').text('Invalid E-mail');
+                flag = false;
+            }
         }
         if ($('#subject').val()== "") {
             $('#subject').css('border-color', '#ef4040');
-            
             flag = false;
+        }else{
+            $('#subject').css('border-color', '');
         }
         if ($('#message').val()== "") {
             $('#message').css('border-color', '#ef4040');
             
             flag = false;
-        }
-        if ($('#contact').val()== "") {
-            $('#contact').css('border-color', '#ef4040');
-            
-            flag = false;
-        }
-        if ($('#contact').val().length != 10 && $('#contact').val()!= "") {
-            $('#contact').css('border-color', '#ef4040');
-            $('#contactError').addClass('text-danger');
-            $('#contactError').text('Contact No. Must Be 10 Digits');
-            flag = false;
+        }else{
+            $('#message').css('border-color', '');
         }
         return flag;
     }
